@@ -147,7 +147,6 @@ export function DropdownLabel({
       {...props}
       data-slot="label"
       className={twMerge('col-start-2 row-start-1', className)}
-      {...props}
     />
   )
 }
