@@ -28,8 +28,8 @@ export function Legend({
 }: { className?: string } & Omit<Headless.LegendProps, 'as' | 'className'>) {
   return (
     <Headless.Legend
-      data-slot="legend"
       {...props}
+      data-slot="legend"
       className={twMerge(
         'text-xl/8 font-semibold data-disabled:opacity-50',
         className
@@ -44,8 +44,8 @@ export function FieldGroup({
 }: React.ComponentPropsWithoutRef<'div'>) {
   return (
     <div
-      data-slot="control"
       {...props}
+      data-slot="control"
       className={twMerge('space-y-8', className)}
     />
   )
@@ -103,8 +103,8 @@ export function Label({
 }: { className?: string } & Omit<Headless.LabelProps, 'as' | 'className'>) {
   return (
     <Headless.Label
-      data-slot="label"
       {...props}
+      data-slot="label"
       className={twMerge(
         'text-base/6 select-none data-disabled:opacity-50 sm:text-sm/6',
         className
@@ -122,8 +122,8 @@ export function Description({
 >) {
   return (
     <Headless.Description
-      data-slot="description"
       {...props}
+      data-slot="description"
       className={twMerge(
         'text-base/6 text-obsidian-400 data-disabled:opacity-50 sm:text-sm/6',
         className
@@ -141,8 +141,8 @@ export function ErrorMessage({
 >) {
   return (
     <Headless.Description
-      data-slot="error"
       {...props}
+      data-slot="error"
       className={twMerge(
         'text-base/6 text-red-500 data-disabled:opacity-50 sm:text-sm/6',
         className

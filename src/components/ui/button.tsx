@@ -14,20 +14,19 @@ const styles = {
     // Disabled
     'data-disabled:opacity-50',
     // Icon
-    '*:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:size-4  *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) forced-colors:[--btn-icon:ButtonText] forced-colors:data-hover:[--btn-icon:ButtonText]',
+    '*:[svg]:size-5 sm:*:[svg]:size-4  *:[svg]:shrink-0 *:[svg]:self-center *:[svg]:text-(--btn-icon) forced-colors:[--btn-icon:ButtonText] forced-colors:data-hover:[--btn-icon:ButtonText]',
+    // Transition
+    'transition data-active:scale-(--active-scale)',
   ],
   size: {
     base: [
+      '[--active-scale:0.97]',
       'px-[calc(--spacing(4)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3.5)-1px)] sm:py-[calc(--spacing(1.5)-1px)]',
-      '*:data-[slot=icon]:-mx-1 *:data-[slot=icon]:my-0.5 sm:*:data-[slot=icon]:my-1',
+      '*:[svg]:-mx-1 *:[svg]:my-0.5 sm:*:[svg]:my-1',
     ],
     sm: [
-      // 32x32px For smaller icon-only buttons
-      'p-[calc(--spacing(1.5)-1px)] sm:p-[calc(--spacing(2)-1px)]',
-    ],
-    xs: [
-      // 24x24px For smaller icon-only buttons
-      'p-[calc(--spacing(0.5)-1px)] sm:p-[calc(--spacing(1)-1px)]',
+      '[--active-scale:0.94]',
+      'sm:*:[svg]:size-5 p-[calc(--spacing(1.5)-1px)]',
     ],
   },
   solid: [
@@ -48,20 +47,20 @@ const styles = {
     // Base
     'data-active:bg-white/10 data-hover:bg-white/10',
     // Icon
-    '[--btn-icon:var(--color-obsidian-500)] data-active:[--btn-icon:var(--color-obsidian-400)] data-hover:[--btn-icon:var(--color-obsidian-400)]',
+    '[--btn-icon:var(--color-obsidian-400)] data-active:[--btn-icon:var(--color-obsidian-300)] data-hover:[--btn-icon:var(--color-obsidian-400)]',
   ],
   colors: {
     dark: [
       '[--btn-bg:var(--color-obsidian-900)] [--btn-hover-overlay:var(--color-white)]/5',
       '[--btn-icon:var(--color-obsidian-400)] data-active:[--btn-icon:var(--color-obsidian-300)] data-hover:[--btn-icon:var(--color-obsidian-300)]',
     ],
-    'dark-transparent': [
-      '[--btn-bg:var(--color-obsidian-900)]/80 [--btn-hover-overlay:var(--color-white)]/5',
-      '[--btn-icon:var(--color-obsidian-400)] data-active:[--btn-icon:var(--color-obsidian-300)] data-hover:[--btn-icon:var(--color-obsidian-300)]',
-    ],
     light: [
       '[--btn-bg:var(--color-obsidian-800)] [--btn-hover-overlay:var(--color-white)]/5',
       '[--btn-icon:var(--color-obsidian-400)] data-active:[--btn-icon:var(--color-obsidian-300)] data-hover:[--btn-icon:var(--color-obsidian-300)]',
+    ],
+    'light-opacity': [
+      '[--btn-bg:var(--color-white)]/20 [--btn-hover-overlay:var(--color-white)]/5',
+      '[--btn-icon:var(--color-white)]/70 data-active:[--btn-icon:var(--color-white)]/80 data-hover:[--btn-icon:var(--color-white)]/80',
     ],
     purple: [
       '[--btn-hover-overlay:var(--color-white)]/10 [--btn-bg:var(--color-purple-vivid-600)] [--btn-border:var(--color-purple-vivid-700)]',
@@ -118,6 +117,7 @@ export const Button = React.forwardRef(function Button(
 
 /**
  * Increases touch target size to 44x44px to comply with WCAG standards.
+ *
  * @link https://youtu.be/soFSSkf4oVYx
  */
 export function TouchTarget({ children }: { children: React.ReactNode }) {

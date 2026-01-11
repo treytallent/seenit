@@ -27,8 +27,8 @@ export const Textarea = React.forwardRef(function Textarea(
       ])}
     >
       <Headless.Textarea
-        ref={ref}
         {...props}
+        ref={ref}
         className={twJoin([
           // Basic layout
           'relative block h-full w-full appearance-none px-4 py-3.5',

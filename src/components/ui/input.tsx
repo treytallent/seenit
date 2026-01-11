@@ -13,14 +13,14 @@ export function InputGroup({
         // Basic layout
         'relative isolate block',
         // X-axis padding
-        'has-[[data-slot=icon]:first-child]:[&_input]:pl-10 has-[[data-slot=icon]:last-child]:[&_input]:pr-10 sm:has-[[data-slot=icon]:first-child]:[&_input]:pl-8 sm:has-[[data-slot=icon]:last-child]:[&_input]:pr-8',
+        'has-[svg:first-child]:[&_input]:pl-10 has-[svg:last-child]:[&_input]:pr-10 sm:has-[svg:first-child]:[&_input]:pl-8 sm:has-[svg:last-child]:[&_input]:pr-8',
         // Icon style
-        '*:data-[slot=icon]:size-5 *:data-[slot=icon]:text-obsidian-400 sm:*:data-[slot=icon]:size-4',
-        '*:data-[slot=icon]:pointer-events-none *:data-[slot=icon]:absolute *:data-[slot=icon]:z-10',
+        '*:[svg]:size-5 *:[svg]:text-obsidian-400 sm:*:[svg]:size-4',
+        '*:[svg]:pointer-events-none *:[svg]:absolute *:[svg]:z-10',
         // Icon positions
-        '*:data-[slot=icon]:top-3 sm:*:data-[slot=icon]:top-2.5',
-        '[&>[data-slot=icon]:first-child]:left-3 sm:[&>[data-slot=icon]:first-child]:left-2.5',
-        '[&>[data-slot=icon]:last-child]:right-3 sm:[&>[data-slot=icon]:last-child]:right-2.5',
+        '*:[svg]:top-3 sm:*:[svg]:top-2.5',
+        '[&>svg:first-child]:left-3 sm:[&>svg:first-child]:left-2.5',
+        '[&>svg:last-child]:right-3 sm:[&>svg:last-child]:right-2.5',
         className
       )}
     >

@@ -10,8 +10,8 @@ export function Pagination({
 }: React.ComponentPropsWithoutRef<'nav'>) {
   return (
     <nav
-      aria-label={ariaLabel}
       {...props}
+      aria-label={ariaLabel}
       className={twMerge('flex gap-x-2', className)}
     />
   )
@@ -29,7 +29,7 @@ export function PaginationPrevious({
         plain
         aria-label="Previous page"
       >
-        <Arrow className="-mx-1" />
+        <Arrow />
         {children}
       </Button>
     </span>
@@ -49,7 +49,7 @@ export function PaginationNext({
         aria-label="Next page"
       >
         {children}
-        <Arrow direction="right" className="-mx-1" />
+        <Arrow direction="right" />
       </Button>
     </span>
   )
@@ -97,8 +97,8 @@ export function PaginationGap({
 }: React.ComponentPropsWithoutRef<'span'>) {
   return (
     <span
-      aria-hidden="true"
       {...props}
+      aria-hidden="true"
       className={twMerge(
         'w-10 text-center text-sm font-semibold select-none',
         className

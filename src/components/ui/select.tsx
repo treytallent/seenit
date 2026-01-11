@@ -26,9 +26,9 @@ export const Select = forwardRef(function Select(
       ])}
     >
       <Headless.Select
+        {...props}
         ref={ref}
         multiple={multiple}
-        {...props}
         className={twJoin([
           // Override inherited border-radius to avoid scrollbar clipping
           multiple && 'rounded-r-none!',

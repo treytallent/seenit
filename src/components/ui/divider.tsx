@@ -7,8 +7,8 @@ export function Divider({
 }: { soft?: boolean } & React.ComponentPropsWithoutRef<'hr'>) {
   return (
     <hr
-      role="presentation"
       {...props}
+      role="presentation"
       className={twMerge(
         'w-full border-t',
         soft ? 'border-white/5' : 'border-white/10',

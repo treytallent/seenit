@@ -10,8 +10,8 @@ export function RadioGroup({
 >) {
   return (
     <Headless.RadioGroup
-      data-slot="control"
       {...props}
+      data-slot="control"
       className={twMerge(
         // Basic groups
         'space-y-3 **:data-[slot=label]:font-normal',
@@ -55,6 +55,8 @@ const radioFieldStyles = {
     dialogOption: [
       // Base layout
       'grid-cols-[1fr_1.25rem]',
+      // Bottom border
+      'not-[:last-child]:border-b border-white/5',
       // Control layout
       '*:data-[slot=control]:col-start-2',
       '*:data-[slot=control]:py-3.25',
@@ -79,12 +81,11 @@ export function RadioField({
 } & Omit<Headless.FieldProps, 'as' | 'className'>) {
   return (
     <Headless.Field
-      data-slot="field"
       {...props}
+      data-slot="field"
       className={twMerge(
         radioFieldStyles.base,
         radioFieldStyles.variants[variant],
-
         className
       )}
     />
@@ -100,8 +101,8 @@ export function Radio({
 >) {
   return (
     <Headless.Radio
-      data-slot="control"
       {...props}
+      data-slot="control"
       className={twMerge('group inline-flex focus:outline-hidden', className)}
     >
       <span

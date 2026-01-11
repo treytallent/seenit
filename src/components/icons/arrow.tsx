@@ -1,46 +1,30 @@
-import { twMerge } from "tailwind-merge";
-
 /**
- * Modified HeroIcons' arrow-left-circle icon to isolate the arrow and increase its size.
- * @see https://heroicons.com/
+ * Lucide Icons' arrow-left icon to decrease the path size by 20%.
+ *
+ * @link https://lucide.dev/icons/
  */
 export function Arrow({
+  direction = 'left',
   className,
-  direction = "left",
 }: {
-  className?: string;
-  direction?: "left" | "right";
+  direction?: 'left' | 'right'
+  className?: string
 }) {
-  const classes = twMerge(
-    "stroke-white stroke-2 [stroke-linecap:round] [stroke-linejoin:round] *:[path]:stroke-(--btn-icon)",
-    "forced-colors:[--btn-bg:Canvas] forced-colors:data-hover:[--btn-bg:Canvas]",
-    direction === "right" && "rotate-180",
-    className,
-  );
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       width="20"
       height="20"
-      viewBox="0 0 20 20"
+      viewBox="0 0 24 24"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      data-slot="icon"
-      className={classes}
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`${direction === 'right' && 'rotate-180'} ${className}`}
     >
-      <path
-        d="
-        M4,10
-        h 12
-        "
-      />
-      <path
-        d="
-        M10,4.5
-        L4,10
-        L10,15.5
-        "
-      />
+      <path d="m12 19-7-7 7-7" />
+      <path d="M19 12H5" />
     </svg>
-  );
+  )
 }

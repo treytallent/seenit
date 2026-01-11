@@ -7,8 +7,8 @@ export function Text({
 }: React.ComponentPropsWithoutRef<'p'>) {
   return (
     <p
-      data-slot="text"
       {...props}
+      data-slot="text"
       className={twMerge(
         'text-base/6 text-obsidian-400 sm:text-sm/6',
         className

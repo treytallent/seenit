@@ -1,29 +1,43 @@
-import { XMark } from '@/components/icons/x-mark'
-import { Button } from '@/components/ui/button'
 import { Text } from '@/components/ui/text'
 import * as Headless from '@headlessui/react'
 import React from 'react'
 import { twJoin, twMerge } from 'tailwind-merge'
+import { XMark } from '../icons/x-mark'
+import { Button } from './button'
 
-const sizes = {
-  xs: 'sm:max-w-xs',
-  sm: 'sm:max-w-sm',
-  md: 'sm:max-w-md',
-  lg: 'sm:max-w-lg',
-  xl: 'sm:max-w-xl',
-  '2xl': 'sm:max-w-2xl',
-  '3xl': 'sm:max-w-3xl',
-  '4xl': 'sm:max-w-4xl',
-  '5xl': 'sm:max-w-5xl',
+const dialogStyles = {
+  size: {
+    xs: 'sm:max-w-xs',
+    sm: 'sm:max-w-sm',
+    md: 'sm:max-w-md',
+    lg: 'sm:max-w-lg',
+    xl: 'sm:max-w-xl',
+    '2xl': 'sm:max-w-2xl',
+    '3xl': 'sm:max-w-3xl',
+    '4xl': 'sm:max-w-4xl',
+    '5xl': 'sm:max-w-5xl',
+  },
+  filter: [
+    '[--button-negative-margin:--spacing(1.5)]',
+    '**:data-[slot=back]:-ml-(--button-negative-margin) **:data-[slot=close]:-mr-(--button-negative-margin)',
+    // Override label responsive behaviour
+    'sm:**:data-[slot=label]:text-base/6',
+    // Label layout
+    '**:data-[slot=label]:pr-3 **:data-[slot=label]:w-full',
+    // Increase width of body to prevent checkbox & radio focus clipping
+    '*:data-[slot=body]:-mx-1 *:data-[slot=body]:px-1',
+  ],
 }
 
 export function Dialog({
   size = 'lg',
+  filter = false,
   className,
   children,
   ...props
 }: {
-  size?: keyof typeof sizes
+  size?: keyof typeof dialogStyles.size
+  filter?: boolean
   className?: string
   children: React.ReactNode
 } & Omit<Headless.DialogProps, 'as' | 'className'>) {
@@ -54,7 +68,7 @@ export function Dialog({
               // Overflow overlay height
               '[--overlay-height:--spacing(3)]',
               // Sizing
-              'p-(--gutter) [--gutter:--spacing(6)] has-data-[slot=overlay]:*:data-[slot=body]:pb-10 *:data-[slot=head]:mb-6',
+              'p-(--gutter) [--gutter:--spacing(6)] has-data-[slot=overlay]:*:data-[slot=body]:pb-10',
               // Background color
               'bg-obsidian-900',
               // Forced colors mode
@@ -63,7 +77,8 @@ export function Dialog({
               'shadow-lg ring-1 ring-white/10',
               // Transitions
               'transition duration-100 will-change-transform data-closed:translate-y-12 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in sm:data-closed:translate-y-0 sm:data-closed:data-enter:scale-95',
-              sizes[size],
+              dialogStyles.size[size],
+              filter && dialogStyles.filter,
               className
             )}
           >
@@ -85,10 +100,7 @@ export function DialogTitle({
   return (
     <Headless.DialogTitle
       {...props}
-      className={twMerge(
-        'text-lg/6 font-semibold text-balance sm:text-base/6',
-        className
-      )}
+      className={twMerge('text-base/8 font-semibold text-balance', className)}
     />
   )
 }
@@ -101,11 +113,12 @@ export function DialogClose<T extends React.ElementType = typeof Button>({
   return (
     <Headless.CloseButton
       as={as}
-      size="xs"
+      {...props}
+      size="sm"
       color="light"
       aria-label="Close navigation"
-      className={twMerge('sm:p-px sm:*:data-[slot=icon]:size-5', className)}
-      {...props}
+      data-slot="close"
+      className={className}
     >
       <XMark />
     </Headless.CloseButton>
@@ -139,39 +152,20 @@ export function DialogHead({
     <div
       {...props}
       data-slot="head"
-      className={twMerge('flex justify-between', className)}
+      className={twMerge('mb-6 flex justify-between', className)}
     />
   )
 }
 
-const dialogBodyStyles = {
-  base: ['scrollbar-none overflow-scroll'],
-  filter: [
-    // Override label responsive behaviour
-    'sm:**:data-[slot=label]:text-base/6',
-    // Label layout
-    '**:data-[slot=label]:pr-3 **:data-[slot=label]:w-full',
-    // Increase width of body to prevent checkbox & radio focus clipping
-    '-mx-1 px-1',
-  ],
-}
-
 export function DialogBody({
-  filter = false,
   className,
   ...props
-}: {
-  filter?: boolean
-} & React.ComponentPropsWithoutRef<'div'>) {
+}: React.ComponentPropsWithoutRef<'div'>) {
   return (
     <div
       {...props}
       data-slot="body"
-      className={twMerge(
-        dialogBodyStyles.base,
-        filter && dialogBodyStyles.filter,
-        className
-      )}
+      className={twMerge('scrollbar-none overflow-scroll', className)}
     />
   )
 }

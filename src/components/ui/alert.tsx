@@ -62,7 +62,7 @@ export function AlertTitle({
     <Headless.DialogTitle
       {...props}
       className={twMerge(
-        'text-center text-base/6 font-semibold text-balance sm:text-left sm:font-semibold sm:text-wrap',
+        'text-center text-base/6 font-semibold text-balance sm:text-left',
         className
       )}
     />
@@ -81,7 +81,7 @@ export function AlertDescription({
       as={Text}
       {...props}
       className={twMerge(
-        'mt-2 text-center text-pretty sm:text-left sm:text-sm/6',
+        'mt-2 text-center text-pretty sm:text-left',
         className
       )}
     />

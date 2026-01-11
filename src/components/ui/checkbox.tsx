@@ -8,8 +8,8 @@ export function CheckboxGroup({
 }: React.ComponentPropsWithoutRef<'div'>) {
   return (
     <div
-      data-slot="control"
       {...props}
+      data-slot="control"
       className={twMerge(
         // Basic groups
         'space-y-3 **:data-[slot=label]:font-normal',
@@ -53,6 +53,8 @@ const checkboxFieldStyles = {
     dialogOption: [
       // Base layout
       'grid-cols-[1fr_1.25rem]',
+      // Bottom border
+      'not-[:last-child]:border-b border-white/5',
       // Control layout
       '*:data-[slot=control]:col-start-2',
       '*:data-[slot=control]:py-3.25',
@@ -77,12 +79,11 @@ export function CheckboxField({
 } & Omit<Headless.FieldProps, 'as' | 'className'>) {
   return (
     <Headless.Field
-      data-slot="field"
       {...props}
+      data-slot="field"
       className={twMerge(
         checkboxFieldStyles.base,
         checkboxFieldStyles.variants[variant],
-
         className
       )}
     />
@@ -97,8 +98,8 @@ export function Checkbox({
 } & Omit<Headless.CheckboxProps, 'as' | 'className'>) {
   return (
     <Headless.Checkbox
-      data-slot="control"
       {...props}
+      data-slot="control"
       className={twMerge('group inline-flex focus:outline-hidden', className)}
     >
       <span

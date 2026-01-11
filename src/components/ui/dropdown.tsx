@@ -53,11 +53,8 @@ export function DropdownMenu({
 }
 
 const itemColors = {
-  dark: [
-    'data-focus:bg-white/10',
-    'data-focus:*:data-[slot=icon]:text-obsidian-300',
-  ],
-  red: ['data-focus:bg-red-700', 'data-focus:*:data-[slot=icon]:text-red-100'],
+  dark: ['data-focus:bg-white/10', 'data-focus:*:[svg]:text-obsidian-300'],
+  red: ['data-focus:bg-red-700', 'data-focus:*:[svg]:text-red-100'],
 }
 
 export function DropdownItem({
@@ -79,12 +76,12 @@ export function DropdownItem({
     // Disabled state
     'data-disabled:opacity-50',
     // Forced colors mode
-    'forced-color-adjust-none forced-colors:data-focus:bg-[Highlight] forced-colors:data-focus:text-[HighlightText] forced-colors:data-focus:*:data-[slot=icon]:text-[HighlightText]',
+    'forced-color-adjust-none forced-colors:data-focus:bg-[Highlight] forced-colors:data-focus:text-[HighlightText] forced-colors:data-focus:*:[svg]:text-[HighlightText]',
     // Use subgrid when available but fallback to an explicit grid layout if not
     'col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] items-center supports-[grid-template-columns:subgrid]:grid-cols-subgrid',
     // Icons
-    '*:data-[slot=icon]:text-obsidian-400',
-    '*:data-[slot=icon]:col-start-1 *:data-[slot=icon]:row-start-1 *:data-[slot=icon]:mr-2.5 *:data-[slot=icon]:-ml-0.5 sm:*:data-[slot=icon]:mr-2 sm:*:data-[slot=icon]:size-4',
+    '*:[svg]:text-obsidian-400',
+    '*:[svg]:col-start-1 *:[svg]:row-start-1 *:[svg]:mr-2.5 *:[svg]:-ml-0.5 sm:*:[svg]:mr-2 sm:*:[svg]:size-4',
     itemColors[color],
     className
   )
