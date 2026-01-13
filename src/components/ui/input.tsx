@@ -12,15 +12,22 @@ export function InputGroup({
       className={twMerge(
         // Basic layout
         'relative isolate block',
+        // Icon size
+        '[--icon-size:--spacing(5)] sm:[--icon-size:--spacing(4)]',
+        // Space between icon & edge of input
+        '[--icon-edge-gap:calc(--spacing(3)-1px)] sm:[--icon-edge-gap:calc(--spacing(2.5)-1px)]',
+        // Space between icon & text
+        '[--icon-text-gap:--spacing(1.5)]',
+        // Computed padding
+        '[--icon-padding:calc(var(--icon-size)+var(--icon-edge-gap)+var(--icon-text-gap))]',
         // X-axis padding
-        'has-[svg:first-child]:[&_input]:pl-10 has-[svg:last-child]:[&_input]:pr-10 sm:has-[svg:first-child]:[&_input]:pl-8 sm:has-[svg:last-child]:[&_input]:pr-8',
+        'has-[svg:first-child]:[&_input]:pl-(--icon-padding) has-[svg:last-child]:[&_input]:pr-(--icon-padding)',
         // Icon style
-        '*:[svg]:size-5 *:[svg]:text-obsidian-400 sm:*:[svg]:size-4',
+        '*:[svg]:size-(--icon-size) *:[svg]:text-obsidian-400',
         '*:[svg]:pointer-events-none *:[svg]:absolute *:[svg]:z-10',
         // Icon positions
         '*:[svg]:top-3 sm:*:[svg]:top-2.5',
-        '[&>svg:first-child]:left-3 sm:[&>svg:first-child]:left-2.5',
-        '[&>svg:last-child]:right-3 sm:[&>svg:last-child]:right-2.5',
+        '[&>svg:first-child]:left-(--icon-edge-gap) [&>svg:last-child]:right-(--edge-gap)',
         className
       )}
     >
