@@ -47,7 +47,7 @@ const styles = {
     // Base
     'data-active:bg-white/10 data-hover:bg-white/10',
     // Icon
-    '[--btn-icon:var(--color-obsidian-400)] data-active:[--btn-icon:var(--color-obsidian-300)] data-hover:[--btn-icon:var(--color-obsidian-400)]',
+    '[--btn-icon:var(--color-obsidian-400)] data-active:[--btn-icon:var(--color-obsidian-300)] data-hover:[--btn-icon:var(--color-obsidian-300)]',
   ],
   colors: {
     dark: [
