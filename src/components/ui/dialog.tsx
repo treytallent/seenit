@@ -18,12 +18,12 @@ const dialogStyles = {
     '5xl': 'sm:max-w-5xl',
   },
   filter: [
-    '[--button-negative-margin:--spacing(1.5)]',
-    '**:data-[slot=back]:-ml-(--button-negative-margin) **:data-[slot=close]:-mr-(--button-negative-margin)',
     // Override label responsive behaviour
     'sm:**:data-[slot=label]:text-base/6',
     // Label layout
     '**:data-[slot=label]:pr-3 **:data-[slot=label]:w-full',
+    // Align button svg with form controls
+    '**:data-[slot=field]:pr-1.5',
     // Increase width of body to prevent checkbox & radio focus clipping
     '*:data-[slot=body]:-mx-1 *:data-[slot=body]:px-1',
   ],
