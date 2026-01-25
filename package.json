@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
+    "embla-carousel-class-names": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^11.2.6",
     "lucide-react": "^0.562.0",
     "next": "16.0.10",
