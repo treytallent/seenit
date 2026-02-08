@@ -1,6 +1,6 @@
-import { Arrow } from '@/components/icons/arrow'
 import { TouchTarget } from '@/components/ui/button'
 import { Link } from '@/components/ui/link'
+import { Arrow } from '@/components/ui/icons/arrow'
 import { twJoin, twMerge } from 'tailwind-merge'
 
 type HeadingProps = {

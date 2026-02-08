@@ -1,5 +1,5 @@
-import { Arrow } from '@/components/icons/arrow'
 import { Button } from '@/components/ui/button'
+import { Arrow } from '@/components/ui/icons/arrow'
 import type React from 'react'
 import { twMerge } from 'tailwind-merge'
 
