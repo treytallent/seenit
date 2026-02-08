@@ -25,7 +25,7 @@ export function TextLink({
     <Link
       {...props}
       className={twMerge(
-        'decoration-white/50 data-hover:decoration-white',
+        'underline decoration-white/50 data-hover:decoration-white',
         className
       )}
     />
