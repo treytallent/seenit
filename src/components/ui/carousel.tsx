@@ -54,7 +54,7 @@ export function Carousel({
   opts,
   setApi,
 }: {
-  controls?: React.ReactElement
+  controls?: React.ReactNode
   content: React.ReactNode
   className?: string
 } & CarouselProps) {
@@ -121,7 +121,7 @@ export function Carousel({
     <CarouselContext.Provider
       value={{
         carouselRef,
-        api: api,
+        api,
         opts,
         scrollPrev,
         scrollNext,
@@ -159,7 +159,7 @@ export function Carousel({
             canScrollNext && 'mask-r-from-(--mask-from)'
           )}
         >
-          <div className="mx-auto mt-4 max-w-7xl">{content}</div>
+          <div className="mx-auto max-w-7xl">{content}</div>
         </div>
       </div>
     </CarouselContext.Provider>
