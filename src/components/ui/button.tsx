@@ -59,8 +59,8 @@ const styles = {
       '[--btn-icon:var(--color-obsidian-400)] data-active:[--btn-icon:var(--color-obsidian-300)] data-hover:[--btn-icon:var(--color-obsidian-300)]',
     ],
     'light-opacity': [
-      '[--btn-bg:var(--color-white)]/20 [--btn-hover-overlay:var(--color-white)]/5',
-      '[--btn-icon:var(--color-white)]/70 data-active:[--btn-icon:var(--color-white)]/80 data-hover:[--btn-icon:var(--color-white)]/80',
+      '[--btn-bg:var(--color-obsidian-700)]/90 [--btn-hover-overlay:var(--color-white)]/5',
+      '[--btn-icon:var(--color-obsidian-300)] data-active:[--btn-icon:var(--color-obsidian-200)] data-hover:[--btn-icon:var(--color-obsidian-200)]',
     ],
     purple: [
       '[--btn-hover-overlay:var(--color-white)]/10 [--btn-bg:var(--color-purple-vivid-600)] [--btn-border:var(--color-purple-vivid-700)]',
