@@ -52,7 +52,7 @@ export function DropdownMenu({
   )
 }
 
-const itemColors = {
+export const itemColors = {
   dark: ['data-focus:bg-white/10', 'data-focus:*:[svg]:text-obsidian-300'],
   red: ['data-focus:bg-red-700', 'data-focus:*:[svg]:text-red-100'],
 }

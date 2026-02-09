@@ -6,9 +6,9 @@ import { twJoin, twMerge } from 'tailwind-merge'
 const styles = {
   base: [
     // Base
-    'relative isolate inline-flex items-baseline justify-center gap-x-2.5 rounded-full border border-transparent',
+    'relative text-nowrap isolate inline-flex items-baseline justify-center gap-x-2.5 rounded-full border border-transparent',
     // Font size
-    'text-base/6 sm:text-sm/6 font-semibold',
+    'text-base/6 sm:text-sm/6',
     // Focus
     'focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500',
     // Disabled
@@ -30,6 +30,8 @@ const styles = {
     ],
   },
   solid: [
+    // Font weight
+    'font-semibold',
     // Border is rendered on `after` so background is set to button background
     'bg-(--btn-bg)',
     // Subtle white outline is applied using a border
@@ -44,6 +46,8 @@ const styles = {
     'data-disabled:before:shadow-none data-disabled:after:shadow-none',
   ],
   plain: [
+    // Font weight
+    'font-medium',
     // Base
     'data-active:bg-white/10 data-hover:bg-white/10',
     // Icon

@@ -1,6 +1,7 @@
 import '@/app/globals.css'
 import { Footer } from '@/components/Footer'
 import { Toaster } from '@/components/Toaster'
+import { Navigation } from '@/src/components/Navigation/Navigation'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { twJoin } from 'tailwind-merge'
@@ -36,6 +37,7 @@ export default function RootLayout({
           '[--body-x:--spacing(6)] lg:[--body-x:--spacing(8)]'
         )}
       >
+        <Navigation />
         <main className="flex-1">{children}</main>
         <Footer />
         <Toaster />

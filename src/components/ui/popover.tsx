@@ -17,6 +17,10 @@ export function PopoverButton<T extends React.ElementType = typeof Button>({
   return <Headless.PopoverButton as={as} {...props} />
 }
 
+export function PopoverBackdrop({ ...props }: Headless.PopoverBackdropProps) {
+  return <Headless.PopoverBackdrop {...props} />
+}
+
 export function PopoverPanel({
   anchor = 'bottom',
   className,
