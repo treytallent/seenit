@@ -4,7 +4,11 @@ import { SearchDialog } from '@/components/Navigation/SearchDialog'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { XMark } from '@/components/ui/icons/x-mark'
-import { PopoverButton } from '@/components/ui/popover'
+import {
+  Popover,
+  PopoverBackdrop,
+  PopoverButton,
+} from '@/components/ui/popover'
 import * as Headless from '@headlessui/react'
 import * as Motion from 'framer-motion'
 import { MenuIcon } from 'lucide-react'
@@ -64,15 +68,15 @@ function MenuItems({
 function MobileSidebar({
   children,
   ...props
-}: React.PropsWithChildren<Headless.PopoverProps>) {
+}: React.PropsWithChildren<React.ComponentProps<typeof Popover>>) {
   return (
-    <Headless.Popover {...props}>
+    <Popover {...props}>
       {({ open }) => (
         <>
           <PopoverButton className="z-1 data-open:scale-100" size="sm">
             {open ? <XMark /> : <MenuIcon />}
           </PopoverButton>
-          <Headless.PopoverBackdrop
+          <PopoverBackdrop
             transition
             className="fixed inset-0 scrollbar-none h-screen bg-obsidian-950/50 transition duration-100 focus:outline-0 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in"
           />
@@ -80,7 +84,7 @@ function MobileSidebar({
             modal
             transition
             className={twJoin(
-              'fixed inset-x-0 top-0 rounded-br-3xl rounded-bl-3xl bg-obsidian-950 px-3 pt-17 pb-3',
+              'fixed inset-x-0 top-0 rounded-br-3xl rounded-bl-3xl bg-obsidian-900 px-3 pt-17 pb-3',
               // Forced colors mode
               'forced-colors:outline',
               // Shadows
@@ -92,7 +96,7 @@ function MobileSidebar({
           </Headless.PopoverPanel>
         </>
       )}
-    </Headless.Popover>
+    </Popover>
   )
 }
 
