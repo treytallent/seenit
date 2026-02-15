@@ -1,6 +1,6 @@
 import { TouchTarget } from '@/components/ui/button'
-import { Link } from '@/components/ui/link'
 import { Arrow } from '@/components/ui/icons/arrow'
+import { Link } from '@/components/ui/link'
 import { twJoin, twMerge } from 'tailwind-merge'
 
 type HeadingProps = {
@@ -55,7 +55,7 @@ export function Subheading({
   )
 
   return 'href' in props ? (
-    <Element>
+    <Element {...('id' in props ? { id: props.id } : null)}>
       <Link
         {...props}
         className={twMerge(classes, 'flex items-baseline', className)}
