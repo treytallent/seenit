@@ -1,28 +1,6 @@
-export interface Review {
-  author: string
-  author_details: {
-    name: string
-    username: string
-    avatar_path: string | null
-    rating: number | null
-  }
-  content: string
-  created_at: string
-  id: string
-  updated_at: string
-  url: string
-}
+import type { SuccessResponse } from './utils'
 
-export interface Reviews {
-  page: number
-  results: Review[]
-  total_pages: number
-  total_results: number
-}
+export type NullableReview = SuccessResponse<'review-details'>
 
-// todo: is this identical to what i had before? I think so.
-export interface ReviewWithRating extends Omit<Review, 'author_details'> {
-  author_details: Omit<Review['author_details'], 'rating'> & {
-    rating: NonNullable<Review['author_details']['rating']>
-  }
-}
+// todo: normalize
+export type Review = null
