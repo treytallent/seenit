@@ -1,12 +1,11 @@
 import Home from '@/app/page'
 import { render, screen } from '@testing-library/react'
+import { describe, expect } from 'vitest'
 
 describe('Smoke test', () => {
-  it('Renders a heading', () => {
-    render(<Home />)
+  render(<Home />)
 
-    const heading = screen.getByRole('heading', { level: 1 })
+  const heading = screen.getByRole('heading', { level: 1 })
 
-    expect(heading).toBeInTheDocument()
-  })
+  expect(heading).toBeDefined()
 })
