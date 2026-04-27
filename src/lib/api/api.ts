@@ -7,17 +7,33 @@ import type {
   TmdbHTTPMethods,
 } from '@/types/utils'
 
-export function constructTmdbRequest<
+export function constructTmdbRequestArguments<
   M extends TmdbHTTPMethods,
   P extends HTTPMethodPaths<M>,
   A extends OmitUndefinedSubsets<OmitResponses<paths[P][Lowercase<M>]>> =
     OmitUndefinedSubsets<OmitResponses<paths[P][Lowercase<M>]>>,
->(method: M, path: P, args?: A) {
-  // todo: args & return type
+>(method: M, path: P, args?: A): Parameters<typeof fetch> {
+  let input: string = TMDB_API_BASE_URL.concat(path)
+  const init: RequestInit = {
+    method: method,
+  }
+
   if (args) {
-    if ('query' in args.parameters) {
+    if ('query' in args.parameters && undefined !== args.parameters.query) {
+      const queryEntries = Object.entries(args.parameters.query)
+      for (const entry of queryEntries) {
+        const [k, v] = entry
+        if (queryEntries.indexOf(entry) === 0) {
+          input = input.concat(`?${k}`, `=${v}`)
+        } else {
+          input = input.concat(`&${k}`, `=${v}`)
+        }
+      }
     }
     if ('path' in args.parameters) {
+      for (const [k, v] of Object.entries(args.parameters.path)) {
+        input = input.replace(`{${k}}`, `${v}`)
+      }
     }
     if ('header' in args.parameters) {
     }
@@ -30,9 +46,5 @@ export function constructTmdbRequest<
     }
   }
 
-  const req = fetch(`${TMDB_API_BASE_URL}${path}`, {
-    method,
-  })
-
-  return req
+  return [input, init]
 }
