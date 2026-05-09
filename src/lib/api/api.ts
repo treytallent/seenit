@@ -4,6 +4,7 @@ import type {
   HTTPMethodPaths,
   OmitResponses,
   OmitUndefinedSubsets,
+  Resolve,
   TmdbHTTPMethods,
 } from '@/types/utils'
 
@@ -14,13 +15,19 @@ export function constructTmdbRequestArguments<
     OmitUndefinedSubsets<OmitResponses<paths[P][Lowercase<M>]>>,
 >(method: M, path: P, args?: A): Parameters<typeof fetch> {
   let input: string = TMDB_API_BASE_URL.concat(path)
-  const init: RequestInit = {
+  interface Init extends Resolve<RequestInit> {
+    headers: HeadersInit
+  }
+  const init: Init = {
     method: method,
+    headers: {},
   }
 
   if (args) {
     if ('query' in args.parameters && undefined !== args.parameters.query) {
-      const queryEntries = Object.entries(args.parameters.query)
+      const queryEntries = Object.entries(args.parameters.query).filter(
+        ([k, v]) => undefined !== v // eslint-disable-line @typescript-eslint/no-unused-vars
+      )
       for (const entry of queryEntries) {
         const [k, v] = entry
         if (queryEntries.indexOf(entry) === 0) {
@@ -36,6 +43,7 @@ export function constructTmdbRequestArguments<
       }
     }
     if ('header' in args.parameters) {
+      init.headers = { ...args.parameters.header }
     }
     if (
       'requestBody' in args &&
@@ -43,6 +51,18 @@ export function constructTmdbRequestArguments<
       args.requestBody.content &&
       undefined !== args.requestBody.content['application/json'].RAW_BODY
     ) {
+      init.body = args.requestBody.content['application/json'].RAW_BODY
+      /**
+       * Ensure requests with a body have the content-type header.
+       * TMDB's schema has several endpoints that require a body parameter but not a header content-type.
+       * {@link operations} i.e authentication-create-session & account-add-to-watchlist
+       */
+      if (false === 'Content-Type' in init.headers) {
+        init.headers = {
+          ...init.headers,
+          'Content-Type': 'application/json',
+        }
+      }
     }
   }
 
