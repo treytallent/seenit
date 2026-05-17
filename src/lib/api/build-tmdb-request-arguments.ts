@@ -8,7 +8,19 @@ import type {
   TmdbHTTPMethods,
 } from '@/types/utils'
 
-export function constructTmdbRequestArguments<
+/**
+ * Type-safe factory that builds fetch request arguments compatible with TMDB's OpenAPI schema.
+ *
+ * @template M Type of the HTTP method.
+ * @template P Type of the API path.
+ * @template A Type of the API path's arguments. Using generic M and P, it defaults to the type definition in the OpenAPI schema and removes irrelevant properties through utility types.
+ *
+ * @param method The HTTP method.
+ * @param path The TMDB API path.
+ * @param args The API path's arguments.
+ * @returns TMDB OpenAPI compatible fetch arguments.
+ */
+export function buildTmdbRequestArguments<
   M extends TmdbHTTPMethods,
   P extends HTTPMethodPaths<M>,
   A extends OmitUndefinedSubsets<OmitResponses<paths[P][Lowercase<M>]>> =

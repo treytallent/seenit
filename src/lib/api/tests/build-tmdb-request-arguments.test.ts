@@ -1,16 +1,16 @@
-import { constructTmdbRequestArguments } from '@/api/api'
+import { buildTmdbRequestArguments } from '@/api/api'
 import { describe, expect, test } from 'vitest'
 
-describe('constructTmdbRequest', () => {
+describe('buildTmdbRequestArguments', () => {
   const post_series_rating_fixtures: Array<{
     it: string
     args: Parameters<
-      typeof constructTmdbRequestArguments<
+      typeof buildTmdbRequestArguments<
         'POST',
         '/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating'
       >
     >[2]
-    expected: ReturnType<typeof constructTmdbRequestArguments>
+    expected: ReturnType<typeof buildTmdbRequestArguments>
   }> = [
     {
       it: 'Should replace path sections, append query params and build the init object.',
@@ -144,7 +144,7 @@ describe('constructTmdbRequest', () => {
 
   test.for(post_series_rating_fixtures)('$it', ({ args, expected }) => {
     expect(
-      constructTmdbRequestArguments(
+      buildTmdbRequestArguments(
         'POST',
         '/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating',
         args
@@ -155,9 +155,9 @@ describe('constructTmdbRequest', () => {
   const post_list_add_movie_fixtures: Array<{
     it: string
     args: Parameters<
-      typeof constructTmdbRequestArguments<'POST', '/3/list/{list_id}/add_item'>
+      typeof buildTmdbRequestArguments<'POST', '/3/list/{list_id}/add_item'>
     >[2]
-    expected: ReturnType<typeof constructTmdbRequestArguments>
+    expected: ReturnType<typeof buildTmdbRequestArguments>
   }> = [
     {
       it: 'Should replace the path section, append the query param, add content-type application/json to the headers, and body property to the init object.',
@@ -227,19 +227,16 @@ describe('constructTmdbRequest', () => {
 
   test.for(post_list_add_movie_fixtures)('$it', ({ args, expected }) => {
     expect(
-      constructTmdbRequestArguments('POST', '/3/list/{list_id}/add_item', args)
+      buildTmdbRequestArguments('POST', '/3/list/{list_id}/add_item', args)
     ).toEqual(expected)
   })
 
   const movie_delete_rating_fixtures: Array<{
     it: string
     args: Parameters<
-      typeof constructTmdbRequestArguments<
-        'DELETE',
-        '/3/movie/{movie_id}/rating'
-      >
+      typeof buildTmdbRequestArguments<'DELETE', '/3/movie/{movie_id}/rating'>
     >[2]
-    expected: ReturnType<typeof constructTmdbRequestArguments>
+    expected: ReturnType<typeof buildTmdbRequestArguments>
   }> = [
     {
       it: 'Should return an empty headers object when header is undefined.',
@@ -280,11 +277,7 @@ describe('constructTmdbRequest', () => {
   ]
   test.for(movie_delete_rating_fixtures)('$it', ({ args, expected }) => {
     expect(
-      constructTmdbRequestArguments(
-        'DELETE',
-        '/3/movie/{movie_id}/rating',
-        args
-      )
+      buildTmdbRequestArguments('DELETE', '/3/movie/{movie_id}/rating', args)
     ).toEqual(expected)
   })
 })
