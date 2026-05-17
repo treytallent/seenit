@@ -1,5 +1,5 @@
-import { buildTmdbRequestArguments } from '@/api/api'
 import { describe, expect, test } from 'vitest'
+import { buildTmdbRequestArguments } from './build-tmdb-request-arguments'
 
 describe('buildTmdbRequestArguments', () => {
   const post_series_rating_fixtures: Array<{

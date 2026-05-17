@@ -16,10 +16,18 @@
     "strings": true
   },
 
+  // Enable file nesting for unit test files. @link https://github.com/vercel/next.js/blob/ec0279c7a9416cd2b8182167d4e526d2688ae21a/.vscode/settings.json#L70
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "$(capture).test.ts, $(capture).test.tsx, $(capture).stories.tsx",
+    "*.tsx": "$(capture).test.ts, $(capture).test.tsx, $(capture).stories.tsx"
+  },
+
   "eslint.validate": ["typescript", "typescriptreact"],
   "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
 
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+
   "prettier.documentSelectors": [
     "**/*.{cjs,mjs,ts,tsx,astro,md,json,yaml,yml}"
   ],
