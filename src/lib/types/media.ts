@@ -1,3 +1,9 @@
+import {
+  normalizeMovie,
+  normalizeMovieDetails,
+  normalizeSeries,
+  normalizeSeriesDetails,
+} from '@/src/lib/api/normalize'
 import type { SuccessResponse } from '@/types/utils'
 
 export type NullableMovie = NonNullable<
@@ -18,6 +24,13 @@ export type NullableSeriesDetails = SuccessResponse<'tv-series-details'>
 export type NullableSeriesDetailsOptions = NullableSeriesDetails &
   Options<NullableSeriesDetails>
 
+// temp for testing
+export type NullableMedia =
+  | NullableMovie
+  | NullableSeries
+  | NullableMovieDetails
+  | NullableSeries
+
 type Options<T> = T extends NullableMovieDetails
   ? {
       reviews: SuccessResponse<'movie-reviews'>
@@ -30,12 +43,12 @@ type Options<T> = T extends NullableMovieDetails
       aggregate_credits: SuccessResponse<'tv-series-aggregate-credits'>
     }
 
-// todo: normalize
-export type Movie = null
-export type MovieDetails = null
-export type Series = null
-export type SeriesDetails = null
+export type Movie = ReturnType<typeof normalizeMovie>
+export type MovieDetails = ReturnType<typeof normalizeMovieDetails>
+export type Series = ReturnType<typeof normalizeSeries>
+export type SeriesDetails = ReturnType<typeof normalizeSeriesDetails>
 
+// todo: how to stop ts compiler from flattening the type aliases so these comments are no longer needed
 /** Movie or Series */
 export type Media = Movie | Series
 /** MovieDetails or SeriesDetails */
