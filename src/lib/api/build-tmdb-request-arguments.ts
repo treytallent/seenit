@@ -12,7 +12,6 @@ import type {
  *
  * @template M Type of the HTTP method.
  * @template P Type of the API path.
- * @template A Type of the API path's arguments. Using generic M and P, it defaults to the type definition in the OpenAPI schema and removes irrelevant properties through utility types.
  *
  * @param method The HTTP method.
  * @param path The TMDB API path.
@@ -25,7 +24,7 @@ export function buildTmdbRequestArguments<
 >(
   method: M,
   path: P,
-  args: OmitUndefinedSubsets<RequestArguments<M, P>>
+  args?: OmitUndefinedSubsets<RequestArguments<M, P>>
 ): Parameters<typeof fetch> {
   let input: string = TMDB_API_BASE_URL.concat(path)
   interface Init extends Resolve<RequestInit> {
