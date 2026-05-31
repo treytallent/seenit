@@ -1,14 +1,23 @@
 import type { operations, paths } from '@/types/schema/tmdb-api-schema'
 import type { OmitUndefinedSubsets, Resolve } from './utils'
-/** HTTP methods included in TMDB's schema. */
+// HTTP methods included in TMDB's schema.
 export type TmdbHTTPMethods = 'GET' | 'PUT' | 'POST' | 'DELETE'
 
-/** From an HTTP method T, narrow the possible TMDB paths. */
+/**
+ * Narrow to the TMDB API routes that include an HTTP method T.
+ *
+ * @template T The HTTP method.
+ */
 export type HTTPMethodPaths<T extends TmdbHTTPMethods> = {
   [P in keyof paths]: paths[P][Lowercase<T>] extends undefined ? never : P
 }[keyof paths]
 
-/** From a valid HTTP method M and a TMDB path P, get a simplified interface for fetch arguments. */
+/**
+ * From a valid HTTP method M and a TMDB path P, get a simplified interface for fetch arguments.
+ *
+ * @template M The HTTP method.
+ * @template P The API path.
+ */
 export type RequestArguments<M, P> = OmitUndefinedSubsets<
   M extends TmdbHTTPMethods
     ? P extends keyof paths
@@ -40,6 +49,13 @@ export type OperationSuccessResponse<O extends keyof operations> =
   operations[O] extends object
     ? operations[O]['responses'][200]['content']['application/json']
     : never
+
+/**
+ * Get the success response type for a given HTTP method and TMDB schema path.
+ *
+ * @template M The HTTP method.
+ * @template P The API path.
+ */
 export type SuccessResponse<
   M extends TmdbHTTPMethods,
   P extends keyof paths,
@@ -47,7 +63,9 @@ export type SuccessResponse<
   ? paths[P][Lowercase<M>]['responses'][200]['content']['application/json']
   : never
 
-/** Generic Tmdb error for non-200 responses. */
+/**
+ * Generic Tmdb error for non-200 responses.
+ */
 export type TmdbError = Resolve<
   Omit<
     operations['authentication-validate-key']['responses']['401']['content']['application/json'],
@@ -66,6 +84,11 @@ export function isTmdbError(result: unknown): result is TmdbError {
   )
 }
 
+/**
+ * Result type pattern implementation for API returns.
+ *
+ * @template T type of the successful response payload.
+ */
 export type ApiReturn<T> =
   | { success: true; data: T }
   | { success: false; error: { code: number; message: string } }

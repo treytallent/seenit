@@ -50,7 +50,7 @@ export type Series = ReturnType<typeof normalizeSeries>
 export type SeriesDetails = ReturnType<typeof normalizeSeriesDetails>
 
 // todo: how to stop ts compiler from flattening the type aliases so these comments are no longer needed
-/** Movie or Series */
+// Movie or Series.
 export type Media = Movie | Series
-/** MovieDetails or SeriesDetails */
+// MovieDetails or SeriesDetails.
 export type MediaDetails = MovieDetails | SeriesDetails

@@ -28,6 +28,7 @@ export async function tmdbClient<
     /**
      * All successful responses in the schema have a status of 200. However, the TMDB docs claim that successful updates have a 201 status.
      * In case of further discrepancies in the schema, check for a status in the 200 range.
+     *
      * {@link https://developer.themoviedb.org/docs/errors}
      */
     if (!req.ok) {
