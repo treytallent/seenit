@@ -22,8 +22,8 @@ export async function tmdbClient<
   const [url, builtArgs] = buildTmdbRequestArguments(method, path, options)
 
   try {
-    const req = await fetch(url, builtArgs)
-    const json = (await req.json()) as unknown
+    const res = await fetch(url, builtArgs)
+    const json = (await res.json()) as unknown
 
     /**
      * All successful responses in the schema have a status of 200. However, the TMDB docs claim that successful updates have a 201 status.
@@ -31,7 +31,7 @@ export async function tmdbClient<
      *
      * {@link https://developer.themoviedb.org/docs/errors}
      */
-    if (!req.ok) {
+    if (!res.ok) {
       throw new InvalidStatusError(json)
     }
     return createSuccessReturn(json as SuccessResponse<M, P>)

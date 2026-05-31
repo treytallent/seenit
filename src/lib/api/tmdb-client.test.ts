@@ -45,6 +45,7 @@ describe('tmdbClient', () => {
   test('It handles TMDB success responses', async () => {
     mockFetch.mockResolvedValue({
       status: 200,
+      ok: true,
       json: (): SuccessResponse<'GET', '/3/account/{account_id}'> => {
         return {
           id: 1,
@@ -65,6 +66,7 @@ describe('tmdbClient', () => {
   test('It handles TMDB error responses', async () => {
     mockFetch.mockResolvedValue({
       status: 401,
+      ok: false,
       json: () => {
         return { success: false, status_code: 1, status_message: 'tmdb error' }
       },
@@ -79,6 +81,7 @@ describe('tmdbClient', () => {
   test('It handles unknown errors', async () => {
     mockFetch.mockResolvedValue({
       status: 401,
+      ok: false,
       json: () => {
         return ''
       },
@@ -93,6 +96,7 @@ describe('tmdbClient', () => {
   test('It handles JSON parse errors', async () => {
     mockFetch.mockResolvedValue({
       status: 200,
+      ok: true,
       json: () => {
         return JSON.parse('<!DOCTYPE html>')
       },

@@ -26,14 +26,12 @@ export type RequestArguments<M, P> = OmitUndefinedSubsets<
             query?: infer QU
             path?: infer PA
           }
-          requestBody?: {
-            content: { 'application/json': { RAW_BODY?: infer RB } }
-          }
+          requestBody?: infer RB
         }
         ? {
             query: QU
             path: PA
-            requestBody: RB extends string | undefined ? RB : undefined // Conditional check because the inferred type is deeply nested and only exists on some paths.
+            requestBody: RB extends undefined ? never : object // Omit when it's optional.
           }
         : paths[P][Lowercase<M>]
       : never
