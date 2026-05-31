@@ -1,46 +1,48 @@
 import { TMDB_API_BASE_URL } from '@/lib/constants'
+import type { Resolve } from '@/types/utils'
 import type {
   RequestArguments,
   HTTPMethodPaths,
-  OmitUndefinedSubsets,
-  Resolve,
   TmdbHTTPMethods,
-} from '@/types/utils'
+} from '@/types/api'
 
 /**
  * Type-safe factory that builds fetch request arguments compatible with TMDB's OpenAPI schema.
  *
- * @template M Type of the HTTP method.
- * @template P Type of the API path.
- *
  * @param method The HTTP method.
- * @param path The TMDB API path.
- * @param args The API path's arguments.
+ * @param path The API path.
+ * @param args The API endpoint's arguments.
  * @returns TMDB OpenAPI compatible fetch arguments.
  */
 export function buildTmdbRequestArguments<
   M extends TmdbHTTPMethods,
   P extends HTTPMethodPaths<M>,
 >(
-  method: M,
-  path: P,
-  args?: OmitUndefinedSubsets<RequestArguments<M, P>>
+  httpMethod: M,
+  httpPath: P,
+  args?: RequestArguments<M, P> & RequestInit
 ): Parameters<typeof fetch> {
-  let input: string = TMDB_API_BASE_URL.concat(path)
-  interface Init extends Resolve<RequestInit> {
-    headers: HeadersInit
+  // Separate building & fetching properties.
+  const { query, path, requestBody, ...fetchOptions } = {
+    query: undefined,
+    path: undefined,
+    requestBody: undefined,
+    ...args,
   }
-  const init: Init = {
-    method: method,
-    headers: {},
+
+  const builtOptions: Resolve<RequestInit> = {
+    ...fetchOptions,
+    method: httpMethod,
   }
+
+  let input: string = TMDB_API_BASE_URL.concat(httpPath)
 
   if (!args) {
-    return [input, init]
+    return [input, builtOptions]
   }
 
-  if ('query' in args) {
-    const queryEntries = Object.entries(args.query).filter(
+  if (query) {
+    const queryEntries = Object.entries(query).filter(
       ([k, v]) => undefined !== v // eslint-disable-line @typescript-eslint/no-unused-vars
     )
     for (const entry of queryEntries) {
@@ -53,19 +55,19 @@ export function buildTmdbRequestArguments<
     }
   }
 
-  if ('path' in args) {
-    for (const [k, v] of Object.entries(args.path)) {
+  if (path) {
+    for (const [k, v] of Object.entries(path)) {
       input = input.replace(`{${k}}`, `${v}`)
     }
   }
 
-  if ('requestBody' in args && '' !== args.requestBody) {
-    init.body = JSON.stringify(args.requestBody)
-    init.headers = {
-      ...init.headers,
+  if (requestBody) {
+    builtOptions.body = JSON.stringify(requestBody)
+    builtOptions.headers = {
+      ...builtOptions.headers,
       'Content-Type': 'application/json',
     }
   }
 
-  return [input, init]
+  return [input, builtOptions]
 }

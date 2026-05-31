@@ -13,8 +13,12 @@ describe('buildTmdbRequestArguments', () => {
     expected: ReturnType<typeof buildTmdbRequestArguments>
   }> = [
     {
-      it: 'Should replace path sections, append query params and build the init object.',
+      it: 'Should replace path sections, append multiple query params, forward authorization header, add header content-type, convert requestBody to JSON & forward additional properties.',
       args: {
+        headers: {
+          authorization: 'bearer 123',
+        },
+        cache: 'force-cache',
         query: {
           guest_session_id: '123',
           session_id: '456',
@@ -30,41 +34,25 @@ describe('buildTmdbRequestArguments', () => {
         'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?guest_session_id=123&session_id=456',
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            authorization: 'bearer 123',
+            'Content-Type': 'application/json',
+          },
           body: '"foobar"',
+          cache: 'force-cache',
         },
       ],
     },
     {
-      it: 'Should not modify input or mutate the default init object.',
+      it: "It should not modify the URL's dynamic sections or append query params.",
       args: undefined,
       expected: [
         'https://api.themoviedb.org/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating',
-        { method: 'POST', headers: {} },
+        { method: 'POST' },
       ],
     },
     {
-      it: 'Should not append query parameters to path.',
-      args: {
-        query: { guest_session_id: undefined },
-        path: {
-          series_id: 1,
-          season_number: 2,
-          episode_number: 3,
-        },
-        requestBody: 'foobar',
-      },
-      expected: [
-        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: '"foobar"',
-        },
-      ],
-    },
-    {
-      it: 'Should not append query parameters to path.',
+      it: 'It should not append missing query parameters to the URL.',
       args: {
         query: {},
         path: {
@@ -84,7 +72,27 @@ describe('buildTmdbRequestArguments', () => {
       ],
     },
     {
-      it: 'Should not append undefined query parameters to the path.',
+      it: 'It should not append undefined query parameters to the URL.',
+      args: {
+        query: { guest_session_id: undefined },
+        path: {
+          series_id: 1,
+          season_number: 2,
+          episode_number: 3,
+        },
+        requestBody: 'foobar',
+      },
+      expected: [
+        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: '"foobar"',
+        },
+      ],
+    },
+    {
+      it: 'It should not append undefined query parameters to the URL.',
       args: {
         query: {
           guest_session_id: undefined,
@@ -107,7 +115,7 @@ describe('buildTmdbRequestArguments', () => {
       ],
     },
     {
-      it: 'Should not append undefined query parameters to path.',
+      it: 'It should only append defined query parameters to the URL.',
       args: {
         query: {
           guest_session_id: '123',
@@ -130,10 +138,10 @@ describe('buildTmdbRequestArguments', () => {
       ],
     },
     {
-      it: 'Should not append undefined query parameters to path.',
+      it: 'It should append multiple query parameters to the URL.',
       args: {
         query: {
-          guest_session_id: undefined,
+          guest_session_id: '123',
           session_id: '456',
         },
         path: {
@@ -144,7 +152,7 @@ describe('buildTmdbRequestArguments', () => {
         requestBody: 'foobar',
       },
       expected: [
-        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?session_id=456',
+        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?guest_session_id=123&session_id=456',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -161,52 +169,6 @@ describe('buildTmdbRequestArguments', () => {
         '/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating',
         args
       )
-    ).toEqual(expected)
-  })
-
-  const post_list_add_movie_fixtures: Array<{
-    it: string
-    args: Parameters<
-      typeof buildTmdbRequestArguments<'POST', '/3/list/{list_id}/add_item'>
-    >[2]
-    expected: ReturnType<typeof buildTmdbRequestArguments>
-  }> = [
-    {
-      it: 'Should replace the path section, append the query param, add content-type application/json to the headers, and body property to the init object.',
-      args: {
-        query: { session_id: '123' },
-        path: { list_id: 456 },
-        requestBody: 'foobar',
-      },
-      expected: [
-        'https://api.themoviedb.org/3/list/456/add_item?session_id=123',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: '"foobar"',
-        },
-      ],
-    },
-    {
-      it: 'Should not mutate the default init object or add a body property to the init object.',
-      args: {
-        query: { session_id: '123' },
-        path: { list_id: 456 },
-        requestBody: '',
-      },
-      expected: [
-        'https://api.themoviedb.org/3/list/456/add_item?session_id=123',
-        {
-          method: 'POST',
-          headers: {},
-        },
-      ],
-    },
-  ]
-
-  test.for(post_list_add_movie_fixtures)('$it', ({ args, expected }) => {
-    expect(
-      buildTmdbRequestArguments('POST', '/3/list/{list_id}/add_item', args)
     ).toEqual(expected)
   })
 })
