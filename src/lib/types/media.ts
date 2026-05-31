@@ -4,22 +4,23 @@ import {
   normalizeSeries,
   normalizeSeriesDetails,
 } from '@/src/lib/api/normalize'
-import type { SuccessResponse } from '@/types/utils'
+import type { OperationSuccessResponse } from '@/types/api'
 
 export type NullableMovie = NonNullable<
-  SuccessResponse<'discover-movie'>['results']
+  OperationSuccessResponse<'discover-movie'>['results']
 >[number]
 
-export type NullableMovieDetails = SuccessResponse<'movie-details'>
+export type NullableMovieDetails = OperationSuccessResponse<'movie-details'>
 
 export type NullableMovieDetailsOptions = NullableMovieDetails &
   Options<NullableMovieDetails>
 
 export type NullableSeries = NonNullable<
-  SuccessResponse<'discover-tv'>['results']
+  OperationSuccessResponse<'discover-tv'>['results']
 >[number]
 
-export type NullableSeriesDetails = SuccessResponse<'tv-series-details'>
+export type NullableSeriesDetails =
+  OperationSuccessResponse<'tv-series-details'>
 
 export type NullableSeriesDetailsOptions = NullableSeriesDetails &
   Options<NullableSeriesDetails>
@@ -33,14 +34,14 @@ export type NullableMedia =
 
 type Options<T> = T extends NullableMovieDetails
   ? {
-      reviews: SuccessResponse<'movie-reviews'>
-      'watch/providers': SuccessResponse<'watch-providers-movie-list'>
-      credits: SuccessResponse<'movie-credits'>
+      reviews: OperationSuccessResponse<'movie-reviews'>
+      'watch/providers': OperationSuccessResponse<'watch-providers-movie-list'>
+      credits: OperationSuccessResponse<'movie-credits'>
     }
   : {
-      reviews: SuccessResponse<'tv-series-reviews'>
-      'watch/providers': SuccessResponse<'watch-provider-tv-list'>
-      aggregate_credits: SuccessResponse<'tv-series-aggregate-credits'>
+      reviews: OperationSuccessResponse<'tv-series-reviews'>
+      'watch/providers': OperationSuccessResponse<'watch-provider-tv-list'>
+      aggregate_credits: OperationSuccessResponse<'tv-series-aggregate-credits'>
     }
 
 export type Movie = ReturnType<typeof normalizeMovie>

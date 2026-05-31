@@ -31,7 +31,15 @@ export type RequestArguments<M, P> = OmitUndefinedSubsets<
     : never
 >
 
-/** Get the success response type for a given HTTP method and TMDB schema path. */
+/**
+ * Get the success response type for a given TMDB operation.
+ *
+ * @template O The API operation.
+ */
+export type OperationSuccessResponse<O extends keyof operations> =
+  operations[O] extends object
+    ? operations[O]['responses'][200]['content']['application/json']
+    : never
 export type SuccessResponse<
   M extends TmdbHTTPMethods,
   P extends keyof paths,

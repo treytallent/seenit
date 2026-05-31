@@ -1,3 +1,3 @@
-import type { SuccessResponse } from './utils'
+import type { OperationSuccessResponse } from '@/types/api'
 
-export type Review = SuccessResponse<'review-details'>
+export type Review = OperationSuccessResponse<'review-details'>

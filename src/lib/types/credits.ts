@@ -4,22 +4,22 @@ import {
   normalizeCast,
   normalizeCrew,
 } from '@/api/normalize'
-import type { SuccessResponse } from './utils'
+import { OperationSuccessResponse } from '@/types/api'
 
 export type NullableCast = NonNullable<
-  SuccessResponse<'movie-credits'>['cast']
+  OperationSuccessResponse<'movie-credits'>['cast']
 >[number]
 
 export type NullableCrew = NonNullable<
-  SuccessResponse<'movie-credits'>['crew']
+  OperationSuccessResponse<'movie-credits'>['crew']
 >[number]
 
 export type NullableAggregateCast = NonNullable<
-  SuccessResponse<'tv-series-aggregate-credits'>['cast']
+  OperationSuccessResponse<'tv-series-aggregate-credits'>['cast']
 >[number]
 
 export type NullableAggregateCrew = NonNullable<
-  SuccessResponse<'tv-series-aggregate-credits'>['crew']
+  OperationSuccessResponse<'tv-series-aggregate-credits'>['crew']
 >[number]
 
 type Cast = ReturnType<typeof normalizeCast>
