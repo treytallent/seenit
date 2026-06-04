@@ -23,16 +23,21 @@ export function buildTmdbRequestArguments<
   args?: RequestArguments<M, P> & RequestInit
 ): Parameters<typeof fetch> {
   // Separate building & fetching properties.
-  const { query, path, requestBody, ...fetchOptions } = {
+  const { query, path, requestBody, headers, ...fetchOptions } = {
     query: undefined,
     path: undefined,
     requestBody: undefined,
+    headers: undefined,
     ...args,
   }
 
   const builtOptions: Resolve<RequestInit> = {
-    ...fetchOptions,
     method: httpMethod,
+    headers: {
+      authorization: process.env.TMDB_READ_ACCESS_TOKEN ?? '',
+      ...headers,
+    },
+    ...fetchOptions,
   }
 
   let input: string = TMDB_API_BASE_URL.concat(httpPath)

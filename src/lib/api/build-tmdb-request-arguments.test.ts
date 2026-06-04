@@ -13,7 +13,7 @@ describe('buildTmdbRequestArguments', () => {
     expected: ReturnType<typeof buildTmdbRequestArguments>
   }> = [
     {
-      it: 'Should replace path sections, append multiple query params, forward authorization header, add header content-type, convert requestBody to JSON & forward additional properties.',
+      it: 'Should replace path sections, append multiple query params, override authorization bearer token, add header content-type, convert requestBody to JSON & forward additional properties.',
       args: {
         headers: {
           authorization: 'bearer 123',
@@ -48,7 +48,7 @@ describe('buildTmdbRequestArguments', () => {
       args: undefined,
       expected: [
         'https://api.themoviedb.org/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating',
-        { method: 'POST' },
+        { headers: { authorization: '' }, method: 'POST' },
       ],
     },
     {
@@ -66,7 +66,7 @@ describe('buildTmdbRequestArguments', () => {
         'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating',
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { authorization: '', 'Content-Type': 'application/json' },
           body: '{"foo":"bar"}',
         },
       ],
@@ -86,7 +86,7 @@ describe('buildTmdbRequestArguments', () => {
         'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating',
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { authorization: '', 'Content-Type': 'application/json' },
           body: '{"foo":"bar"}',
         },
       ],
@@ -109,7 +109,7 @@ describe('buildTmdbRequestArguments', () => {
         'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating',
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { authorization: '', 'Content-Type': 'application/json' },
           body: '{"foo":"bar"}',
         },
       ],
@@ -132,7 +132,7 @@ describe('buildTmdbRequestArguments', () => {
         'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?guest_session_id=123',
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { authorization: '', 'Content-Type': 'application/json' },
           body: '{"foo":"bar"}',
         },
       ],
@@ -155,7 +155,7 @@ describe('buildTmdbRequestArguments', () => {
         'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?guest_session_id=123&session_id=456',
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { authorization: '', 'Content-Type': 'application/json' },
           body: '{"foo":"bar"}',
         },
       ],
