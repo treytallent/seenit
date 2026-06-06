@@ -1,5 +1,6 @@
 import type { operations, paths } from '@/types/schema/tmdb-api-schema'
 import type { OmitUndefinedSubsets, Resolve } from './utils'
+
 // HTTP methods included in TMDB's schema.
 export type TmdbHTTPMethods = 'GET' | 'PUT' | 'POST' | 'DELETE'
 
@@ -54,7 +55,7 @@ export type OperationSuccessResponse<O extends keyof operations> =
  * @template M The HTTP method.
  * @template P The API path.
  */
-export type SuccessResponse<
+export type EndpointSuccessResponse<
   M extends TmdbHTTPMethods,
   P extends keyof paths,
 > = paths[P][Lowercase<M>] extends object
@@ -83,10 +84,23 @@ export function isTmdbError(result: unknown): result is TmdbError {
 }
 
 /**
- * Result type pattern implementation for API returns.
+ * Successful response.
  *
- * @template T type of the successful response payload.
+ * @template T The data type.
  */
-export type ApiReturn<T> =
-  | { success: true; data: T }
-  | { success: false; error: { code: number; message: string } }
+export type SuccessResponse<T> = { success: true; data: T }
+
+/**
+ * Unsuccessful response.
+ */
+export type ErrorResponse = {
+  success: false
+  error: { code: number; message: string }
+}
+
+/**
+ * A discriminated union for API responses.
+ *
+ * @template T The data type of the successful response.
+ */
+export type ApiReturn<T> = Resolve<SuccessResponse<T> | ErrorResponse>

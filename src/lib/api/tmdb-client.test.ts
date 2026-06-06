@@ -1,5 +1,5 @@
 import { tmdbClient } from './tmdb-client'
-import type { SuccessResponse } from '@/types/api'
+import type { EndpointSuccessResponse } from '@/types/api'
 import { vi, describe, expect, test, beforeEach } from 'vitest'
 
 describe('tmdbClient', () => {
@@ -46,7 +46,7 @@ describe('tmdbClient', () => {
     mockFetch.mockResolvedValue({
       status: 200,
       ok: true,
-      json: (): SuccessResponse<'GET', '/3/account/{account_id}'> => {
+      json: (): EndpointSuccessResponse<'GET', '/3/account/{account_id}'> => {
         return {
           id: 1,
           include_adult: false,

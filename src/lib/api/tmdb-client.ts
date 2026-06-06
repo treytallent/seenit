@@ -1,4 +1,6 @@
-import { isTmdbError, SuccessResponse, TmdbError } from '@/types/api'
+'use server'
+
+import { isTmdbError, EndpointSuccessResponse, TmdbError } from '@/types/api'
 import type {
   ApiReturn,
   RequestArguments,
@@ -13,7 +15,7 @@ import { buildTmdbRequestArguments } from './build-tmdb-request-arguments'
  * @param method The HTTP method.
  * @param path The API path.
  * @param options TMDB & fetch arguments for the endpoint.
- * @returns Normalised fetch response using the result type pattern.
+ * @returns A promise that resolves to a discriminated union of either a successful or unsuccessful response.
  */
 export async function tmdbClient<
   M extends TmdbHTTPMethods,
@@ -29,12 +31,12 @@ export async function tmdbClient<
      * All successful responses in the schema have a status of 200. However, the TMDB docs claim that successful updates have a 201 status.
      * In case of further discrepancies in the schema, check for a status in the 200 range.
      *
-     * {@link https://developer.themoviedb.org/docs/errors}
+     * @link https://developer.themoviedb.org/docs/errors
      */
     if (!res.ok) {
       throw new InvalidStatusError(json)
     }
-    return createSuccessReturn(json as SuccessResponse<M, P>)
+    return createSuccessReturn(json as EndpointSuccessResponse<M, P>)
   } catch (e) {
     // TODO: log error here.
     if (e instanceof InvalidStatusError && isTmdbError(e.json)) {
@@ -42,10 +44,7 @@ export async function tmdbClient<
     }
     if (e instanceof Error && !(e instanceof InvalidStatusError)) {
       // Handle Fetch API rejected promises & json() SyntaxError.
-      return createErrorReturn({
-        status_code: 0,
-        status_message: e.message,
-      })
+      return createUnknownErrorReturn(e.message)
     }
     return createErrorReturn({
       status_code: 0,
@@ -62,11 +61,39 @@ class InvalidStatusError extends Error {
   }
 }
 
-const createSuccessReturn = <T>(data: T): ApiReturn<T> => {
+/**
+ * Utility for creating a normalised API response.
+ *
+ * @template T The data type.
+ * @returns A successful response containing the provided data.
+ */
+export const createSuccessReturn = <T>(data: T): ApiReturn<T> => {
   return { success: true, data }
 }
 
-const createErrorReturn = <E extends Omit<TmdbError, 'success'>>(
+/**
+ * Utility for creating a normalised API response.
+ *
+ * @returns An unsuccessful response containing error details.
+ */
+export const createUnknownErrorReturn = (
+  message: string = 'An unknown error occured.'
+): ApiReturn<never> => {
+  return {
+    success: false,
+    error: {
+      code: 0,
+      message,
+    },
+  }
+}
+
+/**
+ * Utility for creating a normalised API response.
+ *
+ * @returns An unsuccessful response containing error details.
+ */
+export const createErrorReturn = <E extends Omit<TmdbError, 'success'>>(
   error: E
 ): ApiReturn<never> => {
   return {

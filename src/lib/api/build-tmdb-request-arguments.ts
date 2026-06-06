@@ -7,11 +7,12 @@ import type {
 } from '@/types/api'
 
 /**
- * Type-safe factory that builds fetch request arguments compatible with TMDB's OpenAPI schema.
+ * Utility function for building fetch request arguments compatible with TMDB's OpenAPI schema.
  *
  * @param method The HTTP method.
  * @param path The API path.
  * @param args The API endpoint's arguments.
+ *
  * @returns TMDB OpenAPI compatible fetch arguments.
  */
 export function buildTmdbRequestArguments<
