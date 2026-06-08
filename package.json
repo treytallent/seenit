@@ -9,8 +9,8 @@
     "lint": "eslint",
     "unit": "vitest",
     "unit:watch": "vitest --watch",
-    "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
-    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "e2e": "MSW_ENABLED=true start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
+    "e2e:headless": "MSW_ENABLED=true start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
     "schema:types": "pnpm openapi-typescript src/lib/types/schema/tmdb-api-schema.json -o src/lib/types/schema/tmdb-api-schema.ts && pnpm prettier --write src/lib/types/schema/tmdb-api-schema.ts"
   },
   "dependencies": {
@@ -40,6 +40,7 @@
     "husky": "^9.1.7",
     "jsdom": "^29.0.2",
     "lint-staged": "^16.2.7",
+    "msw": "^2.14.6",
     "openapi-typescript": "^7.13.0",
     "prettier": "^3.7.4",
     "prettier-plugin-organize-imports": "^4.3.0",
