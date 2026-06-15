@@ -1,6 +1,4 @@
 import { tmdbClient } from './tmdb-client'
-import type { EndpointSuccessResponse } from '@/types/api'
-import { vi, describe, expect, test, beforeEach } from 'vitest'
 
 describe('tmdbClient', () => {
   const mockFetch = vi.fn()

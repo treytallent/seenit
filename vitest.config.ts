@@ -7,6 +7,7 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   test: {
+    globals: true,
     environment: 'jsdom',
     coverage: {
       provider: 'v8',
