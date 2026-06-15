@@ -1,13 +1,12 @@
+import { TMDB_API_BASE_URL } from '@/lib/constants'
+import { server } from '@/vitest.setup'
+import { http, HttpResponse } from 'msw'
 import { tmdbClient } from './tmdb-client'
 
 describe('tmdbClient', () => {
-  const mockFetch = vi.fn()
-
-  beforeEach(() => {
-    global.fetch = mockFetch
-  })
-
   test('It calls fetch with valid options', () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch')
+
     tmdbClient('GET', '/3/account/{account_id}', {
       headers: {
         authorization: 'bearer 123',
@@ -24,7 +23,8 @@ describe('tmdbClient', () => {
         account_id: 5678,
       },
     })
-    expect(mockFetch).toHaveBeenCalledWith(
+
+    expect(fetchSpy).toHaveBeenCalledWith(
       'https://api.themoviedb.org/3/account/5678?session_id=1234',
       {
         headers: {
@@ -41,34 +41,41 @@ describe('tmdbClient', () => {
   })
 
   test('It handles TMDB success responses', async () => {
-    mockFetch.mockResolvedValue({
-      status: 200,
-      ok: true,
-      json: (): EndpointSuccessResponse<'GET', '/3/account/{account_id}'> => {
-        return {
-          id: 1,
+    server.use(
+      http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
+        HttpResponse.json({
+          id: 123,
           include_adult: false,
-        }
-      },
-    })
+        })
+      )
+    )
+
     const res = await tmdbClient('GET', '/3/account/{account_id}')
     expect(res).toEqual({
       success: true,
       data: {
-        id: 1,
+        id: 123,
         include_adult: false,
       },
     })
   })
 
   test('It handles TMDB error responses', async () => {
-    mockFetch.mockResolvedValue({
-      status: 401,
-      ok: false,
-      json: () => {
-        return { success: false, status_code: 1, status_message: 'tmdb error' }
-      },
-    })
+    server.use(
+      http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
+        HttpResponse.json(
+          {
+            success: false,
+            status_code: 1,
+            status_message: 'tmdb error',
+          },
+          {
+            status: 401,
+          }
+        )
+      )
+    )
+
     const res = await tmdbClient('GET', '/3/account/{account_id}')
     expect(res).toEqual({
       success: false,
@@ -77,13 +84,14 @@ describe('tmdbClient', () => {
   })
 
   test('It handles unknown errors', async () => {
-    mockFetch.mockResolvedValue({
-      status: 401,
-      ok: false,
-      json: () => {
-        return ''
-      },
-    })
+    server.use(
+      http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
+        HttpResponse.json('', {
+          status: 401,
+        })
+      )
+    )
+
     const res = await tmdbClient('GET', '/3/account/{account_id}')
     expect(res).toEqual({
       success: false,
@@ -92,13 +100,12 @@ describe('tmdbClient', () => {
   })
 
   test('It handles JSON parse errors', async () => {
-    mockFetch.mockResolvedValue({
-      status: 200,
-      ok: true,
-      json: () => {
-        return JSON.parse('<!DOCTYPE html>')
-      },
-    })
+    server.use(
+      http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
+        HttpResponse.html('<!DOCTYPE html>')
+      )
+    )
+
     const res = await tmdbClient('GET', '/3/account/{account_id}')
     expect(res).toEqual({
       success: false,
@@ -110,13 +117,18 @@ describe('tmdbClient', () => {
   })
 
   test('It handles fetch promise rejection', async () => {
-    mockFetch.mockRejectedValue(new TypeError('fetch failed'))
+    server.use(
+      http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
+        HttpResponse.error()
+      )
+    )
+
     const res = await tmdbClient('GET', '/3/account/{account_id}')
     expect(res).toEqual({
       success: false,
       error: {
         code: 0,
-        message: 'fetch failed',
+        message: 'Failed to fetch',
       },
     })
   })
