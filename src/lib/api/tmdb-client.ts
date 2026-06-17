@@ -1,12 +1,10 @@
-'use server'
-
-import { isTmdbError, EndpointSuccessResponse, TmdbError } from '@/types/api'
 import type {
   ApiReturn,
-  RequestArguments,
   HTTPMethodPaths,
+  RequestArguments,
   TmdbHTTPMethods,
 } from '@/types/api'
+import { EndpointSuccessResponse, isTmdbError, TmdbError } from '@/types/api'
 import { buildTmdbRequestArguments } from './build-tmdb-request-arguments'
 
 /**
@@ -21,6 +19,8 @@ export async function tmdbClient<
   M extends TmdbHTTPMethods,
   P extends HTTPMethodPaths<M>,
 >(method: M, path: P, options?: RequestArguments<M, P> & RequestInit) {
+  'use server'
+
   const [url, builtArgs] = buildTmdbRequestArguments(method, path, options)
 
   try {
@@ -101,6 +101,23 @@ export const createErrorReturn = <E extends Omit<TmdbError, 'success'>>(
     error: {
       code: error.status_code,
       message: error.status_message ?? '',
+    },
+  }
+}
+
+/**
+ * Utility for creating a consistent error response.
+ *
+ * @returns An unsuccessful response containing error details.
+ */
+export const createMissingPropertyReturn = (
+  message: string
+): ApiReturn<never> => {
+  return {
+    success: false,
+    error: {
+      code: 500,
+      message,
     },
   }
 }

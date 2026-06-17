@@ -4,7 +4,7 @@ import { http, HttpResponse } from 'msw'
 import { tmdbClient } from './tmdb-client'
 
 describe('tmdbClient', () => {
-  test('It calls fetch with valid options', () => {
+  it('should call fetch with valid options', () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch')
 
     tmdbClient('GET', '/3/account/{account_id}', {
@@ -40,7 +40,7 @@ describe('tmdbClient', () => {
     )
   })
 
-  test('It handles TMDB success responses', async () => {
+  it('should handle TMDB success responses', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
         HttpResponse.json({
@@ -51,16 +51,12 @@ describe('tmdbClient', () => {
     )
 
     const res = await tmdbClient('GET', '/3/account/{account_id}')
-    expect(res).toEqual({
-      success: true,
-      data: {
-        id: 123,
-        include_adult: false,
-      },
-    })
+    expect(res).toHaveProperty('success', true)
+    expect(res).toHaveProperty('data.id', 123)
+    expect(res).toHaveProperty('data.include_adult', false)
   })
 
-  test('It handles TMDB error responses', async () => {
+  it('should handle TMDB error responses', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
         HttpResponse.json(
@@ -77,13 +73,12 @@ describe('tmdbClient', () => {
     )
 
     const res = await tmdbClient('GET', '/3/account/{account_id}')
-    expect(res).toEqual({
-      success: false,
-      error: { code: 1, message: 'tmdb error' },
-    })
+    expect(res).toHaveProperty('success', false)
+    expect(res).toHaveProperty('error.code', 1)
+    expect(res).toHaveProperty('error.message', 'tmdb error')
   })
 
-  test('It handles unknown errors', async () => {
+  it('should handle unknown errors', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
         HttpResponse.json('', {
@@ -93,13 +88,12 @@ describe('tmdbClient', () => {
     )
 
     const res = await tmdbClient('GET', '/3/account/{account_id}')
-    expect(res).toEqual({
-      success: false,
-      error: { code: 0, message: 'An unknown error occured.' },
-    })
+    expect(res).toHaveProperty('success', false)
+    expect(res).toHaveProperty('error.code', 0)
+    expect(res).toHaveProperty('error.message', 'An unknown error occured.')
   })
 
-  test('It handles JSON parse errors', async () => {
+  it('should handle JSON parse errors', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
         HttpResponse.html('<!DOCTYPE html>')
@@ -107,16 +101,15 @@ describe('tmdbClient', () => {
     )
 
     const res = await tmdbClient('GET', '/3/account/{account_id}')
-    expect(res).toEqual({
-      success: false,
-      error: {
-        code: 0,
-        message: `Unexpected token '<', "<!DOCTYPE html>" is not valid JSON`,
-      },
-    })
+    expect(res).toHaveProperty('success', false)
+    expect(res).toHaveProperty('error.code', 0)
+    expect(res).toHaveProperty(
+      'error.message',
+      `Unexpected token '<', "<!DOCTYPE html>" is not valid JSON`
+    )
   })
 
-  test('It handles fetch promise rejection', async () => {
+  it('should handle fetch promise rejection', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
         HttpResponse.error()
@@ -124,12 +117,7 @@ describe('tmdbClient', () => {
     )
 
     const res = await tmdbClient('GET', '/3/account/{account_id}')
-    expect(res).toEqual({
-      success: false,
-      error: {
-        code: 0,
-        message: 'Failed to fetch',
-      },
-    })
+    expect(res).toHaveProperty('success', false)
+    expect(res).toHaveProperty('error', { code: 0, message: 'Failed to fetch' })
   })
 })

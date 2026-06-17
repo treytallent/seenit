@@ -6,4 +6,7 @@ export const handlers = [
   http.get(TMDB_API_BASE_URL.concat('/3/authentication/token/new'), () =>
     HttpResponse.json(fetchNewAuthenticationToken)
   ),
+  http.get(TMDB_API_BASE_URL.concat('/3/authentication/session/new'), () =>
+    HttpResponse.json(fetchNewAuthenticationToken)
+  ),
 ]

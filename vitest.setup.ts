@@ -11,3 +11,9 @@ afterAll(() => server.close())
 
 // Reset handlers after each test for test isolation
 afterEach(() => server.resetHandlers())
+
+// Stub next/headers cookie store.
+vi.mock('next/headers', () => {
+  const store = { get: vi.fn(), set: vi.fn() }
+  return { cookies: vi.fn(async () => store) }
+})
