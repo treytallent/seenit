@@ -3,8 +3,12 @@ import type {
   HTTPMethodPaths,
   RequestArguments,
   TmdbHTTPMethods,
-} from '@/types/api'
-import { EndpointSuccessResponse, isTmdbError, TmdbError } from '@/types/api'
+} from '@/src/lib/api/types'
+import {
+  EndpointSuccessResponse,
+  isTmdbError,
+  TmdbError,
+} from '@/src/lib/api/types'
 import { buildTmdbRequestArguments } from './build-tmdb-request-arguments'
 
 /**

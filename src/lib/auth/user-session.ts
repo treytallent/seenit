@@ -4,15 +4,26 @@ import {
   createErrorReturn,
   createMissingPropertyReturn,
   createSuccessReturn,
+  tmdbClient,
 } from '@/api/tmdb-client'
 import { APP_BASE_URL, TMDB_BASE_URL } from '@/lib/constants'
-import {
-  fetchNewAuthenticationToken,
-  fetchNewSessionId,
-} from '@/src/lib/api/tmdb-auth'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { NextRequest } from 'next/server'
+import { fetchNewAuthenticationToken } from './auth-token'
+
+/**
+ * Create a new TMDB session from an approved authentication token.
+ *
+ * @link https://developer.themoviedb.org/reference/authentication-create-session
+ * @param authToken The authentication token used in the TMDB authentication request.
+ * @returns A promise that resolves to a discriminated union of either a successful or unsuccessful response.
+ */
+export async function fetchNewSessionId(authToken: string) {
+  return tmdbClient('POST', '/3/authentication/session/new', {
+    requestBody: { request_token: authToken },
+  })
+}
 
 /**
  * Redirects the user to TMDB with a new authentication token and requests authentication approval.
@@ -52,7 +63,6 @@ export async function authRedirect() {
  */
 export async function createNewUserSession(request: NextRequest) {
   // TODO: update jsdoc comment & returns comment.
-  // todo: differ returns if success/error and propagate like guest-session.ts
   const searchParams = request.nextUrl.searchParams
 
   const requestApproved = searchParams.get('approved')

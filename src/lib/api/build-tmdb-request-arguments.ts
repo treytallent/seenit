@@ -1,10 +1,10 @@
 import { TMDB_API_BASE_URL } from '@/lib/constants'
-import type { Resolve } from '@/types/utils'
+import type { Resolve } from '@/lib/utils'
 import type {
-  RequestArguments,
   HTTPMethodPaths,
+  RequestArguments,
   TmdbHTTPMethods,
-} from '@/types/api'
+} from '@/src/lib/api/types'
 
 /**
  * Utility function for building fetch request arguments compatible with TMDB's OpenAPI schema.
