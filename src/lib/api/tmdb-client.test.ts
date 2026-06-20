@@ -25,7 +25,7 @@ describe('tmdbClient', () => {
     })
 
     expect(fetchSpy).toHaveBeenCalledWith(
-      'https://api.themoviedb.org/3/account/5678?session_id=1234',
+      'https://api.themoviedb.org/3/account/5678?api_key=stubbed-api-key&session_id=1234',
       {
         headers: {
           authorization: 'bearer 123',
