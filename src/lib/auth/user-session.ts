@@ -27,7 +27,6 @@ export async function fetchNewSessionId(authToken: string) {
 
 /**
  * Redirects the user to TMDB with a new authentication token and requests authentication approval.
- * todo: rename to getTmdbAuthApproval? or authApproval?
  *
  * @link https://developer.themoviedb.org/reference/authentication-how-do-i-generate-a-session-id
  * @returns A promise that resolves to an unsuccessful response including error details, or void if successful.
@@ -56,13 +55,11 @@ export async function authRedirect() {
 
 /**
  * Create a new TMDB session and stores its ID in cookies.
- * Runs in proxy on '/auth' paths where it validates the TMDB approval request.
  *
- * @param req
- * @returns  A promise that resolves to an unsuccessful response including error details, or void if successful.
+ * @param request TMDB authentication approval redirect request.
+ * @returns A promise that resolves to a discriminated union of either a successful or unsuccessful response.
  */
 export async function createNewUserSession(request: NextRequest) {
-  // TODO: update jsdoc comment & returns comment.
   const searchParams = request.nextUrl.searchParams
 
   const requestApproved = searchParams.get('approved')
