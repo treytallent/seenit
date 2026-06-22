@@ -31,7 +31,7 @@ export async function fetchNewSessionId(authToken: string) {
  * @link https://developer.themoviedb.org/reference/authentication-how-do-i-generate-a-session-id
  * @returns A promise that resolves to an unsuccessful response including error details, or void if successful.
  */
-export async function authRedirect() {
+export async function authRedirect(previousPathname: string) {
   const res = await fetchNewAuthenticationToken()
 
   if (!res.success) {
@@ -43,6 +43,13 @@ export async function authRedirect() {
       'Missing request_token in TMDB response.'
     )
   }
+
+  const cookieStore = await cookies()
+  cookieStore.set('previousPathname', previousPathname, {
+    httpOnly: true,
+    secure: true,
+    path: '/',
+  })
 
   const redirectURL = new URL(
     `/authenticate/${res.data.request_token}`,
