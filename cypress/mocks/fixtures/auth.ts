@@ -5,7 +5,7 @@ export const fetchNewAuthenticationToken: EndpointSuccessResponse<
   '/3/authentication/token/new'
 > = {
   success: true,
-  request_token: 'abc123',
+  request_token: 'stubbed-auth-token',
 }
 
 export const fetchNewSessionId: EndpointSuccessResponse<
@@ -13,5 +13,5 @@ export const fetchNewSessionId: EndpointSuccessResponse<
   '/3/authentication/session/new'
 > = {
   success: true,
-  session_id: 'foobar',
+  session_id: 'stubbed-session-id',
 }

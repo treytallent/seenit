@@ -9,7 +9,7 @@
     "lint": "eslint",
     "unit": "vitest",
     "unit:watch": "vitest --watch",
-    "e2e": "MSW_ENABLED=true start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
+    "e2e": "MSW_ENABLED=true start-server-and-test dev http://localhost:3000 \"cypress open --e2e --browser electron\"",
     "e2e:headless": "MSW_ENABLED=true start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
     "schema:types": "pnpm openapi-typescript src/lib/types/schema/tmdb-api-schema.json -o src/lib/types/schema/tmdb-api-schema.ts && pnpm prettier --write src/lib/types/schema/tmdb-api-schema.ts"
   },

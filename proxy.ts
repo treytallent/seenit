@@ -10,10 +10,15 @@ export default async function proxy(request: NextRequest) {
     return redirectHomeResponse(request)
   }
 
-  request.headers.append('previous-pathname', previousPathname)
+  const response = NextResponse.next({
+    request: {
+      headers: new Headers(request.headers),
+    },
+  })
+  response.headers.set('x-previous-pathname', previousPathname)
   cookieStore.delete('previousPathname')
 
-  return NextResponse.next()
+  return response
 }
 
 export const config = {
