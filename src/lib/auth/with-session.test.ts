@@ -33,7 +33,7 @@ async function getGuestMovieStates() {
 }
 
 describe('withUserSession', () => {
-  it("Should append the user's session ID to the request's query params", async () => {
+  it("appends the user's session ID to the request's query params", async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch')
 
     const cookieStore = await cookies()
@@ -47,7 +47,7 @@ describe('withUserSession', () => {
     )
   })
 
-  it("Should not append a missing user session ID to the request's paths", async () => {
+  it("does not append a missing user session ID to the request's paths", async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch')
 
     await getUserFavourites()
@@ -60,7 +60,7 @@ describe('withUserSession', () => {
 })
 
 describe('withGuestSession', () => {
-  it("Should append the user's guest session ID to the request's query params", async () => {
+  it("appends the user's guest session ID to the request's query params", async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch')
 
     const cookieStore = await cookies()
@@ -74,7 +74,7 @@ describe('withGuestSession', () => {
     )
   })
 
-  it("Should not append a missing guest session ID to the request's paths", async () => {
+  it("does not append a missing guest session ID to the request's paths", async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch')
 
     await getGuestMovieStates()

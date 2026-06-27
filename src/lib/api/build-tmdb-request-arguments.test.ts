@@ -13,7 +13,7 @@ describe('buildTmdbRequestArguments', () => {
     expected: ReturnType<typeof buildTmdbRequestArguments>
   }> = [
     {
-      it: 'Should replace path sections, append multiple query params, add header content-type, convert requestBody to JSON & forward additional properties.',
+      it: 'replaces path sections, append multiple query params, add header content-type, convert requestBody to JSON & forward additional properties',
       args: {
         cache: 'force-cache',
         query: {
@@ -40,7 +40,7 @@ describe('buildTmdbRequestArguments', () => {
       ],
     },
     {
-      it: "It should not modify the URL's dynamic sections or append query params.",
+      it: "does not modify the URL's dynamic sections or append query params",
       args: undefined,
       expected: [
         'https://api.themoviedb.org/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating?api_key=stubbed-api-key',
@@ -48,7 +48,7 @@ describe('buildTmdbRequestArguments', () => {
       ],
     },
     {
-      it: 'It should not append missing query parameters to the URL.',
+      it: 'does not append missing query parameters to the URL',
       args: {
         query: {},
         path: {
@@ -68,7 +68,7 @@ describe('buildTmdbRequestArguments', () => {
       ],
     },
     {
-      it: 'It should not append undefined query parameters to the URL.',
+      it: 'does not append undefined query parameters to the URL',
       args: {
         query: { guest_session_id: undefined },
         path: {
@@ -88,7 +88,7 @@ describe('buildTmdbRequestArguments', () => {
       ],
     },
     {
-      it: 'It should not append undefined query parameters to the URL.',
+      it: 'does not append undefined query parameters to the URL',
       args: {
         query: {
           guest_session_id: undefined,
@@ -111,7 +111,7 @@ describe('buildTmdbRequestArguments', () => {
       ],
     },
     {
-      it: 'It should only append defined query parameters to the URL.',
+      it: 'only appends defined query parameters to the URL',
       args: {
         query: {
           guest_session_id: '123',
@@ -134,7 +134,7 @@ describe('buildTmdbRequestArguments', () => {
       ],
     },
     {
-      it: 'It should append multiple query parameters to the URL.',
+      it: 'appends multiple query parameters to the URL',
       args: {
         query: {
           guest_session_id: '123',

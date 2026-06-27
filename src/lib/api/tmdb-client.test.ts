@@ -4,7 +4,7 @@ import { http, HttpResponse } from 'msw'
 import { tmdbClient } from './tmdb-client'
 
 describe('tmdbClient', () => {
-  it('should call fetch with valid options', () => {
+  it('calls fetch with valid options', () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch')
 
     tmdbClient('GET', '/3/account/{account_id}', {
@@ -40,7 +40,7 @@ describe('tmdbClient', () => {
     )
   })
 
-  it('should handle TMDB success responses', async () => {
+  it('handles TMDB success responses', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
         HttpResponse.json({
@@ -56,7 +56,7 @@ describe('tmdbClient', () => {
     expect(res).toHaveProperty('data.include_adult', false)
   })
 
-  it('should handle TMDB error responses', async () => {
+  it('handles TMDB error responses', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
         HttpResponse.json(
@@ -78,7 +78,7 @@ describe('tmdbClient', () => {
     expect(res).toHaveProperty('error.message', 'tmdb error')
   })
 
-  it('should handle unknown errors', async () => {
+  it('handles unknown errors', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
         HttpResponse.json('', {
@@ -93,7 +93,7 @@ describe('tmdbClient', () => {
     expect(res).toHaveProperty('error.message', 'An unknown error occured.')
   })
 
-  it('should handle JSON parse errors', async () => {
+  it('handles JSON parse errors', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
         HttpResponse.html('<!DOCTYPE html>')
@@ -109,7 +109,7 @@ describe('tmdbClient', () => {
     )
   })
 
-  it('should handle fetch promise rejection', async () => {
+  it('handles fetch promise rejection', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/account/:account_id'), () =>
         HttpResponse.error()

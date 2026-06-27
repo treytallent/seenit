@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 import { createNewGuestSession } from './guest-session'
 
 describe('createNewGuestSession', () => {
-  it('should return an error for non 200 responses', async () => {
+  it('returns an error for non 200 responses', async () => {
     server.use(
       http.get(
         TMDB_API_BASE_URL.concat('/3/authentication/guest_session/new'),
@@ -26,7 +26,7 @@ describe('createNewGuestSession', () => {
     expect(res).toHaveProperty('error')
   })
 
-  it('should return an error when a 200 response is missing a guest session id', async () => {
+  it('returns an error when a 200 response is missing a guest session id', async () => {
     server.use(
       http.get(
         TMDB_API_BASE_URL.concat('/3/authentication/guest_session/new'),
@@ -45,7 +45,7 @@ describe('createNewGuestSession', () => {
     expect(res).toHaveProperty('error')
   })
 
-  it('should create a new guest session stored in cookies', async () => {
+  it('creates a new guest session stored in cookies', async () => {
     server.use(
       http.get(
         TMDB_API_BASE_URL.concat('/3/authentication/guest_session/new'),

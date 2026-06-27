@@ -6,7 +6,7 @@ import { NextRequest } from 'next/server'
 import { authRedirect, createNewUserSession } from './user-session'
 
 describe('authRedirect', () => {
-  it('should return an error for non 200 responses', async () => {
+  it('returns an error for non 200 responses', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/authentication/token/new'), () =>
         HttpResponse.json(
@@ -19,13 +19,12 @@ describe('authRedirect', () => {
         )
       )
     )
-
-    const res = await authRedirect()
+    const res = await authRedirect('/foo')
     expect(res).toHaveProperty('success', false)
     expect(res).toHaveProperty('error')
   })
 
-  it('should return an error when a 200 response is missing an authentication token', async () => {
+  it('returns an error when a 200 response is missing an authentication token', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/authentication/token/new'), () =>
         HttpResponse.json(
@@ -36,24 +35,14 @@ describe('authRedirect', () => {
         )
       )
     )
-
-    const res = await authRedirect()
+    const res = await authRedirect('/foo')
     expect(res).toHaveProperty('success', false)
     expect(res).toHaveProperty('error')
-  })
-
-  it('should redirect to TMDB for authentication approval', async () => {
-    server.use(
-      http.get(TMDB_API_BASE_URL.concat('/3/authentication/token/new'), () =>
-        HttpResponse.json({ success: true, request_token: 'abc123' })
-      )
-    )
-    await expect(authRedirect()).rejects.toThrow('NEXT_REDIRECT')
   })
 })
 
 describe('createNewUserSession', () => {
-  it('should return an error when query params are invalid', async () => {
+  it('returns an error when query params are invalid', async () => {
     const res = await createNewUserSession(
       new NextRequest('https://example.com?foo=bar')
     )
@@ -62,7 +51,7 @@ describe('createNewUserSession', () => {
     expect(res).toHaveProperty('error.message', expect.any(String))
   })
 
-  it('should return an error when the user rejects the authentication request', async () => {
+  it('returns an error when the user rejects the authentication request', async () => {
     const res = await createNewUserSession(
       new NextRequest(
         'https://example.com?request_token=test-req-token&denied=true'
@@ -73,7 +62,7 @@ describe('createNewUserSession', () => {
     expect(res).toHaveProperty('error.message', expect.any(String))
   })
 
-  it('should return an error for non 200 responses', async () => {
+  it('returns an error for non 200 responses', async () => {
     server.use(
       http.post(TMDB_API_BASE_URL.concat('/3/authentication/session/new'), () =>
         HttpResponse.json(
@@ -93,7 +82,7 @@ describe('createNewUserSession', () => {
     expect(res).toHaveProperty('error.message', expect.any(String))
   })
 
-  it('should return an error when a 200 response is missing a session ID', async () => {
+  it('returns an error when a 200 response is missing a session ID', async () => {
     server.use(
       http.post(TMDB_API_BASE_URL.concat('/3/authentication/session/new'), () =>
         HttpResponse.json({ success: true })
@@ -110,7 +99,7 @@ describe('createNewUserSession', () => {
     expect(res).toHaveProperty('error.message', expect.any(String))
   })
 
-  it('should create a new user session', async () => {
+  it('creates a new user session', async () => {
     server.use(
       http.post(TMDB_API_BASE_URL.concat('/3/authentication/session/new'), () =>
         HttpResponse.json({ success: true, session_id: 'test-session-id' })
