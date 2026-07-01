@@ -1,14 +1,16 @@
+'use server'
+
 import type {
-  ApiReturn,
   HTTPMethodPaths,
   RequestArguments,
   TmdbHTTPMethods,
-} from '@/src/lib/api/types'
+} from '@/lib/api/types'
+import { EndpointSuccessResponse, isTmdbError } from '@/lib/api/types'
 import {
-  EndpointSuccessResponse,
-  isTmdbError,
-  TmdbError,
-} from '@/src/lib/api/types'
+  createErrorReturn,
+  createSuccessReturn,
+  createUnknownErrorReturn,
+} from '@/lib/create-return'
 import { buildTmdbRequestArguments } from './build-tmdb-request-arguments'
 
 /**
@@ -62,66 +64,5 @@ class InvalidStatusError extends Error {
   constructor(json: unknown) {
     super('InvalidStatusError')
     this.json = json
-  }
-}
-
-/**
- * Utility for creating a normalised API response.
- *
- * @template T The data type.
- * @returns A successful response containing the provided data.
- */
-export const createSuccessReturn = <T>(data: T): ApiReturn<T> => {
-  return { success: true, data }
-}
-
-/**
- * Utility for creating a normalised API response.
- *
- * @returns An unsuccessful response containing error details.
- */
-export const createUnknownErrorReturn = (
-  message: string = 'An unknown error occured.'
-): ApiReturn<never> => {
-  return {
-    success: false,
-    error: {
-      code: 0,
-      message,
-    },
-  }
-}
-
-/**
- * Utility for creating a normalised API response.
- *
- * @returns An unsuccessful response containing error details.
- */
-export const createErrorReturn = <E extends Omit<TmdbError, 'success'>>(
-  error: E
-): ApiReturn<never> => {
-  return {
-    success: false,
-    error: {
-      code: error.status_code,
-      message: error.status_message ?? '',
-    },
-  }
-}
-
-/**
- * Utility for creating a consistent error response.
- *
- * @returns An unsuccessful response containing error details.
- */
-export const createMissingPropertyReturn = (
-  message: string
-): ApiReturn<never> => {
-  return {
-    success: false,
-    error: {
-      code: 500,
-      message,
-    },
   }
 }
