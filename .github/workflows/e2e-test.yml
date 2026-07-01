@@ -16,21 +16,22 @@ jobs:
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
         with:
-          version: 11.9.0
+          version: 10
 
-      - name: Install node.js
+      - name: Install Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm install
 
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps
@@ -53,21 +54,22 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
         with:
-          version: 11.9.0
+          version: 10
 
-      - name: Install node.js
+      - name: Install Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm install
 
       - name: Download blob reports from GitHub Actions Artifacts
         uses: actions/download-artifact@v5
