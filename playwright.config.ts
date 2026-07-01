@@ -8,6 +8,7 @@ const baseURL = `http://localhost:${PORT}`
 export default defineConfig({
   timeout: 30 * 1000,
   testDir: path.join(__dirname, 'e2e'),
+  reporter: process.env.CI ? 'blob' : 'html',
   retries: 0,
   outputDir: path.join(__dirname, 'e2e/results'),
   webServer: {
@@ -22,8 +23,28 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'Desktop Chrome',
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
+    {
+      name: 'Desktop Firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+      },
+    },
+    {
+      name: 'Desktop Safari',
+      use: {
+        ...devices['Desktop Safari'],
+      },
+    },
+    {
+      name: 'Mobile Safari',
+      use: {
+        ...devices['iPhone 12 Pro'],
+      },
     },
   ],
 })
