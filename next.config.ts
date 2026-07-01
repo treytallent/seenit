@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(dirname),
   },
+  experimental: {
+    testProxy: true,
+  },
 }
 
 export default nextConfig

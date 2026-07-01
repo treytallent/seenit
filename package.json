@@ -9,7 +9,7 @@
     "lint": "eslint",
     "unit": "vitest",
     "unit:watch": "vitest --watch",
-    "e2e": "MSW_ENABLED=true start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
+    "e2e": "playwright test --ui",
     "e2e:headless": "MSW_ENABLED=true start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
     "schema:types": "pnpm openapi-typescript src/lib/types/schema/tmdb-api-schema.json -o src/lib/types/schema/tmdb-api-schema.ts && pnpm prettier --write src/lib/types/schema/tmdb-api-schema.ts"
   },
@@ -26,6 +26,7 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.2",
