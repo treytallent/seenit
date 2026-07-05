@@ -3,7 +3,7 @@ import path from 'path'
 
 const PORT = process.env.PORT || 3000
 
-const baseURL = `http://localhost:${PORT}`
+const baseURL = `https://localhost:${PORT}`
 
 export default defineConfig({
   timeout: 30 * 1000,
@@ -12,14 +12,16 @@ export default defineConfig({
   retries: 0,
   outputDir: path.join(__dirname, 'e2e/results'),
   webServer: {
-    command: 'pnpm dev',
+    command: 'pnpm next dev --experimental-https',
     url: baseURL,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
+    ignoreHTTPSErrors: true,
   },
   use: {
     baseURL,
     trace: 'retry-with-trace',
+    ignoreHTTPSErrors: true,
   },
   projects: [
     {
