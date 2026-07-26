@@ -6,7 +6,6 @@ import { Heading } from '@/components/ui/heading'
 import { Text } from '@/components/ui/text'
 
 export default function Error({
-  error,
   reset,
 }: {
   error: Error & { digest?: string }
