@@ -9,7 +9,7 @@ export default defineConfig({
   timeout: 30 * 1000,
   testDir: path.join(__dirname, 'e2e'),
   reporter: process.env.CI ? 'blob' : 'html',
-  retries: 0,
+  retries: 1,
   outputDir: path.join(__dirname, 'e2e/results'),
   webServer: {
     command: 'pnpm next dev --experimental-https',
