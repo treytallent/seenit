@@ -4,13 +4,22 @@ import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { Heading } from '@/components/ui/heading'
 import { Text } from '@/components/ui/text'
+import * as Sentry from '@sentry/nextjs'
+import { useEffect } from 'react'
 
 export default function Error({
+  error,
   reset,
 }: {
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  useEffect(() => {
+    Sentry.captureException(error, {
+      tags: { boundary: 'root' },
+    })
+  }, [error])
+
   return (
     <>
       <Container className="my-auto -mt-12 flex h-screen max-h-192 max-w-xl flex-col items-center justify-center">
