@@ -1,8 +1,10 @@
 import '@/app/globals.css'
 import { Footer } from '@/components/Footer'
 import { Toaster } from '@/features/toast/Toaster'
-import { Navigation } from '@/src/components/Navigation/Navigation'
+import { SessionProvider } from '@/src/components/Auth/SessionProvider'
+import { NavigationLayout } from '@/src/components/Navigation/NavigationLayout'
 import { getFlashCookie } from '@/src/features/toast/flash'
+import { getSession } from '@/src/lib/auth/get-session'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Suspense } from 'react'
@@ -27,6 +29,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   const flashCookiePromise = getFlashCookie()
+  const sessionPromise = getSession()
 
   return (
     <html
@@ -41,12 +44,14 @@ export default function RootLayout({
           '[--body-x:--spacing(6)] lg:[--body-x:--spacing(8)]'
         )}
       >
-        <Navigation />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <Suspense>
-          <Toaster flashCookiePromise={flashCookiePromise} />
-        </Suspense>
+        <SessionProvider sessionPromise={sessionPromise}>
+          <NavigationLayout />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <Suspense>
+            <Toaster flashCookiePromise={flashCookiePromise} />
+          </Suspense>
+        </SessionProvider>
       </body>
     </html>
   )

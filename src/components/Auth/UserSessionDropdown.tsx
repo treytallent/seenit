@@ -30,7 +30,7 @@ const links: Link[] = [
   },
 ]
 
-export function AccountDropdown({ ...props }: Headless.MenuProps) {
+export function UserSessionDropdown({ ...props }: Headless.MenuProps) {
   return (
     <Dropdown {...props}>
       <DropdownButton size="sm" as={Button}>

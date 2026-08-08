@@ -14,7 +14,7 @@ const styles = {
     // Disabled
     'data-disabled:opacity-50',
     // Icon
-    '*:[svg]:size-5 sm:*:[svg]:size-4  *:[svg]:shrink-0 *:[svg]:self-center *:[svg]:text-(--btn-icon) forced-colors:[--btn-icon:ButtonText] forced-colors:data-hover:[--btn-icon:ButtonText]',
+    '[--svg-size:--spacing(5)] sm:[--svg-size:--spacing(4)] *:[svg]:size-(--svg-size) *:[svg]:shrink-0 *:[svg]:self-center *:[svg]:text-(--btn-icon) forced-colors:[--btn-icon:ButtonText] forced-colors:data-hover:[--btn-icon:ButtonText]',
     // Transition
     'transition data-active:scale-(--active-scale)',
   ],
@@ -43,7 +43,7 @@ const styles = {
     // White overlay on hover
     'data-active:after:bg-(--btn-hover-overlay) data-hover:after:bg-(--btn-hover-overlay)',
     // Disabled
-    'data-disabled:before:shadow-none data-disabled:after:shadow-none',
+    'data-disabled:after:shadow-none',
   ],
   plain: [
     // Font weight

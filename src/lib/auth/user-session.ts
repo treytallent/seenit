@@ -26,12 +26,12 @@ export async function fetchNewSessionId(authToken: string) {
 }
 
 /**
- * Redirects the user to TMDB with a new authentication token and requests authentication approval.
+ * Constructs the TMDB url used for requesting authentication approval.
  *
  * @link https://developer.themoviedb.org/reference/authentication-how-do-i-generate-a-session-id
- * @returns A promise that resolves to an unsuccessful response including error details, or void if successful.
+ * @returns A promise that resolves to a discriminated union of either a successful or unsuccessful response.
  */
-export async function authRedirect(previousPathname: string) {
+export async function buildAuthRedirectUrl() {
   const res = await fetchNewAuthenticationToken()
 
   if (!res.success) {
@@ -44,6 +44,23 @@ export async function authRedirect(previousPathname: string) {
     )
   }
 
+  const redirectURL = new URL(
+    `/authenticate/${res.data.request_token}`,
+    TMDB_BASE_URL
+  )
+  redirectURL.searchParams.set('redirect_to', `${APP_BASE_URL}/api/auth`)
+
+  return createSuccessReturn(redirectURL.toString())
+}
+
+/**
+ * Sets the previousPathname cookie before redirecting to the provided url.
+ * @returns void
+ */
+export async function redirectWithPreviousPathname(
+  redirectUrl: string,
+  previousPathname: string
+) {
   const cookieStore = await cookies()
   cookieStore.set('previousPathname', previousPathname, {
     httpOnly: true,
@@ -51,13 +68,7 @@ export async function authRedirect(previousPathname: string) {
     path: '/',
   })
 
-  const redirectURL = new URL(
-    `/authenticate/${res.data.request_token}`,
-    TMDB_BASE_URL
-  )
-  redirectURL.searchParams.set('redirect_to', `${APP_BASE_URL}/api/auth`)
-
-  redirect(redirectURL.toString())
+  redirect(redirectUrl)
 }
 
 /**
