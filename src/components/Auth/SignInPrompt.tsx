@@ -25,7 +25,6 @@ const copyMap: { [K in AuthActions]: string } = {
   save: 'Saving your favourite movies and TV shows requires a TMDB account.',
 }
 
-// todo: e2e tests
 export function SignInPrompt({ action }: SignInPromptProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [height, setHeight] = useState(0)
@@ -54,7 +53,9 @@ export function SignInPrompt({ action }: SignInPromptProps) {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Sign In</Button>
+      <Button data-testid="sign-in-dialog" onClick={() => setIsOpen(true)}>
+        Sign In
+      </Button>
 
       <Alert open={isOpen} onClose={setIsOpen}>
         <MotionConfig
@@ -109,6 +110,7 @@ export function SignInPrompt({ action }: SignInPromptProps) {
                           plain
                           disabled={isNewGuestSessionPending}
                           className="data-disabled:opacity-100! sm:*:[svg]:my-0.5! sm:*:[svg]:size-5"
+                          data-testid="sign-in-guest"
                         >
                           {isNewGuestSessionPending ? (
                             <LoadingSpinner />
@@ -123,6 +125,7 @@ export function SignInPrompt({ action }: SignInPromptProps) {
                         color="purple"
                         className="*:[svg]:-my-2! sm:*:[svg]:size-6"
                         disabled={isNewGuestSessionPending}
+                        data-testid="sign-in-tmdb"
                       >
                         <TmdbLogoPrimaryFull />
                         Continue with TMDB

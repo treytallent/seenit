@@ -31,7 +31,8 @@ const getCookie = async (p: Page, cookieName: string) =>
 
 it('redirects to TMDB for authentication approval', async ({ page }) => {
   await page.goto('/')
-  await page.locator('[data-testid=submit-auth-redirect]').click()
+  await page.getByTestId('sign-in-dialog').click()
+  await page.getByTestId('sign-in-tmdb').click()
 
   await expect(page).toHaveURL(
     `${TMDB_BASE_URL}/authenticate/stubbed-auth-token?redirect_to=` +
