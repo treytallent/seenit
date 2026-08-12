@@ -12,7 +12,16 @@ import { refresh } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { NextRequest } from 'next/server'
-import { fetchNewAuthenticationToken } from './auth-token'
+
+/**
+ * Get a authentication token from TMDB for user authentication.
+ *
+ * @link https://developer.themoviedb.org/reference/authentication-create-request-token
+ * @returns A promise that resolves to a discriminated union of either a successful or unsuccessful response.
+ */
+async function fetchNewAuthenticationToken() {
+  return tmdbClient('GET', '/3/authentication/token/new')
+}
 
 /**
  * Create a new TMDB session from an approved authentication token.
