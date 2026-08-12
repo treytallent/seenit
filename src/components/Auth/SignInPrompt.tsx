@@ -18,7 +18,15 @@ import { usePathname } from 'next/navigation'
 import { startTransition, useActionState, useCallback, useState } from 'react'
 import { NavigationAuthButton } from '../Navigation/NavigationAuth'
 
+/**
+ * Guest sessions can only rate media.
+ * Their documentation claims guest sessions can maintain lists, but this is incorrect.
+ * The purpose of this type is for identifying actions to conditionally display valid authentication options.
+ *
+ * @link https://www.themoviedb.org/talk/65f90f7107e2810163c109a6
+ */
 type AuthActions = 'rate' | 'save'
+
 type SignInPromptProps = { action: AuthActions }
 
 const copyMap: { [K in AuthActions]: string } = {
