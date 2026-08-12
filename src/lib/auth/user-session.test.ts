@@ -3,9 +3,9 @@ import { server } from '@/vitest.setup'
 import { http, HttpResponse } from 'msw'
 import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
-import { authRedirect, createNewUserSession } from './user-session'
+import { buildAuthRedirectUrl, createNewUserSession } from './user-session'
 
-describe('authRedirect', () => {
+describe('buildAuthRedirectUrl', () => {
   it('returns an error for non 200 responses', async () => {
     server.use(
       http.get(TMDB_API_BASE_URL.concat('/3/authentication/token/new'), () =>
@@ -19,7 +19,7 @@ describe('authRedirect', () => {
         )
       )
     )
-    const res = await authRedirect('/foo')
+    const res = await buildAuthRedirectUrl()
     expect(res).toHaveProperty('success', false)
     expect(res).toHaveProperty('error')
   })
@@ -35,7 +35,7 @@ describe('authRedirect', () => {
         )
       )
     )
-    const res = await authRedirect('/foo')
+    const res = await buildAuthRedirectUrl()
     expect(res).toHaveProperty('success', false)
     expect(res).toHaveProperty('error')
   })
