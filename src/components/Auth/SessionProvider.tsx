@@ -3,9 +3,9 @@
 import { getSession } from '@/src/lib/auth/get-session'
 import { createContext, use, useContext } from 'react'
 
-type UserSession = ReturnType<typeof getSession>
+type Session = ReturnType<typeof getSession>
 
-const SessionContext = createContext<UserSession | null>(null)
+const SessionContext = createContext<Session | null>(null)
 
 export function useSession() {
   const sessionPromise = useContext(SessionContext)
@@ -20,7 +20,7 @@ export function SessionProvider({
   sessionPromise,
 }: {
   children: React.ReactNode
-  sessionPromise: UserSession
+  sessionPromise: Session
 }) {
   return <SessionContext value={sessionPromise}>{children}</SessionContext>
 }

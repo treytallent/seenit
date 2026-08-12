@@ -83,7 +83,7 @@ type ButtonProps = (
 ) & {
   size?: keyof typeof styles.size
   className?: string
-  children: React.ReactNode
+  children?: React.ReactNode
 } & (
     | Omit<Headless.ButtonProps, 'as' | 'className'>
     | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>

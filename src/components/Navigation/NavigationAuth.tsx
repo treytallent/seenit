@@ -1,8 +1,11 @@
 'use client'
 
+import { UserIcon } from 'lucide-react'
+import { type ComponentProps } from 'react'
 import { useSession } from '../Auth/SessionProvider'
 import { SignInPrompt } from '../Auth/SignInPrompt'
 import { UserSessionDropdown } from '../Auth/UserSessionDropdown'
+import { Button } from '../ui/button'
 
 export function NavigationAuth() {
   const session = useSession()
@@ -14,12 +17,16 @@ export function NavigationAuth() {
 
   const isGuest = session && session.isGuest
   if (isGuest) {
-    return 'guest user'
+    return <SignInPrompt action="save" />
   }
 
-  return <UserSessionDropdown />
+  return <UserSessionDropdown userSession={session} />
 }
 
-export function NavigationAuthSkeleton() {
-  return <div>Placeholder</div>
+export function NavigationAuthButton(props: ComponentProps<typeof Button>) {
+  return (
+    <Button {...props} size="sm">
+      <UserIcon />
+    </Button>
+  )
 }

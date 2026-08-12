@@ -1,53 +1,64 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
   Dropdown,
   DropdownButton,
   DropdownItem,
   DropdownLabel,
   DropdownMenu,
-  type itemColors as dropdownColors,
 } from '@/components/ui/dropdown'
+import { type UserSession } from '@/src/lib/auth/get-session'
+import { deleteUserSession } from '@/src/lib/auth/user-session'
 import * as Headless from '@headlessui/react'
-import { LogOut, UserRound } from 'lucide-react'
-import React from 'react'
+import { UserIcon } from 'lucide-react'
+import { startTransition, useActionState } from 'react'
+import { NavigationAuthButton } from '../Navigation/NavigationAuth'
+import { LoadingSpinner } from '../ui/icons/loading-spinner'
 
-type Link = {
-  title: string
-  url: string
-  color?: keyof typeof dropdownColors
-  icon?: React.ReactNode
-}
-
-// todo: links
-const links: Link[] = [
-  {
-    title: 'Sign Out',
-    url: '',
-    color: 'red',
-    icon: <LogOut />,
-  },
-]
-
-export function UserSessionDropdown({ ...props }: Headless.MenuProps) {
+export function UserSessionDropdown({
+  userSession,
+  ...props
+}: { userSession: UserSession } & Headless.MenuProps) {
   return (
     <Dropdown {...props}>
-      <DropdownButton size="sm" as={Button}>
-        <UserRound />
-      </DropdownButton>
+      <DropdownButton
+        data-testid="user-session-dropdown"
+        as={NavigationAuthButton}
+      />
       <DropdownMenu anchor="bottom">
-        {links.map((link) => (
-          <DropdownItem
-            key={link.title}
-            color={link.color ?? 'dark'}
-            href={link.url}
-          >
-            {link.icon && link.icon}
-            <DropdownLabel>{link.title}</DropdownLabel>
-          </DropdownItem>
-        ))}
+        <UserDropdown />
       </DropdownMenu>
     </Dropdown>
+  )
+}
+
+function UserDropdown() {
+  const [_, action, pending] = useActionState(deleteUserSession, null)
+
+  return (
+    <>
+      <DropdownItem>
+        <UserIcon />
+        <DropdownLabel> Foo</DropdownLabel>
+      </DropdownItem>
+      <DropdownItem
+        data-testid="user-sign-out"
+        color="red"
+        disabled={pending}
+        className="has-data-[slot=loading-icon]:bg-transparent! data-disabled:has-data-[slot=loading-icon]:opacity-100"
+        onClick={(e: React.MouseEvent) => {
+          e.preventDefault() // Prevent closing the dropdown menu. https://headlessui.com/react/menu#closing-menus-manually
+          startTransition(action)
+        }}
+      >
+        {pending ? (
+          <DropdownLabel className="flex h-6 items-center justify-self-center">
+            <LoadingSpinner className="size-4" />
+          </DropdownLabel>
+        ) : (
+          <DropdownLabel>Sign out</DropdownLabel>
+        )}
+      </DropdownItem>
+    </>
   )
 }

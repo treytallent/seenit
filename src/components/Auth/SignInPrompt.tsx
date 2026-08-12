@@ -16,6 +16,7 @@ import {
 import { AnimatePresence, motion, MotionConfig, resize } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { startTransition, useActionState, useCallback, useState } from 'react'
+import { NavigationAuthButton } from '../Navigation/NavigationAuth'
 
 type AuthActions = 'rate' | 'save'
 type SignInPromptProps = { action: AuthActions }
@@ -53,9 +54,10 @@ export function SignInPrompt({ action }: SignInPromptProps) {
 
   return (
     <>
-      <Button data-testid="sign-in-dialog" onClick={() => setIsOpen(true)}>
-        Sign In
-      </Button>
+      <NavigationAuthButton
+        data-testid="sign-in-dialog"
+        onClick={() => setIsOpen(true)}
+      />
 
       <Alert open={isOpen} onClose={setIsOpen}>
         <MotionConfig

@@ -80,3 +80,16 @@ it('authenticates the user and redirects to value of their previousPathname cook
 
   await expect(page).toHaveURL(`${APP_BASE_URL}/foo`)
 })
+
+it('signs out an authenticated user', async ({ page }) => {
+  await page
+    .context()
+    .addCookies([{ name: 'sessionId', value: '123456', url: APP_BASE_URL }])
+  await page.goto('/')
+
+  await page.getByTestId('user-session-dropdown').click()
+  await page.getByTestId('user-sign-out').click()
+
+  await expect(page.getByTestId('sign-in-dialog')).toBeAttached()
+  expect(await getCookie(page, 'sessionId')).toBeUndefined()
+})

@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import { MenuItems } from './MenuItems'
 import { MobilePopover } from './MobilePopover'
 import { Navigation } from './Navigation'
-import { NavigationAuth, NavigationAuthSkeleton } from './NavigationAuth'
+import { NavigationAuth, NavigationAuthButton } from './NavigationAuth'
 
 export function NavigationLayout() {
   return (
@@ -20,7 +20,7 @@ export function NavigationLayout() {
         <MenuItems className="max-sm:hidden" />
 
         <div className="flex items-center gap-3">
-          <Suspense fallback={<NavigationAuthSkeleton />}>
+          <Suspense fallback={<NavigationAuthButton />}>
             <NavigationAuth />
           </Suspense>
           <SearchDialog />

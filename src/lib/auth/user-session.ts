@@ -7,6 +7,8 @@ import {
   createMissingPropertyReturn,
   createSuccessReturn,
 } from '@/lib/create-return'
+import { setFlashCookie } from '@/src/features/toast/flash'
+import { refresh } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { NextRequest } from 'next/server'
@@ -117,4 +119,19 @@ export async function createNewUserSession(request: NextRequest) {
   })
 
   return createSuccessReturn('Successfully authenticated with TMDB.')
+}
+
+/**
+ * Deletes the TMDB session from cookies and refreshes.
+ *
+ * @returns void
+ */
+export async function deleteUserSession() {
+  const cookieStore = await cookies()
+  cookieStore.delete('sessionId')
+
+  const res = createSuccessReturn('Successfully signed out.')
+  await setFlashCookie(res)
+
+  refresh()
 }
