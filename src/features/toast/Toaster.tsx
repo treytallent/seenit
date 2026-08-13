@@ -1,8 +1,28 @@
-import '@/app/globals.css'
-import { CircleAlert, CircleCheck, TriangleAlert } from 'lucide-react'
-import { Toaster as DefaultToaster } from 'sonner'
+'use client'
 
-export function Toaster() {
+import { CircleAlert, CircleCheck, TriangleAlert } from 'lucide-react'
+import { useEffect, use } from 'react'
+import { deleteFlashCookie, getFlashCookie } from './flash'
+import { Toaster as DefaultToaster, toast } from 'sonner'
+
+export function Toaster({
+  flashCookiePromise,
+}: {
+  flashCookiePromise: ReturnType<typeof getFlashCookie>
+}) {
+  const flashCookie = use(flashCookiePromise)
+
+  useEffect(() => {
+    if (flashCookie) {
+      if (flashCookie.success) {
+        toast.success(flashCookie.data)
+        deleteFlashCookie()
+      } else {
+        toast.error(flashCookie.error.message)
+      }
+    }
+  }, [flashCookie])
+
   return (
     <DefaultToaster
       toastOptions={{

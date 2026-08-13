@@ -13,11 +13,8 @@ describe('buildTmdbRequestArguments', () => {
     expected: ReturnType<typeof buildTmdbRequestArguments>
   }> = [
     {
-      it: 'Should replace path sections, append multiple query params, override authorization bearer token, add header content-type, convert requestBody to JSON & forward additional properties.',
+      it: 'replaces path sections, append multiple query params, add header content-type, convert requestBody to JSON & forward additional properties',
       args: {
-        headers: {
-          authorization: 'bearer 123',
-        },
         cache: 'force-cache',
         query: {
           guest_session_id: '123',
@@ -31,11 +28,10 @@ describe('buildTmdbRequestArguments', () => {
         requestBody: { foo: 'bar' },
       },
       expected: [
-        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?guest_session_id=123&session_id=456',
+        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?api_key=stubbed-api-key&guest_session_id=123&session_id=456',
         {
           method: 'POST',
           headers: {
-            authorization: 'bearer 123',
             'Content-Type': 'application/json',
           },
           body: '{"foo":"bar"}',
@@ -44,15 +40,15 @@ describe('buildTmdbRequestArguments', () => {
       ],
     },
     {
-      it: "It should not modify the URL's dynamic sections or append query params.",
+      it: "does not modify the URL's dynamic sections or append query params",
       args: undefined,
       expected: [
-        'https://api.themoviedb.org/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating',
-        { headers: { authorization: '' }, method: 'POST' },
+        'https://api.themoviedb.org/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating?api_key=stubbed-api-key',
+        { method: 'POST' },
       ],
     },
     {
-      it: 'It should not append missing query parameters to the URL.',
+      it: 'does not append missing query parameters to the URL',
       args: {
         query: {},
         path: {
@@ -63,16 +59,16 @@ describe('buildTmdbRequestArguments', () => {
         requestBody: { foo: 'bar' },
       },
       expected: [
-        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating',
+        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?api_key=stubbed-api-key',
         {
           method: 'POST',
-          headers: { authorization: '', 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: '{"foo":"bar"}',
         },
       ],
     },
     {
-      it: 'It should not append undefined query parameters to the URL.',
+      it: 'does not append undefined query parameters to the URL',
       args: {
         query: { guest_session_id: undefined },
         path: {
@@ -83,16 +79,16 @@ describe('buildTmdbRequestArguments', () => {
         requestBody: { foo: 'bar' },
       },
       expected: [
-        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating',
+        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?api_key=stubbed-api-key',
         {
           method: 'POST',
-          headers: { authorization: '', 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: '{"foo":"bar"}',
         },
       ],
     },
     {
-      it: 'It should not append undefined query parameters to the URL.',
+      it: 'does not append undefined query parameters to the URL',
       args: {
         query: {
           guest_session_id: undefined,
@@ -106,16 +102,16 @@ describe('buildTmdbRequestArguments', () => {
         requestBody: { foo: 'bar' },
       },
       expected: [
-        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating',
+        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?api_key=stubbed-api-key',
         {
           method: 'POST',
-          headers: { authorization: '', 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: '{"foo":"bar"}',
         },
       ],
     },
     {
-      it: 'It should only append defined query parameters to the URL.',
+      it: 'only appends defined query parameters to the URL',
       args: {
         query: {
           guest_session_id: '123',
@@ -129,16 +125,16 @@ describe('buildTmdbRequestArguments', () => {
         requestBody: { foo: 'bar' },
       },
       expected: [
-        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?guest_session_id=123',
+        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?api_key=stubbed-api-key&guest_session_id=123',
         {
           method: 'POST',
-          headers: { authorization: '', 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: '{"foo":"bar"}',
         },
       ],
     },
     {
-      it: 'It should append multiple query parameters to the URL.',
+      it: 'appends multiple query parameters to the URL',
       args: {
         query: {
           guest_session_id: '123',
@@ -152,10 +148,10 @@ describe('buildTmdbRequestArguments', () => {
         requestBody: { foo: 'bar' },
       },
       expected: [
-        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?guest_session_id=123&session_id=456',
+        'https://api.themoviedb.org/3/tv/1/season/2/episode/3/rating?api_key=stubbed-api-key&guest_session_id=123&session_id=456',
         {
           method: 'POST',
-          headers: { authorization: '', 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: '{"foo":"bar"}',
         },
       ],

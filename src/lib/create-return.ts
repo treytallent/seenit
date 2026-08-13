@@ -1,5 +1,5 @@
-import type { ApiReturn } from '@/types/api'
-import { TmdbError } from '@/types/api'
+import type { ApiReturn } from '@/api/types'
+import { TmdbError } from '@/api/types'
 
 /**
  * Utility for creating a normalised API response.
@@ -24,6 +24,21 @@ export function createErrorReturn<E extends Omit<TmdbError, 'success'>>(
     error: {
       code: error.status_code,
       message: error.status_message ?? '',
+    },
+  }
+}
+
+/**
+ * Utility for creating a consistent error response.
+ *
+ * @returns An unsuccessful response containing error details.
+ */
+export function createMissingPropertyReturn(message: string): ApiReturn<never> {
+  return {
+    success: false,
+    error: {
+      code: 500,
+      message,
     },
   }
 }

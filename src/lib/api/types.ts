@@ -1,5 +1,5 @@
-import type { operations, paths } from '@/types/schema/tmdb-api-schema'
-import type { OmitUndefinedSubsets, Resolve } from './utils'
+import type { OmitUndefinedSubsets, Resolve } from '@/lib/utils'
+import type { operations, paths } from '@/src/lib/api/schema/tmdb-api-schema'
 
 // HTTP methods included in TMDB's schema.
 export type TmdbHTTPMethods = 'GET' | 'PUT' | 'POST' | 'DELETE'
@@ -63,27 +63,6 @@ export type EndpointSuccessResponse<
   : never
 
 /**
- * Generic Tmdb error for non-200 responses.
- */
-export type TmdbError = Resolve<
-  Omit<
-    operations['authentication-validate-key']['responses']['401']['content']['application/json'],
-    'success'
-  > & {
-    success: false
-  }
->
-
-export function isTmdbError(result: unknown): result is TmdbError {
-  return (
-    null !== result &&
-    'object' === typeof result &&
-    'success' in result &&
-    false === result.success
-  )
-}
-
-/**
  * Successful response.
  *
  * @template T The data type.
@@ -104,3 +83,24 @@ export type ErrorResponse = {
  * @template T The data type of the successful response.
  */
 export type ApiReturn<T> = Resolve<SuccessResponse<T> | ErrorResponse>
+
+/**
+ * Generic Tmdb error for non-200 responses.
+ */
+export type TmdbError = Resolve<
+  Omit<
+    operations['authentication-validate-key']['responses']['401']['content']['application/json'],
+    'success'
+  > & {
+    success: false
+  }
+>
+
+export function isTmdbError(result: unknown): result is TmdbError {
+  return (
+    null !== result &&
+    'object' === typeof result &&
+    'success' in result &&
+    false === result.success
+  )
+}

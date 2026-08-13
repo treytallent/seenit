@@ -1,16 +1,16 @@
 'use server'
 
+import type {
+  HTTPMethodPaths,
+  RequestArguments,
+  TmdbHTTPMethods,
+} from '@/lib/api/types'
+import { EndpointSuccessResponse, isTmdbError } from '@/lib/api/types'
 import {
   createErrorReturn,
   createSuccessReturn,
   createUnknownErrorReturn,
 } from '@/lib/create-return'
-import type {
-  HTTPMethodPaths,
-  RequestArguments,
-  TmdbHTTPMethods,
-} from '@/types/api'
-import { EndpointSuccessResponse, isTmdbError } from '@/types/api'
 import { buildTmdbRequestArguments } from './build-tmdb-request-arguments'
 
 /**
@@ -25,6 +25,8 @@ export async function tmdbClient<
   M extends TmdbHTTPMethods,
   P extends HTTPMethodPaths<M>,
 >(method: M, path: P, options?: RequestArguments<M, P> & RequestInit) {
+  'use server'
+
   const [url, builtArgs] = buildTmdbRequestArguments(method, path, options)
 
   try {

@@ -1,10 +1,10 @@
 import { TMDB_API_BASE_URL } from '@/lib/constants'
-import type { Resolve } from '@/types/utils'
+import type { Resolve } from '@/lib/utils'
 import type {
-  RequestArguments,
   HTTPMethodPaths,
+  RequestArguments,
   TmdbHTTPMethods,
-} from '@/types/api'
+} from '@/src/lib/api/types'
 
 /**
  * Utility function for building fetch request arguments compatible with TMDB's OpenAPI schema.
@@ -24,24 +24,20 @@ export function buildTmdbRequestArguments<
   args?: RequestArguments<M, P> & RequestInit
 ): Parameters<typeof fetch> {
   // Separate building & fetching properties.
-  const { query, path, requestBody, headers, ...fetchOptions } = {
+  const { query, path, requestBody, ...fetchOptions } = {
     query: undefined,
     path: undefined,
     requestBody: undefined,
-    headers: undefined,
     ...args,
   }
 
   const builtOptions: Resolve<RequestInit> = {
     method: httpMethod,
-    headers: {
-      authorization: process.env.TMDB_READ_ACCESS_TOKEN ?? '',
-      ...headers,
-    },
     ...fetchOptions,
   }
 
   let input: string = TMDB_API_BASE_URL.concat(httpPath)
+  input = input.concat(`?api_key=${process.env.TMDB_API_KEY ?? ''}`)
 
   if (!args) {
     return [input, builtOptions]
@@ -51,13 +47,8 @@ export function buildTmdbRequestArguments<
     const queryEntries = Object.entries(query).filter(
       ([k, v]) => undefined !== v // eslint-disable-line @typescript-eslint/no-unused-vars
     )
-    for (const entry of queryEntries) {
-      const [k, v] = entry
-      if (queryEntries.indexOf(entry) === 0) {
-        input = input.concat(`?${k}`, `=${v}`)
-      } else {
-        input = input.concat(`&${k}`, `=${v}`)
-      }
+    for (const [k, v] of queryEntries) {
+      input = input.concat(`&${k}`, `=${v}`)
     }
   }
 

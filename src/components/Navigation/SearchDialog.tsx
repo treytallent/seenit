@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Input, InputGroup } from '@/components/ui/input'
 import { Combobox, ComboboxInput } from '@headlessui/react'

@@ -100,7 +100,7 @@ export function DialogTitle({
   return (
     <Headless.DialogTitle
       {...props}
-      className={twMerge('text-base/8 font-semibold text-balance', className)}
+      className={twMerge('text-lg/8 font-semibold text-balance', className)}
     />
   )
 }
