@@ -11,7 +11,7 @@ import { type UserSession } from '@/src/lib/auth/get-session'
 import { deleteUserSession } from '@/src/lib/auth/user-session'
 import * as Headless from '@headlessui/react'
 import { startTransition, useActionState } from 'react'
-import { NavigationAuthButton } from '../Navigation/NavigationAuth'
+import { NavigationAuthButton } from '../navigation/navigation-auth'
 import { LoadingSpinner } from '../ui/icons/loading-spinner'
 
 export function UserSessionDropdown({

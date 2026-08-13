@@ -2,9 +2,9 @@
 
 import { UserIcon } from 'lucide-react'
 import { type ComponentProps } from 'react'
-import { useSession } from '../Auth/SessionProvider'
-import { SignInPrompt } from '../Auth/SignInPrompt'
-import { UserSessionDropdown } from '../Auth/UserSessionDropdown'
+import { useSession } from '../auth/session-provider'
+import { SignInPrompt } from '../auth/sign-in-prompt'
+import { UserSessionDropdown } from '../auth/user-session-dropdown'
 import { Button } from '../ui/button'
 
 export function NavigationAuth() {

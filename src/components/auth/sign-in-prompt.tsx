@@ -16,7 +16,7 @@ import {
 import { AnimatePresence, motion, MotionConfig, resize } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { startTransition, useActionState, useCallback, useState } from 'react'
-import { NavigationAuthButton } from '../Navigation/NavigationAuth'
+import { NavigationAuthButton } from '../navigation/navigation-auth'
 
 /**
  * Guest sessions can only rate media.

@@ -1,10 +1,10 @@
-import { SearchDialog } from '@/components/Navigation/SearchDialog'
+import { SearchDialog } from '@/components/navigation/search-dialog'
 import { Container } from '@/components/ui/container'
 import { Suspense } from 'react'
-import { MenuItems } from './MenuItems'
-import { MobilePopover } from './MobilePopover'
-import { Navigation } from './Navigation'
-import { NavigationAuth, NavigationAuthButton } from './NavigationAuth'
+import { MenuItems } from './menu-items'
+import { MobilePopover } from './mobile-popover'
+import { Navigation } from './navigation'
+import { NavigationAuth, NavigationAuthButton } from './navigation-auth'
 
 export function NavigationLayout() {
   return (
