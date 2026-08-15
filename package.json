@@ -46,7 +46,6 @@
     "prettier": "^3.9.4",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.8.0",
-    "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"

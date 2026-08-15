@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@plugin 'tailwind-scrollbar';
 
 @theme {
   --color-obsidian-50: oklch(0.9838 0.0079 286.25);
