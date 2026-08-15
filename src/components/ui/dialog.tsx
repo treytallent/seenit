@@ -2,8 +2,8 @@ import { Text } from '@/components/ui/text'
 import * as Headless from '@headlessui/react'
 import React from 'react'
 import { twJoin, twMerge } from 'tailwind-merge'
-import { Button } from './button'
-import { XMark } from './icons/x-mark'
+import { Button } from '@/components/ui/button'
+import { XMark } from '@/components/ui/icons/x-mark'
 
 const dialogStyles = {
   size: {

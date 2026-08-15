@@ -2,7 +2,7 @@
 
 import { CircleAlert, CircleCheck, TriangleAlert } from 'lucide-react'
 import { useEffect, use } from 'react'
-import { deleteFlashCookie, getFlashCookie } from './flash'
+import { deleteFlashCookie, getFlashCookie } from '@/features/toast/flash'
 import { Toaster as DefaultToaster, toast } from 'sonner'
 
 export function Toaster({

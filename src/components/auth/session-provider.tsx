@@ -1,6 +1,6 @@
 'use client'
 
-import { getSession } from '@/src/lib/auth/get-session'
+import { getSession } from '@/lib/auth/get-session'
 import { createContext, use, useContext } from 'react'
 
 type Session = ReturnType<typeof getSession>

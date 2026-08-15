@@ -4,7 +4,7 @@ import type {
   HTTPMethodPaths,
   RequestArguments,
   TmdbHTTPMethods,
-} from '@/src/lib/api/types'
+} from '@/api/types'
 
 /**
  * Utility function for building fetch request arguments compatible with TMDB's OpenAPI schema.

@@ -1,6 +1,6 @@
 'use server'
 
-import type { ApiReturn } from '@/src/lib/api/types'
+import type { ApiReturn } from '@/api/types'
 import { cookies } from 'next/headers'
 
 type FlashReturn = ApiReturn<string>

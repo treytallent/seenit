@@ -1,6 +1,6 @@
 import { Link } from '@/components/ui/link'
 import { Text } from '@/components/ui/text'
-import { TmdbLogoAltShort } from './ui/icons/tmdb-logo-alt-short'
+import { TmdbLogoAltShort } from '@/components/ui/icons/tmdb-logo-alt-short'
 
 /**
  * @link https://developer.themoviedb.org/docs/faq#what-are-the-attribution-requirements

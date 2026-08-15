@@ -7,7 +7,7 @@ import {
   createMissingPropertyReturn,
   createSuccessReturn,
 } from '@/lib/create-return'
-import { setFlashCookie } from '@/src/features/toast/flash'
+import { setFlashCookie } from '@/features/toast/flash'
 import { refresh } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
