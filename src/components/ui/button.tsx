@@ -15,8 +15,8 @@ const styles = {
     'data-disabled:opacity-50',
     // Icon
     '[--svg-size:--spacing(5)] sm:[--svg-size:--spacing(4)] *:[svg]:size-(--svg-size) *:[svg]:shrink-0 *:[svg]:self-center *:[svg]:text-(--btn-icon) forced-colors:[--btn-icon:ButtonText] forced-colors:data-hover:[--btn-icon:ButtonText]',
-    // Transition
-    'transition data-active:scale-(--active-scale)',
+    // Transition the scale of button without a popup to prevent a layout shift on the popup.
+    'transition not-aria-[haspopup]:data-active:scale-(--active-scale)',
   ],
   size: {
     base: [
