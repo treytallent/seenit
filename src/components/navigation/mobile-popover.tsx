@@ -26,7 +26,7 @@ export function MobilePopover({
           </PopoverButton>
           <PopoverBackdrop
             transition
-            className="fixed inset-0 scrollbar-none h-screen bg-obsidian-950/50 transition duration-100 focus:outline-0 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in"
+            className="fixed inset-0 h-screen scrollbar-none bg-obsidian-950/50 transition focus:outline-0 data-closed:opacity-0 data-enter:duration-(--duration-ui) data-enter:ease-ui data-leave:duration-(--duration-snap) data-leave:ease-snap"
           />
           <Headless.PopoverPanel
             modal
@@ -37,7 +37,7 @@ export function MobilePopover({
               'forced-colors:outline',
               // Shadows
               'shadow-lg ring-1 ring-white/10',
-              'transition duration-100 will-change-transform data-closed:-translate-y-12 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in'
+              'transition will-change-transform data-closed:-translate-y-12 data-closed:opacity-0 data-enter:duration-(--duration-ui) data-enter:ease-ui data-leave:duration-(--duration-snap) data-leave:ease-snap'
             )}
           >
             {children}

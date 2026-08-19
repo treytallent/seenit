@@ -1,11 +1,11 @@
 'use client'
 
-import { UserIcon } from 'lucide-react'
-import { type ComponentProps } from 'react'
 import { useSession } from '@/components/auth/session-provider'
 import { SignInPrompt } from '@/components/auth/sign-in-prompt'
 import { UserSessionDropdown } from '@/components/auth/user-session-dropdown'
 import { Button } from '@/components/ui/button'
+import { UserIcon } from 'lucide-react'
+import { type ComponentProps } from 'react'
 
 export function NavigationAuth() {
   const session = useSession()

@@ -1,6 +1,5 @@
 import { Text } from '@/components/ui/text'
 import * as Headless from '@headlessui/react'
-import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -32,29 +31,22 @@ export function Alert({
     <Headless.Dialog open={open} {...props}>
       <Headless.DialogBackdrop
         transition
-        className="fixed inset-0 z-99 flex w-screen justify-center overflow-y-auto bg-obsidian-950/50 px-2 py-2 transition duration-100 focus:outline-0 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in sm:px-6 sm:py-8 lg:px-8 lg:py-16"
+        className="fixed inset-0 z-99 flex w-screen justify-center overflow-y-auto bg-obsidian-950/50 px-2 py-2 transition focus:outline-0 data-closed:opacity-0 data-enter:duration-(--duration-ui) data-enter:ease-ui data-leave:duration-(--duration-snap) data-leave:ease-snap sm:px-6 sm:py-8 lg:px-8 lg:py-16"
       />
 
       <div className="fixed inset-0 z-100 w-screen overflow-y-auto pt-6 sm:pt-0">
         <div className="grid min-h-full grid-rows-[1fr_auto_1fr] justify-items-center p-8 sm:grid-rows-[1fr_auto_3fr] sm:p-4">
-          <AnimatePresence>
-            {open && (
-              <Headless.DialogPanel
-                as={motion.div}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className={twMerge(
-                  'row-start-2 w-full rounded-3xl bg-obsidian-900 p-8 shadow-lg ring-1 ring-white/10 sm:p-6 forced-colors:outline',
-                  'will-change-transform data-enter:ease-out data-leave:ease-in',
-                  sizes[size],
-                  className
-                )}
-              >
-                {children}
-              </Headless.DialogPanel>
+          <Headless.DialogPanel
+            transition
+            className={twMerge(
+              'row-start-2 w-full rounded-3xl bg-obsidian-900 p-8 shadow-lg ring-1 ring-white/10 sm:p-6 forced-colors:outline',
+              'transition will-change-transform data-closed:opacity-0 data-enter:duration-(--duration-ui) data-enter:ease-ui data-closed:data-enter:scale-95 data-leave:duration-(--duration-snap) data-leave:ease-snap',
+              sizes[size],
+              className
             )}
-          </AnimatePresence>
+          >
+            {children}
+          </Headless.DialogPanel>
         </div>
       </div>
     </Headless.Dialog>
