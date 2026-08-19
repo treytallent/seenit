@@ -1,3 +1,4 @@
+import { NavigationAuthButton } from '@/components/navigation/navigation-auth'
 import {
   Alert,
   AlertActions,
@@ -13,10 +14,10 @@ import {
   buildAuthRedirectUrl,
   redirectWithPreviousPathname,
 } from '@/lib/auth/user-session'
-import { AnimatePresence, motion, MotionConfig, resize } from 'framer-motion'
+import { specs } from '@/lib/motion'
+import { AnimatePresence, motion, resize } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { startTransition, useActionState, useCallback, useState } from 'react'
-import { NavigationAuthButton } from '@/components/navigation/navigation-auth'
 
 /**
  * Guest sessions can only rate media.
@@ -57,6 +58,7 @@ export function SignInPrompt({ action }: SignInPromptProps) {
 
   const measureRef = useCallback((el: HTMLDivElement | null) => {
     if (!el) return
+    setHeight(el.offsetHeight)
     return resize(el, (_, { height }) => setHeight(height))
   }, [])
 
@@ -68,85 +70,89 @@ export function SignInPrompt({ action }: SignInPromptProps) {
       />
 
       <Alert open={isOpen} onClose={setIsOpen}>
-        <MotionConfig
-          transition={{
-            type: 'spring',
-            stiffness: 304.61741978670864,
-            damping: 33.16125578789226,
-          }}
+        <motion.div
+          animate={{ height }}
+          style={{ willChange: 'height' }}
+          transition={specs.transitions.ui}
+          className="overflow-hidden"
         >
-          <motion.div
-            transition={{
-              delay: 0.1,
-              inherit: true,
-            }}
-            animate={{ height }}
-            style={{ willChange: 'height' }}
-          >
-            <div ref={measureRef}>
-              <AnimatePresence initial={false} mode="popLayout">
-                {isNewUserSessionPending ? (
-                  <motion.div
-                    key="user-session-pending"
-                    animate={{ y: 0, opacity: 1, filter: 'blur(0)' }}
-                    initial={{ y: 24, opacity: 0, filter: 'blur(2px)' }}
-                    exit={{ y: -24, opacity: 0, filter: 'blur(2px)' }}
-                  >
-                    <AlertTitle className="sm:text-center">
-                      Redirecting to TMDB
-                    </AlertTitle>
-                    <AlertDescription className="sm:text-center">
-                      This will only take a moment...
-                    </AlertDescription>
-                    <LoadingSpinner className="mt-4 justify-self-center" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="sign-in-options"
-                    animate={{ y: 0, opacity: 1, filter: 'blur(0)' }}
-                    initial={{ y: 0, opacity: 1, filter: 'blur(2px)' }}
-                    exit={{ y: -24, opacity: 0, filter: 'blur(2px)' }}
-                  >
-                    <AlertTitle className="sm:text-center">
-                      Sign in to continue
-                    </AlertTitle>
-                    <AlertDescription className="sm:text-center">
-                      {copyMap[action]}
-                    </AlertDescription>
-                    <AlertActions className="sm:flex-col-reverse sm:*:w-full">
-                      {'rate' === action && (
-                        <Button
-                          onClick={() => startTransition(newGuestSessionAction)}
-                          plain
-                          disabled={isNewGuestSessionPending}
-                          className="data-disabled:opacity-100! sm:*:[svg]:my-0.5! sm:*:[svg]:size-5"
-                          data-testid="sign-in-guest"
-                        >
-                          {isNewGuestSessionPending ? (
-                            <LoadingSpinner />
-                          ) : (
-                            'Continue as guest'
-                          )}
-                        </Button>
-                      )}
-
+          <div ref={measureRef}>
+            <AnimatePresence initial={false} mode="popLayout">
+              {isNewUserSessionPending ? (
+                <motion.div
+                  key="user-session-pending"
+                  transition={specs.transitions.ui}
+                  animate={{ y: 0, opacity: 1, filter: 'blur(0)' }}
+                  initial={{
+                    y: specs.travel.enter,
+                    opacity: 0,
+                    filter: 'blur(2px)',
+                  }}
+                  exit={{
+                    y: -specs.travel.enter,
+                    opacity: 0,
+                    filter: 'blur(2px)',
+                  }}
+                >
+                  <AlertTitle className="sm:text-center">
+                    Redirecting to TMDB
+                  </AlertTitle>
+                  <AlertDescription className="sm:text-center">
+                    This will only take a moment...
+                  </AlertDescription>
+                  <LoadingSpinner className="mt-4 justify-self-center" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="sign-in-options"
+                  transition={specs.transitions.ui}
+                  animate={{ y: 0, opacity: 1, filter: 'blur(0)' }}
+                  initial={{ y: 0, opacity: 1, filter: 'blur(2px)' }}
+                  exit={{
+                    y: -specs.travel.enter,
+                    opacity: 0,
+                    filter: 'blur(2px)',
+                  }}
+                >
+                  <AlertTitle className="sm:text-center">
+                    Sign in to continue
+                  </AlertTitle>
+                  <AlertDescription className="sm:text-center">
+                    {copyMap[action]}
+                  </AlertDescription>
+                  <AlertActions className="sm:flex-col-reverse sm:*:w-full">
+                    {'rate' === action && (
                       <Button
-                        onClick={() => startTransition(newUserSessionAction)}
-                        color="purple"
-                        className="*:[svg]:-my-2! sm:*:[svg]:size-6"
+                        onClick={() => startTransition(newGuestSessionAction)}
+                        plain
                         disabled={isNewGuestSessionPending}
-                        data-testid="sign-in-tmdb"
+                        className="data-disabled:opacity-100! sm:*:[svg]:my-0.5! sm:*:[svg]:size-5"
+                        data-testid="sign-in-guest"
                       >
-                        <TmdbLogoPrimaryFull />
-                        Continue with TMDB
+                        {isNewGuestSessionPending ? (
+                          <LoadingSpinner />
+                        ) : (
+                          'Continue as guest'
+                        )}
                       </Button>
-                    </AlertActions>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        </MotionConfig>
+                    )}
+
+                    <Button
+                      onClick={() => startTransition(newUserSessionAction)}
+                      color="purple"
+                      className="*:[svg]:-my-2! sm:*:[svg]:size-6"
+                      disabled={isNewGuestSessionPending}
+                      data-testid="sign-in-tmdb"
+                    >
+                      <TmdbLogoPrimaryFull />
+                      Continue with TMDB
+                    </Button>
+                  </AlertActions>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </motion.div>
       </Alert>
     </>
   )
