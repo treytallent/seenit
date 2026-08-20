@@ -49,8 +49,8 @@ function MenuItem({
   return (
     <Button
       plain
-      className="justify-start px-3 py-2.75 max-sm:w-full max-sm:rounded-2xl max-sm:[--active-scale:0.99]"
       {...(current ? { disabled: true } : { href })}
+      className={`justify-start px-3 py-2.75 max-sm:w-full max-sm:rounded-2xl max-sm:[--active-scale:0.99] ${current ? 'text-white data-disabled:opacity-100' : 'not-data-hover:text-obsidian-400'}`}
       onClick={closePopover ? () => close() : undefined}
     >
       {children}
