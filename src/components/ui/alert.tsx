@@ -31,7 +31,7 @@ export function Alert({
     <Headless.Dialog open={open} {...props}>
       <Headless.DialogBackdrop
         transition
-        className="fixed inset-0 z-99 flex w-screen justify-center overflow-y-auto bg-obsidian-950/50 px-2 py-2 transition duration-(--duration-ui) focus:outline-0 data-closed:opacity-0 data-enter:ease-ui data-leave:duration-(--duration-snap) data-leave:ease-snap sm:px-6 sm:py-8 lg:px-8 lg:py-16"
+        className="fixed inset-0 z-99 flex w-screen justify-center overflow-y-auto bg-obsidian-950/50 px-2 py-2 transition duration-(--duration-ui) ease-ui focus:outline-0 data-closed:opacity-0 sm:px-6 sm:py-8 lg:px-8 lg:py-16"
       />
 
       <div className="fixed inset-0 z-100 w-screen overflow-y-auto pt-6 sm:pt-0">
@@ -40,7 +40,7 @@ export function Alert({
             transition
             className={twMerge(
               'row-start-2 w-full rounded-3xl bg-obsidian-900 p-8 shadow-lg ring-1 ring-white/10 sm:p-6 forced-colors:outline',
-              'transition duration-(--duration-ui) will-change-transform data-closed:opacity-0 data-enter:ease-ui data-closed:data-enter:scale-95 data-leave:duration-(--duration-snap) data-leave:ease-snap',
+              'transition duration-(--duration-ui) ease-ui will-change-transform data-closed:scale-95 data-closed:opacity-0',
               sizes[size],
               className
             )}

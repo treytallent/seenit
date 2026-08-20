@@ -45,7 +45,7 @@ export function Dialog({
     <Headless.Dialog {...props}>
       <Headless.DialogBackdrop
         transition
-        className="fixed inset-0 z-99 flex w-screen scrollbar-none justify-center overflow-y-auto bg-obsidian-950/50 px-2 py-2 transition duration-(--duration-ui) focus:outline-0 data-closed:opacity-0 data-enter:ease-ui data-leave:duration-(--duration-snap) data-leave:ease-snap sm:px-6 sm:py-8 lg:px-8 lg:py-16"
+        className="fixed inset-0 z-99 flex w-screen scrollbar-none justify-center overflow-y-auto bg-obsidian-950/50 px-2 py-2 transition duration-(--duration-ui) focus:outline-0 data-closed:opacity-0 data-enter:ease-ui data-leave:duration-(--duration-ui) data-leave:ease-ui sm:px-6 sm:py-8 lg:px-8 lg:py-16"
       />
 
       <div
@@ -76,7 +76,7 @@ export function Dialog({
               // Shadows
               'shadow-lg ring-1 ring-white/10',
               // Transitions
-              'transition duration-(--duration-ui) will-change-transform data-closed:translate-y-12 data-closed:opacity-0 data-enter:ease-ui data-leave:duration-(--duration-snap) data-leave:ease-snap sm:data-closed:translate-y-0 sm:data-closed:data-enter:scale-95',
+              'transition duration-(--duration-ui) will-change-transform data-closed:translate-y-12 data-closed:opacity-0 data-enter:ease-ui data-leave:duration-(--duration-ui) data-leave:ease-ui sm:data-closed:translate-y-0 sm:data-closed:scale-95',
               dialogStyles.size[size],
               filter && dialogStyles.filter,
               className

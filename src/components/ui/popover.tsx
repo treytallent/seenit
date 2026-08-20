@@ -48,7 +48,7 @@ export function PopoverPanel({
         // Shadows
         'shadow-lg ring-1 ring-white/10 ring-inset',
         // Transitions
-        'transition duration-(--duration-snap) ease-snap data-closed:data-leave:opacity-0',
+        'transition duration-(--duration-snap) ease-snap data-closed:scale-95 data-closed:opacity-0',
         className
       )}
     />

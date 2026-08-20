@@ -43,7 +43,7 @@ export function DropdownMenu({
         // Shadows
         'shadow-lg ring-1 ring-white/10 ring-inset',
         // Transitions
-        'transition duration-(--duration-snap) ease-snap data-closed:data-leave:opacity-0',
+        'origin-top transition duration-(--duration-snap) ease-snap data-closed:scale-90 data-closed:opacity-0',
         // Define grid at the menu level if subgrid is supported
         'supports-[grid-template-columns:subgrid]:grid supports-[grid-template-columns:subgrid]:grid-cols-[auto_1fr_1.5rem_0.5rem_auto]',
         className
