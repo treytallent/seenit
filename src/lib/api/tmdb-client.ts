@@ -11,7 +11,7 @@ import {
   createSuccessReturn,
   createUnknownErrorReturn,
 } from '@/lib/create-return'
-import { buildTmdbRequestArguments } from './build-tmdb-request-arguments'
+import { buildTmdbRequestArguments } from '@/api/build-tmdb-request-arguments'
 
 /**
  * Client to interact with the The Movie Database's REST API.

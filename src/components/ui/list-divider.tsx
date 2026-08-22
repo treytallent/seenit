@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Circle } from './icons/circle'
+import { Circle } from '@/components/ui/icons/circle'
 
 export function ListDivider({
   children,

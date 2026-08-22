@@ -1,5 +1,5 @@
-import { setFlashCookie } from '@/src/features/toast/flash'
-import { createNewUserSession } from '@/src/lib/auth/user-session'
+import { setFlashCookie } from '@/features/toast/flash'
+import { createNewUserSession } from '@/lib/auth/user-session'
 import { redirect } from 'next/navigation'
 import type { NextRequest } from 'next/server'
 

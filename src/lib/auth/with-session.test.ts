@@ -1,6 +1,6 @@
 import { tmdbClient } from '@/api/tmdb-client'
 import { cookies } from 'next/headers'
-import { withGuestSessionId, withUserSessionId } from './with-session'
+import { withGuestSessionId, withUserSessionId } from '@/lib/auth/with-session'
 
 // TODO: move to relevant feature once created.
 async function getUserFavourites() {

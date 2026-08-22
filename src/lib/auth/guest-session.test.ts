@@ -2,7 +2,7 @@ import { TMDB_API_BASE_URL } from '@/lib/constants'
 import { server } from '@/vitest.setup'
 import { http, HttpResponse } from 'msw'
 import { cookies } from 'next/headers'
-import { createNewGuestSession } from './guest-session'
+import { createNewGuestSession } from '@/lib/auth/guest-session'
 
 describe('createNewGuestSession', () => {
   it('returns an error for non 200 responses', async () => {

@@ -3,7 +3,7 @@ import { server } from '@/vitest.setup'
 import { http, HttpResponse } from 'msw'
 import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
-import { buildAuthRedirectUrl, createNewUserSession } from './user-session'
+import { buildAuthRedirectUrl, createNewUserSession } from '@/lib/auth/user-session'
 
 describe('buildAuthRedirectUrl', () => {
   it('returns an error for non 200 responses', async () => {

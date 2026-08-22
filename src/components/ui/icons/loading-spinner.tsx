@@ -13,7 +13,7 @@ export function LoadingSpinner({
       data-slot="loading-icon"
     >
       <circle
-        className="text-white/10"
+        className="text-obsidian-900/10 dark:text-white/10"
         cx="12"
         cy="12"
         r="10"

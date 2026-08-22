@@ -15,7 +15,11 @@ export const Select = forwardRef(function Select(
       data-slot="control"
       className={twMerge([
         // Basic layout
-        'group relative block w-full',
+        'group relative isolate block w-full',
+        // Background color + shadow applied to inset pseudo element, so shadow blends with border in light mode
+        'before:absolute before:inset-px before:rounded-[calc(var(--radius-xl)-1px)] before:bg-white before:shadow-sm',
+        // Background color is moved to control and shadow is removed in dark mode so hide `before` pseudo
+        'dark:before:hidden',
         // Focus ring
         'after:pointer-events-none after:absolute after:inset-0 after:ring-transparent after:ring-inset has-data-focus:after:ring-2 has-data-focus:after:ring-blue-500',
         // Override inherited border-radius to avoid scrollbar clipping
@@ -41,11 +45,11 @@ export const Select = forwardRef(function Select(
           // Options (multi-select)
           '[&_optgroup]:font-semibold',
           // Typography
-          'text-base/5 placeholder:text-obsidian-400 sm:text-sm',
+          'text-base/5 text-obsidian-900 placeholder:text-obsidian-600 sm:text-sm dark:text-white dark:placeholder:text-obsidian-400',
           // Border
-          'border border-white/10 data-hover:border-white/20',
+          'border border-obsidian-900/10 data-hover:border-obsidian-900/20 dark:border-white/10 dark:data-hover:border-white/20',
           // Background color
-          'bg-white/5',
+          'bg-transparent dark:bg-white/5',
           // Hide default focus styles
           'focus:outline-hidden',
           // Invalid state
@@ -57,7 +61,7 @@ export const Select = forwardRef(function Select(
       {!multiple && (
         <span className="pointer-events-none absolute -top-1.75 right-0 flex items-center pr-2 sm:-top-1">
           <svg
-            className="size-5 stroke-obsidian-400 group-has-data-disabled:stroke-obsidian-600 sm:size-4 forced-colors:stroke-[CanvasText]"
+            className="size-5 stroke-obsidian-500 group-has-data-disabled:stroke-obsidian-300 sm:size-4 dark:stroke-obsidian-400 dark:group-has-data-disabled:stroke-obsidian-600 forced-colors:stroke-[CanvasText]"
             viewBox="0 0 16 16"
             aria-hidden="true"
             fill="none"

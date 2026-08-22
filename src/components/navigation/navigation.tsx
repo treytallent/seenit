@@ -18,10 +18,10 @@ export function Navigation({ children }: PropsWithChildren) {
     <header
       className={twJoin(
         isScrollDown && '-translate-y-15 opacity-0',
-        'sticky top-0 z-1 w-full bg-obsidian-950 backdrop-blur-sm transition ease-in-out',
-        'bg-linear-to-b from-white/2.5'
+        'sticky top-0 z-1 w-full transition duration-(--duration-snap) ease-snap'
       )}
     >
+      <div className="absolute top-0 h-full w-full bg-linear-to-b from-white mask-b-from-0 backdrop-blur-lg dark:from-obsidian-900"></div>
       {children}
     </header>
   )

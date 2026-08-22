@@ -3,8 +3,8 @@ import {
   normalizeMovieDetails,
   normalizeSeries,
   normalizeSeriesDetails,
-} from '@/src/lib/api/normalize'
-import type { OperationSuccessResponse } from '@/src/lib/api/types'
+} from '@/api/normalize'
+import type { OperationSuccessResponse } from '@/api/types'
 
 export type NullableMovie = NonNullable<
   OperationSuccessResponse<'discover-movie'>['results']

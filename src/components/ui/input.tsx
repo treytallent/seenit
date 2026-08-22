@@ -23,7 +23,7 @@ export function InputGroup({
         // X-axis padding
         'has-[svg:first-child]:[&_input]:pl-(--icon-padding) has-[svg:last-child]:[&_input]:pr-(--icon-padding)',
         // Icon style
-        '*:[svg]:size-(--icon-size) *:[svg]:text-obsidian-400',
+        '*:[svg]:size-(--icon-size) *:[svg]:text-obsidian-500 dark:*:[svg]:text-obsidian-400',
         '*:[svg]:pointer-events-none *:[svg]:absolute *:[svg]:z-10',
         // Icon positions
         '*:[svg]:top-3 sm:*:[svg]:top-2.5',
@@ -62,8 +62,14 @@ export function Input({
       className={twMerge([
         // Basic layout
         'relative block w-full',
+        // Background color + shadow applied to inset pseudo element, so shadow blends with border in light mode
+        'before:absolute before:inset-px before:rounded-[calc(var(--radius-xl)-1px)] before:bg-white before:shadow-sm',
+        // Background color is moved to control and shadow is removed in dark mode so hide `before` pseudo
+        'dark:before:hidden',
         // Disabled state
-        'has-data-disabled:opacity-50',
+        'has-data-disabled:opacity-50 has-data-disabled:before:bg-obsidian-950/5 has-data-disabled:before:shadow-none',
+        // Invalid state
+        'has-data-invalid:before:shadow-red-500/10',
         // Focus ring
         focusRing &&
           'after:pointer-events-none after:absolute after:inset-0 after:ring-transparent after:ring-inset sm:focus-within:after:ring-2 sm:focus-within:after:ring-blue-500',
@@ -76,17 +82,17 @@ export function Input({
           // Basic layout
           'relative block w-full appearance-none border px-[calc(--spacing(4)-1px)] py-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(2)-1px)]',
           // Typography
-          'text-base/5 placeholder:text-obsidian-400 sm:text-sm/5',
+          'text-base/5 text-obsidian-900 placeholder:text-obsidian-600 sm:text-sm/5 dark:text-white dark:placeholder:text-obsidian-400',
           // Border
-          'border-white/10 data-hover:border-white/20',
+          'border-obsidian-900/10 data-hover:border-obsidian-900/20 dark:border-white/10 dark:data-hover:border-white/20',
           // Background color
-          'bg-white/5',
+          'bg-transparent dark:bg-white/2.5',
           // Hide default focus styles
           'focus:outline-hidden',
           // System icons
-          'scheme-dark',
+          'dark:scheme-dark',
           // Invalid state
-          'data-invalid:border-red-500 data-invalid:data-hover:border-red-500 dark:data-invalid:border-red-500 dark:data-invalid:data-hover:border-red-500',
+          'data-invalid:border-red-500 data-invalid:data-hover:border-red-500',
           // Disabled state
           'data-disabled:border-transparent data-disabled:opacity-50',
           // Date classes

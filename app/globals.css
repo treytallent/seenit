@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@plugin 'tailwind-scrollbar';
 
 @theme {
   --color-obsidian-50: oklch(0.9838 0.0079 286.25);
@@ -25,6 +24,22 @@
   --color-purple-vivid-800: oklch(0.4296 0.2194 301.95);
   --color-purple-vivid-900: oklch(0.3797 0.1924 302.13);
   --color-purple-vivid-950: oklch(0.312 0.1563 304.78);
+
+  --ease-snap: cubic-bezier(0.27, 0.17, 0.21, 0.77);
+  --ease-ui: cubic-bezier(0.27, 0.17, 0.21, 0.77);
+  --ease-gentle: cubic-bezier(0.27, 0.17, 0.21, 0.77);
+  --ease-lively: cubic-bezier(0.23, 0.04, 0.36, 1.53);
+  --ease-ambient: cubic-bezier(0.27, 0.17, 0.21, 0.77);
+
+  --duration-snap: 0.15s;
+  --duration-ui: 0.25s;
+  --duration-gentle: 0.35s;
+  --duration-lively: 0.3s;
+  --duration-ambient: 0.7s;
+
+  --spacing-travel-hover: --spacing(1);
+  --spacing-travel-enter: --spacing(4);
+  --spacing-travel-section: --spacing(8);
 }
 
 body {

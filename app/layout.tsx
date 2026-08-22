@@ -1,10 +1,10 @@
 import '@/app/globals.css'
-import { Footer } from '@/components/Footer'
-import { Toaster } from '@/features/toast/Toaster'
-import { SessionProvider } from '@/src/components/Auth/SessionProvider'
-import { NavigationLayout } from '@/src/components/Navigation/NavigationLayout'
-import { getFlashCookie } from '@/src/features/toast/flash'
-import { getSession } from '@/src/lib/auth/get-session'
+import { SessionProvider } from '@/components/auth/session-provider'
+import { Footer } from '@/components/footer'
+import { NavigationLayout } from '@/components/navigation/navigation-layout'
+import { getFlashCookie } from '@/features/toast/flash'
+import { Toaster } from '@/features/toast/toaster'
+import { getSession } from '@/lib/auth/get-session'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Suspense } from 'react'
@@ -34,13 +34,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-obsidian-900"
+      className="scrollbar-thin scrollbar-thumb-obsidian-900/30 scrollbar-track-obsidian-100 dark:scrollbar-thumb-white/30 dark:scrollbar-track-obsidian-900"
     >
       <body
         className={twJoin(
           inter.className,
           'relative isolate flex min-h-svh w-full flex-col antialiased',
-          'bg-obsidian-950 text-white selection:bg-purple-vivid-300 selection:text-purple-vivid-950',
+          'bg-white text-obsidian-900 selection:bg-purple-vivid-300 selection:text-purple-vivid-950 dark:bg-obsidian-950 dark:text-white',
           '[--body-x:--spacing(6)] lg:[--body-x:--spacing(8)]'
         )}
       >

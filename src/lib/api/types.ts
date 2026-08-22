@@ -1,5 +1,5 @@
 import type { OmitUndefinedSubsets, Resolve } from '@/lib/utils'
-import type { operations, paths } from '@/src/lib/api/schema/tmdb-api-schema'
+import type { operations, paths } from '@/api/schema/tmdb-api-schema'
 
 // HTTP methods included in TMDB's schema.
 export type TmdbHTTPMethods = 'GET' | 'PUT' | 'POST' | 'DELETE'

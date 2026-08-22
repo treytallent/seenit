@@ -1,4 +1,4 @@
-import type { EndpointSuccessResponse } from '@/src/lib/api/types'
+import type { EndpointSuccessResponse } from '@/api/types'
 
 export const fetchNewAuthenticationToken: EndpointSuccessResponse<
   'GET',

@@ -18,13 +18,18 @@ export function Heading({
   return (
     <Element
       {...props}
-      className={twMerge('text-3xl/10 font-semibold text-pretty', className)}
+      className={twMerge(
+        'text-3xl/10 font-semibold text-pretty text-obsidian-900 dark:text-white',
+        className
+      )}
     />
   )
 }
 
 const subheadingStyles = {
-  base: ['text-xl/8 font-semibold text-pretty'],
+  base: [
+    'text-xl/8 font-semibold text-pretty text-obsidian-900 dark:text-white',
+  ],
   marker: [
     'relative pl-3',
     'before:bg-purple-vivid-600 before:absolute  before:left-0  before:w-1 before:rounded-full',
@@ -64,7 +69,7 @@ export function Subheading({
           {children}
           <Arrow
             direction="right"
-            className="ml-1 size-6 self-center [--btn-icon:var(--color-white)]"
+            className="ml-1 size-6 self-center [--btn-icon:var(--color-obsidian-900)] dark:[--btn-icon:var(--color-white)]"
           />
         </TouchTarget>
       </Link>

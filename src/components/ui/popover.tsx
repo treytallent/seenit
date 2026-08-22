@@ -44,11 +44,11 @@ export function PopoverPanel({
         // Handle scrolling when menu won't fit in viewport
         'overflow-y-auto',
         // Popover background
-        'bg-obsidian-900',
+        'bg-white/75 text-obsidian-900 backdrop-blur-xl dark:bg-obsidian-950 dark:text-white',
         // Shadows
-        'shadow-lg ring-1 ring-white/10 ring-inset',
+        'shadow-lg ring-1 ring-obsidian-900/10 ring-inset dark:ring-white/10',
         // Transitions
-        'transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0',
+        'transition duration-(--duration-snap) ease-snap data-closed:scale-95 data-closed:opacity-0',
         className
       )}
     />

@@ -4,7 +4,7 @@ import {
   normalizeCast,
   normalizeCrew,
 } from '@/api/normalize'
-import { OperationSuccessResponse } from '@/src/lib/api/types'
+import { OperationSuccessResponse } from '@/api/types'
 
 export type NullableCast = NonNullable<
   OperationSuccessResponse<'movie-credits'>['cast']

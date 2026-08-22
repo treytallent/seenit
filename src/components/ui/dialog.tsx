@@ -1,9 +1,9 @@
+import { Button } from '@/components/ui/button'
+import { XMark } from '@/components/ui/icons/x-mark'
 import { Text } from '@/components/ui/text'
 import * as Headless from '@headlessui/react'
 import React from 'react'
 import { twJoin, twMerge } from 'tailwind-merge'
-import { Button } from './button'
-import { XMark } from './icons/x-mark'
 
 const dialogStyles = {
   size: {
@@ -45,13 +45,13 @@ export function Dialog({
     <Headless.Dialog {...props}>
       <Headless.DialogBackdrop
         transition
-        className="fixed inset-0 z-99 scrollbar-none flex w-screen justify-center overflow-y-auto bg-obsidian-950/50 px-2 py-2 transition duration-100 focus:outline-0 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in sm:px-6 sm:py-8 lg:px-8 lg:py-16"
+        className="fixed inset-0 z-99 flex w-screen scrollbar-none justify-center overflow-y-auto bg-obsidian-950/25 px-2 py-2 transition duration-(--duration-ui) focus:outline-0 data-closed:opacity-0 data-enter:ease-ui data-leave:duration-(--duration-ui) data-leave:ease-ui sm:px-6 sm:py-8 lg:px-8 lg:py-16 dark:bg-obsidian-950/50"
       />
 
       <div
         className={twJoin(
           'pt-6',
-          'fixed inset-0 z-100 scrollbar-none w-screen sm:pt-0'
+          'fixed inset-0 z-100 w-screen scrollbar-none sm:pt-0'
         )}
       >
         <div
@@ -68,15 +68,17 @@ export function Dialog({
               // Overflow overlay height
               '[--overlay-height:--spacing(3)]',
               // Sizing
-              'p-(--gutter) [--gutter:--spacing(6)] has-data-[slot=overlay]:*:data-[slot=body]:pb-10',
+              'px-8 py-6 has-data-[slot=overlay]:*:data-[slot=body]:pb-10 sm:px-6',
               // Background color
-              'bg-obsidian-900',
+              'bg-white dark:bg-obsidian-900',
+              // Text color
+              'text-obsidian-900 dark:text-white',
               // Forced colors mode
               'forced-colors:outline',
               // Shadows
-              'shadow-lg ring-1 ring-white/10',
+              'shadow-lg ring-1 ring-obsidian-900/10 dark:ring-white/10',
               // Transitions
-              'transition duration-100 will-change-transform data-closed:translate-y-12 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in sm:data-closed:translate-y-0 sm:data-closed:data-enter:scale-95',
+              'transition duration-(--duration-ui) will-change-transform data-closed:translate-y-12 data-closed:opacity-0 data-enter:ease-ui data-leave:duration-(--duration-ui) data-leave:ease-ui sm:data-closed:translate-y-0 sm:data-closed:scale-95',
               dialogStyles.size[size],
               filter && dialogStyles.filter,
               className
@@ -100,7 +102,7 @@ export function DialogTitle({
   return (
     <Headless.DialogTitle
       {...props}
-      className={twMerge('text-lg/8 font-semibold text-balance', className)}
+      className={twMerge('text-base/9 font-semibold text-balance', className)}
     />
   )
 }
@@ -118,6 +120,7 @@ export function DialogClose<T extends React.ElementType = typeof Button>({
       color="light"
       aria-label="Close navigation"
       data-slot="close"
+      iconOnly
       className={className}
     >
       <XMark />
@@ -137,7 +140,7 @@ export function DialogDescription({
       as={Text}
       {...props}
       className={twMerge(
-        'mt-3 mb-10 text-base text-pretty sm:text-sm',
+        'mt-1 mb-10 text-base text-pretty sm:text-sm',
         className
       )}
     />
@@ -203,7 +206,7 @@ export function DialogOverflowOverlay({
       data-slot="overlay"
       className={twMerge(
         'absolute -top-[calc(var(--overlay-height))] left-0 z-1 h-(--overlay-height) w-full',
-        'bg-linear-to-t from-obsidian-900 to-transparent',
+        'bg-linear-to-t from-white to-transparent dark:from-obsidian-900',
         className
       )}
     />

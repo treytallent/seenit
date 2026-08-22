@@ -1,7 +1,7 @@
 import { TMDB_API_BASE_URL } from '@/lib/constants'
 import { server } from '@/vitest.setup'
 import { http, HttpResponse } from 'msw'
-import { tmdbClient } from './tmdb-client'
+import { tmdbClient } from '@/api/tmdb-client'
 
 describe('tmdbClient', () => {
   it('calls fetch with valid options', () => {

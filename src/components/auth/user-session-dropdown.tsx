@@ -7,12 +7,12 @@ import {
   DropdownLabel,
   DropdownMenu,
 } from '@/components/ui/dropdown'
-import { type UserSession } from '@/src/lib/auth/get-session'
-import { deleteUserSession } from '@/src/lib/auth/user-session'
+import { type UserSession } from '@/lib/auth/get-session'
+import { deleteUserSession } from '@/lib/auth/user-session'
 import * as Headless from '@headlessui/react'
 import { startTransition, useActionState } from 'react'
-import { NavigationAuthButton } from '../Navigation/NavigationAuth'
-import { LoadingSpinner } from '../ui/icons/loading-spinner'
+import { NavigationAuthButton } from '@/components/navigation/navigation-auth'
+import { LoadingSpinner } from '@/components/ui/icons/loading-spinner'
 
 export function UserSessionDropdown({
   userSession,
@@ -23,6 +23,7 @@ export function UserSessionDropdown({
       <DropdownButton
         data-testid="user-session-dropdown"
         as={NavigationAuthButton}
+        aria-label="Account menu"
       />
       <DropdownMenu anchor="bottom">
         <UserDropdown />

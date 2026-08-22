@@ -9,7 +9,7 @@ import {
 import {
   fetchNewAuthenticationToken,
   fetchNewSessionId,
-} from '../fixtures/auth'
+} from '@/e2e/fixtures/auth'
 
 it.use({
   mswHandlers: [

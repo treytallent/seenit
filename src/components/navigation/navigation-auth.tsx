@@ -1,11 +1,11 @@
 'use client'
 
+import { useSession } from '@/components/auth/session-provider'
+import { SignInPrompt } from '@/components/auth/sign-in-prompt'
+import { UserSessionDropdown } from '@/components/auth/user-session-dropdown'
+import { Button } from '@/components/ui/button'
 import { UserIcon } from 'lucide-react'
 import { type ComponentProps } from 'react'
-import { useSession } from '../Auth/SessionProvider'
-import { SignInPrompt } from '../Auth/SignInPrompt'
-import { UserSessionDropdown } from '../Auth/UserSessionDropdown'
-import { Button } from '../ui/button'
 
 export function NavigationAuth() {
   const session = useSession()
@@ -23,9 +23,13 @@ export function NavigationAuth() {
   return <UserSessionDropdown userSession={session} />
 }
 
-export function NavigationAuthButton(props: ComponentProps<typeof Button>) {
+export function NavigationAuthButton(
+  props: ComponentProps<typeof Button> & {
+    'aria-label': string
+  }
+) {
   return (
-    <Button {...props} size="sm">
+    <Button {...props} size="sm" iconOnly>
       <UserIcon />
     </Button>
   )
