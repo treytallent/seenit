@@ -54,7 +54,7 @@ const checkboxFieldStyles = {
       // Base layout
       'grid-cols-[1fr_1.25rem]',
       // Bottom border
-      'not-[:last-child]:border-b border-white/5',
+      'not-[:last-child]:border-b border-obsidian-900/5 dark:border-white/5',
       // Control layout
       '*:data-[slot=control]:col-start-2',
       '*:data-[slot=control]:py-3.25',
@@ -106,10 +106,16 @@ export function Checkbox({
         className={twJoin(
           // Basic layout
           'relative isolate flex size-5 items-center justify-center rounded-md sm:size-4 sm:rounded-sm',
-          // Background color applied to control
-          'bg-white/5 group-data-checked:bg-(--checkbox-checked-bg)',
+          // Background color + shadow applied to inset pseudo element, so shadow blends with border in light mode
+          'before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-white before:shadow-sm sm:before:rounded-sm',
+          'group-data-checked:before:bg-(--checkbox-checked-bg)',
+          // Background color is moved to control and shadow is removed in dark mode so hide `before` pseudo
+          'dark:before:hidden',
+          // Background color applied to control in dark mode
+          'bg-transparent dark:bg-white/5 dark:group-data-checked:bg-(--checkbox-checked-bg)',
           // Border
-          'border border-white/15 group-hover/field:border-white/30 group-data-checked:border-white/5 group-hover/field:group-data-checked:border-white/5',
+          'border border-obsidian-900/15 group-hover/field:border-obsidian-900/30 group-data-checked:border-obsidian-900/5 group-hover/field:group-data-checked:border-obsidian-900/5',
+          'dark:border-white/15 dark:group-hover/field:border-white/30 dark:group-data-checked:border-white/5 dark:group-hover/field:group-data-checked:border-white/5',
           // Inner highlight shadow
           'after:absolute after:shadow-[inset_0_1px_--theme(--color-white/15%)]',
           'after:-inset-px after:hidden after:rounded-sm group-data-checked:after:block',
@@ -118,12 +124,13 @@ export function Checkbox({
           // Disabled state
           'group-data-disabled:opacity-50',
           'group-data-disabled:before:bg-transparent',
-          'group-data-disabled:border-white/20 group-data-disabled:bg-white/2.5 group-data-disabled:[--checkbox-check:var(--color-white)]/50 group-data-checked:group-data-disabled:after:hidden',
-          'group-data-disabled:group-hover/field:group-data-checked:border-white/20',
+          'group-data-disabled:border-obsidian-900/20 group-data-disabled:bg-obsidian-950/2.5 group-data-disabled:[--checkbox-check:var(--color-obsidian-900)]/50 group-data-checked:group-data-disabled:after:hidden',
+          'dark:group-data-disabled:border-white/20 dark:group-data-disabled:bg-white/2.5 dark:group-data-disabled:[--checkbox-check:var(--color-white)]/50',
+          'group-data-disabled:group-hover/field:group-data-checked:border-obsidian-900/20 dark:group-data-disabled:group-hover/field:group-data-checked:border-white/20',
           // Forced colors mode
           'forced-colors:[--checkbox-check:HighlightText] forced-colors:[--checkbox-checked-bg:Highlight] forced-colors:group-data-disabled:[--checkbox-check:Highlight]',
           // Color
-          '[--checkbox-check:var(--color-white)] [--checkbox-checked-bg:var(--color-purple-vivid-500)] [--checkbox-checked-border:var(--color-purple-vivid-600)]/90'
+          '[--checkbox-check:var(--color-white)] [--checkbox-checked-bg:var(--color-purple-vivid-500)]'
         )}
       >
         <svg

@@ -19,7 +19,7 @@ export function Card<T extends React.ElementType>({
       {...props}
       data-slot="card"
       className={twMerge(
-        'group/card relative overflow-hidden rounded-xl border border-white/10',
+        'group/card relative overflow-hidden rounded-xl border border-obsidian-900/10 dark:border-white/10',
         className
       )}
     >
@@ -78,7 +78,7 @@ export function CardTitle({
   ...props
 }: React.ComponentProps<typeof Link> | React.ComponentProps<'h3'>) {
   const classes = twMerge(
-    'line-clamp-2 text-base/5 font-semibold text-pretty sm:text-sm/5',
+    'line-clamp-2 text-base/5 font-semibold text-pretty text-obsidian-900 sm:text-sm/5 dark:text-white',
     className
   )
   return (

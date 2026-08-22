@@ -67,6 +67,7 @@ export function SignInPrompt({ action }: SignInPromptProps) {
       <NavigationAuthButton
         data-testid="sign-in-dialog"
         onClick={() => setIsOpen(true)}
+        aria-label="Sign in"
       />
 
       <Alert open={isOpen} onClose={setIsOpen}>

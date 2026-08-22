@@ -83,7 +83,11 @@ export function PaginationPage({
       plain
       aria-label={`Page ${children}`}
       aria-current={current ? 'page' : undefined}
-      className={twMerge('min-w-14', current && 'bg-white/10', className)}
+      className={twMerge(
+        'min-w-14',
+        current && 'bg-obsidian-950/5 dark:bg-white/10',
+        className
+      )}
     >
       {children}
     </Button>
@@ -100,7 +104,7 @@ export function PaginationGap({
       {...props}
       aria-hidden="true"
       className={twMerge(
-        'w-10 text-center text-sm font-semibold select-none',
+        'w-10 text-center text-sm font-semibold text-obsidian-900 select-none dark:text-white',
         className
       )}
     >

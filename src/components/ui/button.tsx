@@ -6,7 +6,7 @@ import { twJoin, twMerge } from 'tailwind-merge'
 const styles = {
   base: [
     // Base
-    'relative text-nowrap isolate inline-flex items-baseline justify-center gap-x-2.5 rounded-full border border-transparent',
+    'relative font-semibold text-nowrap isolate inline-flex items-baseline justify-center gap-x-2.5 rounded-full border border-transparent',
     // Font size
     'text-base/6 sm:text-sm/6',
     // Focus
@@ -14,28 +14,37 @@ const styles = {
     // Disabled
     'data-disabled:opacity-50',
     // Icon
-    '[--svg-size:--spacing(5)] sm:[--svg-size:--spacing(4)] *:[svg]:size-(--svg-size) *:[svg]:shrink-0 *:[svg]:self-center *:[svg]:text-(--btn-icon) forced-colors:[--btn-icon:ButtonText] forced-colors:data-hover:[--btn-icon:ButtonText]',
+    '[--svg-size:--spacing(5)] *:[svg]:size-(--svg-size) *:[svg]:shrink-0 *:[svg]:self-center *:[svg]:text-(--btn-icon) forced-colors:[--btn-icon:ButtonText] forced-colors:data-hover:[--btn-icon:ButtonText]',
     // Transition the scale of button without a popup to prevent a layout shift on the popup.
     'transition not-aria-[haspopup]:data-active:scale-(--active-scale)',
   ],
   size: {
-    base: [
-      '[--active-scale:0.97]',
-      'px-[calc(--spacing(4)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3.5)-1px)] sm:py-[calc(--spacing(1.5)-1px)]',
-      '*:[svg]:-mx-1 *:[svg]:my-0.5 sm:*:[svg]:my-1',
-    ],
-    sm: [
-      '[--active-scale:0.94]',
-      'sm:*:[svg]:size-5 p-[calc(--spacing(1.5)-1px)]',
-    ],
+    base: {
+      text: [
+        '[--active-scale:0.97]',
+        'px-[calc(--spacing(4)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3.5)-1px)] sm:py-[calc(--spacing(2)-1px)]',
+        '*:[svg]:-mx-1 *:[svg]:my-0.5 sm:*:[svg]:my-0.5',
+      ],
+      iconOnly: ['[--active-scale:0.97]', 'p-[calc(--spacing(2.5)-1px)]'],
+    },
+    sm: {
+      text: [
+        '[--active-scale:0.94]',
+        'px-[calc(--spacing(4)-1px)] py-[calc(--spacing(2)-1px)] sm:px-[calc(--spacing(3.5)-1px)] sm:py-[calc(--spacing(1.5)-1px)]',
+        '[--svg-size:--spacing(4)] *:[svg]:-mx-1 *:[svg]:my-1',
+      ],
+      iconOnly: [
+        '[--active-scale:0.94]',
+        '[--svg-size:--spacing(5)]',
+        'p-[calc(--spacing(2)-1px)]',
+      ],
+    },
   },
   solid: [
-    // Font weight
-    'font-semibold',
     // Border is rendered on `after` so background is set to button background
     'bg-(--btn-bg)',
-    // Subtle white outline is applied using a border
-    'border-white/5',
+    // Subtle outline is applied using a border
+    'border-obsidian-900/10 dark:border-white/5',
     // Shim/overlay, inset to match button foreground and used for hover state + highlight shadow
     'after:absolute after:z-1 after:rounded-full after:-inset-px',
     // Inner highlight shadow
@@ -46,33 +55,31 @@ const styles = {
     'data-disabled:after:shadow-none',
   ],
   plain: [
-    // Font weight
-    'font-medium',
+    // Text color
+    'text-obsidian-900 dark:text-white',
     // Base
-    'data-active:bg-white/10 data-hover:bg-white/10',
+    'data-active:bg-obsidian-950/5 data-hover:bg-obsidian-950/5 dark:data-active:bg-white/10 dark:data-hover:bg-white/10',
     // Icon
-    '[--btn-icon:var(--color-obsidian-400)] data-active:[--btn-icon:var(--color-obsidian-300)] data-hover:[--btn-icon:var(--color-obsidian-300)]',
+    '[--btn-icon:var(--color-obsidian-500)] data-active:[--btn-icon:var(--color-obsidian-700)] data-hover:[--btn-icon:var(--color-obsidian-700)] dark:[--btn-icon:var(--color-obsidian-400)] dark:data-active:[--btn-icon:var(--color-obsidian-300)] dark:data-hover:[--btn-icon:var(--color-obsidian-300)]',
   ],
   colors: {
-    dark: [
-      '[--btn-bg:var(--color-obsidian-900)] [--btn-hover-overlay:var(--color-white)]/5',
-      '[--btn-icon:var(--color-obsidian-400)] data-active:[--btn-icon:var(--color-obsidian-300)] data-hover:[--btn-icon:var(--color-obsidian-300)]',
+    outline: [
+      'text-obsidian-900 [--btn-bg:white] [--btn-hover-overlay:var(--color-obsidian-900)]/2.5',
+      'dark:text-white dark:[--btn-bg:white]/2.5 dark:[--btn-hover-overlay:var(--color-white)]/5',
+      '[--btn-icon:var(--color-obsidian-500)] data-active:[--btn-icon:var(--color-obsidian-700)] data-hover:[--btn-icon:var(--color-obsidian-700)] dark:[--btn-icon:var(--color-obsidian-400)] dark:data-active:[--btn-icon:var(--color-obsidian-300)] dark:data-hover:[--btn-icon:var(--color-obsidian-300)]',
     ],
     light: [
-      '[--btn-bg:var(--color-obsidian-800)] [--btn-hover-overlay:var(--color-white)]/5',
+      'text-obsidian-900 [--btn-bg:var(--color-obsidian-50)] [--btn-hover-overlay:var(--color-obsidian-900)]/5',
+      'dark:text-white dark:[--btn-bg:var(--color-obsidian-800)] dark:[--btn-hover-overlay:var(--color-white)]/5',
       '[--btn-icon:var(--color-obsidian-400)] data-active:[--btn-icon:var(--color-obsidian-300)] data-hover:[--btn-icon:var(--color-obsidian-300)]',
     ],
-    'light-opacity': [
-      '[--btn-bg:var(--color-obsidian-700)]/90 [--btn-hover-overlay:var(--color-white)]/5',
-      '[--btn-icon:var(--color-obsidian-300)] data-active:[--btn-icon:var(--color-obsidian-200)] data-hover:[--btn-icon:var(--color-obsidian-200)]',
-    ],
     purple: [
-      '[--btn-hover-overlay:var(--color-white)]/10 [--btn-bg:var(--color-purple-vivid-600)] [--btn-border:var(--color-purple-vivid-700)]',
-      '[--btn-icon:var(--color-purple-vivid-200)] data-active:[--btn-icon:var(--color-purple-vivid-100)] data-hover:[--btn-icon:var(--color-purple-vivid-100)]',
+      'text-white [--btn-hover-overlay:var(--color-white)]/10 [--btn-bg:var(--color-purple-vivid-600)] [--btn-border:var(--color-purple-vivid-700)]',
+      '[--btn-icon:var(--color-purple-vivid-300)] data-active:[--btn-icon:var(--color-purple-vivid-200)] data-hover:[--btn-icon:var(--color-purple-vivid-200)]',
     ],
     red: [
-      '[--btn-bg:var(--color-red-700)] [--btn-hover-overlay:var(--color-white)]/10',
-      '[--btn-icon:var(--color-red-100))]',
+      'text-white [--btn-bg:var(--color-red-700)] [--btn-hover-overlay:var(--color-white)]/10',
+      '[--btn-icon:var(--color-red-300)] data-active:[--btn-icon:var(--color-red-200)] data-hover:[--btn-icon:var(--color-red-200)]',
     ],
   },
 }
@@ -83,20 +90,33 @@ type ButtonProps = (
 ) & {
   size?: keyof typeof styles.size
   className?: string
-  children?: React.ReactNode
 } & (
+    | { iconOnly?: false; children?: React.ReactNode }
+    | { iconOnly: true; children?: React.ReactNode; 'aria-label': string }
+  ) &
+  (
     | Omit<Headless.ButtonProps, 'as' | 'className'>
     | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>
   )
 
 export const Button = React.forwardRef(function Button(
-  { size = 'base', plain, color, className, children, ...props }: ButtonProps,
+  {
+    size = 'base',
+    plain,
+    color,
+    className,
+    children,
+    iconOnly,
+    ...props
+  }: ButtonProps,
   ref: React.ForwardedRef<HTMLElement>
 ) {
   const classes = twMerge(
     styles.base,
-    styles.size[size],
-    plain ? styles.plain : twJoin(styles.solid, styles.colors[color ?? 'dark']),
+    styles.size[size][iconOnly ? 'iconOnly' : 'text'],
+    plain
+      ? styles.plain
+      : twJoin(styles.solid, styles.colors[color ?? 'outline']),
     className
   )
 
