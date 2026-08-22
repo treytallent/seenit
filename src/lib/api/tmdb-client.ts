@@ -1,5 +1,6 @@
 'use server'
 
+import { buildTmdbRequestArguments } from '@/api/build-tmdb-request-arguments'
 import type {
   HTTPMethodPaths,
   RequestArguments,
@@ -11,7 +12,7 @@ import {
   createSuccessReturn,
   createUnknownErrorReturn,
 } from '@/lib/create-return'
-import { buildTmdbRequestArguments } from '@/api/build-tmdb-request-arguments'
+import * as Sentry from '@sentry/nextjs'
 
 /**
  * Client to interact with the The Movie Database's REST API.
@@ -29,6 +30,7 @@ export async function tmdbClient<
 
   const [url, builtArgs] = buildTmdbRequestArguments(method, path, options)
 
+  const startTime = Date.now()
   try {
     const res = await fetch(url, builtArgs)
     const json = (await res.json()) as unknown
@@ -42,9 +44,20 @@ export async function tmdbClient<
     if (!res.ok) {
       throw new InvalidStatusError(json)
     }
+
+    Sentry.logger.info('Successful TMDB request', {
+      url: url,
+      duration: Date.now() - startTime,
+    })
     return createSuccessReturn(json as EndpointSuccessResponse<M, P>)
   } catch (e) {
-    // TODO: log error here.
+    Sentry.logger.error('Unsuccessful TMDB request', {
+      url: url,
+      duration: Date.now() - startTime,
+      error: e,
+      fetchOptions: builtArgs,
+    })
+
     if (e instanceof InvalidStatusError && isTmdbError(e.json)) {
       return createErrorReturn(e.json)
     }

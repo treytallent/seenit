@@ -1,10 +1,10 @@
-import { TMDB_API_BASE_URL } from '@/lib/constants'
-import type { Resolve } from '@/lib/utils'
 import type {
   HTTPMethodPaths,
   RequestArguments,
   TmdbHTTPMethods,
 } from '@/api/types'
+import { TMDB_API_BASE_URL } from '@/lib/constants'
+import type { Resolve } from '@/lib/utils'
 
 /**
  * Utility function for building fetch request arguments compatible with TMDB's OpenAPI schema.
@@ -22,7 +22,7 @@ export function buildTmdbRequestArguments<
   httpMethod: M,
   httpPath: P,
   args?: RequestArguments<M, P> & RequestInit
-): Parameters<typeof fetch> {
+): [string, Parameters<typeof fetch>[1]] {
   // Separate building & fetching properties.
   const { query, path, requestBody, ...fetchOptions } = {
     query: undefined,
