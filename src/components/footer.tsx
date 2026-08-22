@@ -1,13 +1,13 @@
+import { TmdbLogoAltShort } from '@/components/ui/icons/tmdb-logo-alt-short'
 import { Link } from '@/components/ui/link'
 import { Text } from '@/components/ui/text'
-import { TmdbLogoAltShort } from '@/components/ui/icons/tmdb-logo-alt-short'
 
 /**
  * @link https://developer.themoviedb.org/docs/faq#what-are-the-attribution-requirements
  */
 export function Footer() {
   return (
-    <footer className="bg-linear-to-t from-white/2.5 pt-32 pb-8">
+    <footer className="bg-linear-to-t from-obsidian-900/2.5 pt-32 pb-8 dark:from-white/2.5">
       <div className="mx-auto flex max-w-sm flex-col items-center gap-y-12">
         <div className="space-y-3">
           <Link
@@ -23,7 +23,7 @@ export function Footer() {
         </div>
         <Link
           href="https://github.com/treytallent"
-          className="text-base/6 text-obsidian-400 sm:text-sm/6"
+          className="text-base/6 text-obsidian-600 sm:text-sm/6 dark:text-obsidian-400"
         >
           Trey Tallent - 2026
         </Link>

@@ -11,7 +11,9 @@ export function Divider({
       role="presentation"
       className={twMerge(
         'w-full border-t',
-        soft ? 'border-white/5' : 'border-white/10',
+        soft
+          ? 'border-obsidian-900/5 dark:border-white/5'
+          : 'border-obsidian-900/10 dark:border-white/10',
         className
       )}
     />

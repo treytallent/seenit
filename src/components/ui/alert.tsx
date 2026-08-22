@@ -31,7 +31,7 @@ export function Alert({
     <Headless.Dialog open={open} {...props}>
       <Headless.DialogBackdrop
         transition
-        className="fixed inset-0 z-99 flex w-screen justify-center overflow-y-auto bg-obsidian-950/50 px-2 py-2 transition duration-(--duration-ui) ease-ui focus:outline-0 data-closed:opacity-0 sm:px-6 sm:py-8 lg:px-8 lg:py-16"
+        className="fixed inset-0 z-99 flex w-screen justify-center overflow-y-auto bg-obsidian-950/25 px-2 py-2 transition duration-(--duration-ui) ease-ui focus:outline-0 data-closed:opacity-0 sm:px-6 sm:py-8 lg:px-8 lg:py-16 dark:bg-obsidian-950/50"
       />
 
       <div className="fixed inset-0 z-100 w-screen overflow-y-auto pt-6 sm:pt-0">
@@ -39,7 +39,7 @@ export function Alert({
           <Headless.DialogPanel
             transition
             className={twMerge(
-              'row-start-2 w-full rounded-3xl bg-obsidian-900 p-8 shadow-lg ring-1 ring-white/10 sm:p-6 forced-colors:outline',
+              'row-start-2 w-full rounded-3xl bg-white p-8 text-obsidian-900 shadow-lg ring-1 ring-obsidian-900/10 sm:p-6 dark:bg-obsidian-900 dark:text-white dark:ring-white/10 forced-colors:outline',
               'transition duration-(--duration-ui) ease-ui will-change-transform data-closed:scale-95 data-closed:opacity-0',
               sizes[size],
               className
@@ -83,7 +83,7 @@ export function AlertDescription({
       as={Text}
       {...props}
       className={twMerge(
-        'mt-2 text-center text-pretty sm:text-left',
+        'mt-1 text-center text-pretty sm:text-left',
         className
       )}
     />

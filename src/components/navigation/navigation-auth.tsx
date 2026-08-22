@@ -23,9 +23,13 @@ export function NavigationAuth() {
   return <UserSessionDropdown userSession={session} />
 }
 
-export function NavigationAuthButton(props: ComponentProps<typeof Button>) {
+export function NavigationAuthButton(
+  props: ComponentProps<typeof Button> & {
+    'aria-label': string
+  }
+) {
   return (
-    <Button {...props} size="sm">
+    <Button {...props} size="sm" iconOnly>
       <UserIcon />
     </Button>
   )

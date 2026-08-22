@@ -56,7 +56,7 @@ const radioFieldStyles = {
       // Base layout
       'grid-cols-[1fr_1.25rem]',
       // Bottom border
-      'not-[:last-child]:border-b border-white/5',
+      'not-[:last-child]:border-b border-obsidian-900/5 dark:border-white/5',
       // Control layout
       '*:data-[slot=control]:col-start-2',
       '*:data-[slot=control]:py-3.25',
@@ -109,27 +109,33 @@ export function Radio({
         className={twJoin(
           // Basic layout
           'relative isolate flex size-5 shrink-0 rounded-full sm:size-4',
+          // Background color + shadow applied to inset pseudo element, so shadow blends with border in light mode
+          'before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-white before:shadow-sm',
           // Background color when checked
           'group-data-checked:before:bg-(--radio-checked-bg)',
-          // Background color applied to control
-          'bg-white/5 group-data-checked:bg-(--radio-checked-bg)',
+          // Background color is moved to control and shadow is removed in dark mode so hide `before` pseudo
+          'dark:before:hidden',
+          // Background color applied to control in dark mode
+          'bg-transparent dark:bg-white/5 dark:group-data-checked:bg-(--radio-checked-bg)',
           // Border
-          'border border-white/15 group-hover/field:border-white/30 group-data-checked:border-white/5 group-hover/field:group-data-checked:border-white/5',
+          'border border-obsidian-900/15 group-hover/field:border-obsidian-900/30 group-data-checked:border-obsidian-900/5 group-hover/field:group-data-checked:border-obsidian-900/5',
+          'dark:border-white/15 dark:group-hover/field:border-white/30 dark:group-data-checked:border-white/5 dark:group-hover/field:group-data-checked:border-white/5',
           // Inner highlight shadow
           'after:absolute after:-inset-px after:rounded-full after:shadow-[inset_0_1px_--theme(--color-white/15%)]',
           'after:hidden group-data-checked:after:block',
           // Indicator color
           '[--radio-indicator:transparent] group-data-checked:[--radio-indicator:var(--radio-checked-indicator)]',
-          'group-hover/field:[--radio-indicator:var(--color-obsidian-700)] group-data-hover:group-data-checked:[--radio-indicator:var(--radio-checked-indicator)]',
+          'group-hover/field:[--radio-indicator:var(--color-obsidian-900)]/10 group-data-hover:group-data-checked:[--radio-indicator:var(--radio-checked-indicator)] dark:group-hover/field:[--radio-indicator:var(--color-obsidian-700)]',
           // Focus ring
           'group-data-focus:outline-2 group-data-focus:outline-offset-2 group-data-focus:outline-blue-500',
           // Disabled state
           'group-data-disabled:opacity-50',
           'group-data-disabled:before:bg-transparent',
-          'group-data-disabled:border-white/20 group-data-disabled:bg-white/2.5 group-data-disabled:[--radio-checked-indicator:var(--color-white)]/50 group-data-checked:group-data-disabled:after:hidden',
-          'group-data-disabled:group-hover/field:border-white/20 group-data-disabled:not-group-data-checked:group-hover/field:[--radio-indicator:transparent]',
+          'group-data-disabled:border-obsidian-900/20 group-data-disabled:bg-obsidian-950/2.5 group-data-disabled:[--radio-checked-indicator:var(--color-obsidian-900)]/50 group-data-checked:group-data-disabled:after:hidden',
+          'dark:group-data-disabled:border-white/20 dark:group-data-disabled:bg-white/2.5 dark:group-data-disabled:[--radio-checked-indicator:var(--color-white)]/50',
+          'group-data-disabled:group-hover/field:border-obsidian-900/20 group-data-disabled:not-group-data-checked:group-hover/field:[--radio-indicator:transparent] dark:group-data-disabled:group-hover/field:border-white/20',
           // Color
-          '[--radio-checked-bg:var(--color-purple-vivid-500)] [--radio-checked-border:var(--color-purple-vivid-600)]/90 [--radio-checked-indicator:var(--color-white)]'
+          '[--radio-checked-bg:var(--color-purple-vivid-500)] [--radio-checked-indicator:var(--color-white)]'
         )}
       >
         <span

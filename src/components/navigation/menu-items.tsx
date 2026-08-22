@@ -13,8 +13,6 @@ export function MenuItems({
   closePopover?: boolean
   className?: string
 }) {
-  'use client'
-
   const links = [
     { name: 'Home', href: '/' },
     { name: 'Movies', href: '/movies' },
@@ -23,7 +21,7 @@ export function MenuItems({
   ]
 
   return (
-    <div className={twMerge('flex items-center', className)}>
+    <div className={twMerge('flex items-center gap-2', className)}>
       {links.map((link) => (
         <MenuItem closePopover={closePopover} key={link.href} href={link.href}>
           {link.name}
@@ -41,8 +39,6 @@ function MenuItem({
   href: string
   closePopover: boolean
 }>) {
-  'use client'
-
   const close = Headless.useClose()
   const current = href === usePathname()
 
@@ -50,7 +46,7 @@ function MenuItem({
     <Button
       plain
       {...(current ? { disabled: true } : { href })}
-      className={`justify-start px-3 py-2.75 max-sm:w-full max-sm:rounded-2xl max-sm:[--active-scale:0.99] ${current ? 'text-white data-disabled:opacity-100' : 'not-data-hover:text-obsidian-400'}`}
+      className={`justify-start px-3 py-2.25 max-sm:w-full max-sm:rounded-2xl max-sm:[--active-scale:0.99] ${current ? 'text-obsidian-900 data-disabled:opacity-100 dark:text-white' : 'not-data-hover:text-obsidian-600 dark:not-data-hover:text-obsidian-400'}`}
       onClick={closePopover ? () => close() : undefined}
     >
       {children}

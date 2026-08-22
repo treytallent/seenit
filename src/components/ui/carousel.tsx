@@ -220,7 +220,7 @@ export function CarouselItem({
 
 export function CarouselPrev({
   size = 'sm',
-  color = 'light-opacity',
+  color = 'light',
   className,
 }: Omit<React.ComponentProps<typeof Button>, 'children'>) {
   const { scrollPrev, canScrollPrev } = useCarousel()
@@ -236,6 +236,7 @@ export function CarouselPrev({
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
+      iconOnly
       aria-label="Previous slide"
     >
       <ChevronLeft />
@@ -245,7 +246,7 @@ export function CarouselPrev({
 
 export function CarouselNext({
   size = 'sm',
-  color = 'light-opacity',
+  color = 'light',
   className,
 }: Omit<React.ComponentProps<typeof Button>, 'children'>) {
   const { scrollNext, canScrollNext } = useCarousel()
@@ -261,6 +262,7 @@ export function CarouselNext({
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
+      iconOnly
       aria-label="Next slide"
     >
       <ChevronRight />

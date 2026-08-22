@@ -39,9 +39,9 @@ export function DropdownMenu({
         // Handle scrolling when menu won't fit in viewport
         'overflow-y-auto',
         // Popover background
-        'bg-obsidian-900',
+        'bg-white/75 backdrop-blur-xl dark:bg-obsidian-950',
         // Shadows
-        'shadow-lg ring-1 ring-white/10 ring-inset',
+        'shadow-lg ring-1 ring-obsidian-900/10 ring-inset dark:ring-white/10',
         // Transitions
         'origin-top transition duration-(--duration-snap) ease-snap data-closed:scale-90 data-closed:opacity-0',
         // Define grid at the menu level if subgrid is supported
@@ -53,8 +53,14 @@ export function DropdownMenu({
 }
 
 export const itemColors = {
-  dark: ['data-focus:bg-white/10', 'data-focus:*:[svg]:text-obsidian-300'],
-  red: ['data-focus:bg-red-700', 'data-focus:*:[svg]:text-red-100'],
+  dark: [
+    'data-focus:bg-obsidian-950/5 dark:data-focus:bg-white/10',
+    'data-focus:*:[svg]:text-obsidian-600 dark:data-focus:*:[svg]:text-obsidian-300',
+  ],
+  red: [
+    'data-focus:bg-red-700 data-focus:text-white',
+    'data-focus:*:[svg]:text-red-100',
+  ],
 }
 
 export function DropdownItem({
@@ -72,7 +78,7 @@ export function DropdownItem({
     // Base styles
     'group cursor-default rounded-xl px-3.5 py-2.5 focus:outline-hidden sm:px-3 sm:py-1.5',
     // Text styles
-    'text-left text-base/6 sm:text-sm/6 forced-colors:text-[CanvasText]',
+    'text-left text-base/6 text-obsidian-900 sm:text-sm/6 dark:text-white forced-colors:text-[CanvasText]',
     // Disabled state
     'data-disabled:opacity-50',
     // Forced colors mode
@@ -80,7 +86,7 @@ export function DropdownItem({
     // Use subgrid when available but fallback to an explicit grid layout if not
     'col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] items-center supports-[grid-template-columns:subgrid]:grid-cols-subgrid',
     // Icons
-    '*:[svg]:text-obsidian-400',
+    '*:[svg]:text-obsidian-500 dark:*:[svg]:text-obsidian-400',
     '*:[svg]:col-start-1 *:[svg]:row-start-1 *:[svg]:mr-2.5 *:[svg]:-ml-0.5 sm:*:[svg]:mr-2 sm:*:[svg]:size-4',
     itemColors[color],
     className
@@ -128,7 +134,7 @@ export function DropdownDivider({
     <Headless.MenuSeparator
       {...props}
       className={twMerge(
-        'col-span-full mx-1 my-1 h-px border-0 bg-white/10 forced-colors:bg-[CanvasText]',
+        'col-span-full mx-1 my-1 h-px border-0 bg-obsidian-950/5 dark:bg-white/10 forced-colors:bg-[CanvasText]',
         className
       )}
     />

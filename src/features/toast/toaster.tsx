@@ -1,8 +1,8 @@
 'use client'
 
-import { CircleAlert, CircleCheck, TriangleAlert } from 'lucide-react'
-import { useEffect, use } from 'react'
 import { deleteFlashCookie, getFlashCookie } from '@/features/toast/flash'
+import { CircleAlert, CircleCheck, TriangleAlert } from 'lucide-react'
+import { use, useEffect } from 'react'
 import { Toaster as DefaultToaster, toast } from 'sonner'
 
 export function Toaster({
@@ -28,8 +28,8 @@ export function Toaster({
       toastOptions={{
         classNames: {
           toast:
-            'border-0! gap-x-2! bg-obsidian-900! rounded-2xl! shadow-lg! ring-1 ring-white/10 ring-inset text-white! *:data-[icon]:size-5! *:data-[icon]:ml-0.5! *:data-[icon]:mr-0! **:[svg]:m-0! **:[svg]:size-5!',
-          title: 'text-base/5  font-semibold!',
+            'border-0! gap-x-2! bg-obsidian-950! dark:bg-obsidian-800! rounded-2xl! shadow-lg! ring-1 ring-white/10 ring-inset text-white! *:data-[icon]:size-5! *:data-[icon]:ml-0.5! *:data-[icon]:mr-0! **:[svg]:m-0! **:[svg]:size-5!',
+          title: 'text-base/5  font-medium!',
         },
       }}
       icons={{

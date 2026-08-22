@@ -12,19 +12,21 @@ export function SearchDialog() {
       <div className="relative w-full max-sm:hidden">
         <Combobox onChange={() => null}>
           <InputGroup>
-            <Search className="text-obsidian-400" />
+            <Search className="text-obsidian-500 dark:text-obsidian-400" />
             <ComboboxInput
               as={Input}
               focusRing={false}
               placeholder="Search..."
-              className={'rounded-full *:[input]:rounded-full'}
+              className={
+                'rounded-full before:rounded-full *:[input]:rounded-full'
+              }
             />
           </InputGroup>
         </Combobox>
       </div>
 
       {/* Start of mobile only */}
-      <Button size="sm" className="sm:hidden">
+      <Button size="sm" iconOnly aria-label="Search" className="sm:hidden">
         <Search />
       </Button>
     </>

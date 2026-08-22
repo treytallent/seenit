@@ -23,6 +23,7 @@ export function UserSessionDropdown({
       <DropdownButton
         data-testid="user-session-dropdown"
         as={NavigationAuthButton}
+        aria-label="Account menu"
       />
       <DropdownMenu anchor="bottom">
         <UserDropdown />
