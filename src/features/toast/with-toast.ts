@@ -6,12 +6,16 @@ import { toast } from 'sonner'
  */
 export async function withToast<T>(
   promise: Promise<ApiReturn<T>>,
-  options: { success?: boolean; error?: boolean } = {
-    success: true,
-    error: true,
-  }
+  options?: { success?: boolean; error?: boolean }
 ) {
-  const { success, error } = options
+  const { success, error } = {
+    ...{
+      success: true,
+      error: true,
+    },
+    ...options,
+  }
+
   const res = await promise
 
   if (success && res.success && 'string' === typeof res.data) {
